@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Twenty Flowers — Arushi Turns Twenty</title>
+  <title>A Bouquet · Arushi Turns Twenty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
@@ -12,277 +12,421 @@
   <style>
     :root {
       --bg-dark: #0d0a0f;
-      --bg-mid: #1a0f1e;
-      --bg-card: #221528;
-      --accent-red: #c0392b;
-      --accent-purple: #7b2d8b;
+      --bg-card: #1c1120;
       --accent-pink: #e8a0b4;
+      --accent-rose: #c0392b;
       --accent-gold: #d4a853;
       --text-light: #f5f0eb;
       --text-muted: #9e8a9e;
       --text-warm: #e8ddd0;
-      --glass: rgba(255, 255, 255, 0.04);
-      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255,255,255,0.09);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: var(--bg-dark);
       color: var(--text-light);
-      min-height: 100vh;
       font-family: 'Lora', serif;
+      min-height: 100vh;
       overflow-x: hidden;
-    }
-
-    .page-header {
-      text-align: center;
-      padding: 5rem 2rem 2rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .page-header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 300;
-      color: var(--text-light);
-      letter-spacing: 0.05em;
-    }
-
-    .page-header p {
-      font-family: 'Lora', serif;
-      font-style: italic;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-      font-size: 1rem;
-    }
-
-    .counter-display {
-      position: fixed;
-      top: 1.2rem;
-      right: 1.5rem;
-      font-family: 'Lora', serif;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      z-index: 100;
-      background: rgba(13, 10, 15, 0.7);
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(8px);
-    }
-
-    .garden-container {
-      position: relative;
-      min-height: 100vh;
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .flower {
-      position: absolute;
-      font-size: 3rem;
-      cursor: pointer;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
-      filter: grayscale(0.5) opacity(0.7);
-      transform: scale(0.9);
-      user-select: none;
-      z-index: 2;
-    }
-
-    .flower:hover {
-      transform: scale(1.0) !important;
-      filter: grayscale(0.2) opacity(0.9) !important;
-    }
-
-    .flower.bloomed {
-      filter: none !important;
-      transform: scale(1.2) !important;
-      filter: drop-shadow(0 0 12px rgba(232, 160, 180, 0.7)) drop-shadow(0 0 24px rgba(232, 160, 180, 0.3)) !important;
-    }
-
-    .flower.bloomed:hover {
-      transform: scale(1.3) !important;
-    }
-
-    .reason-card {
-      position: absolute;
-      bottom: calc(100% + 10px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-card);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 0.8rem 1rem;
-      font-family: 'Lora', serif;
-      font-size: 0.85rem;
-      color: var(--text-warm);
-      max-width: 200px;
-      min-width: 160px;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      white-space: normal;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 10;
-      line-height: 1.5;
-      font-style: italic;
-    }
-
-    .reason-card.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .reason-card::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 6px solid transparent;
-      border-top-color: var(--glass-border);
-    }
-
-    .final-message {
-      text-align: center;
-      padding: 4rem 2rem 6rem;
-      opacity: 0;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 2.5rem;
-      color: var(--accent-pink);
-      position: relative;
-      z-index: 3;
-    }
-
-    .flower-wrapper {
-      position: absolute;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
+    /* Bokeh orbs */
+    .bokeh {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      animation: bokeh-breathe ease-in-out infinite alternate;
+    }
+    @keyframes bokeh-breathe {
+      from { opacity: 0.35; transform: scale(1); }
+      to   { opacity: 0.7;  transform: scale(1.08); }
+    }
+
+    /* Falling petals */
+    .petal {
+      position: fixed;
+      font-size: 1.1rem;
+      top: -30px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: petal-fall linear infinite;
+    }
+    @keyframes petal-fall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      6%   { opacity: 0.75; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(105vh) rotate(380deg); opacity: 0; }
+    }
+
+    #particles-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* Back link */
+    .back-btn {
+      position: fixed; top: 0.8rem; left: 0.8rem;
+      font-family: 'Lora', serif; font-size: 0.9rem;
+      color: var(--text-muted); text-decoration: none;
+      z-index: 100; transition: color 0.3s;
+      min-height: 44px; display: inline-flex; align-items: center;
+      padding: 0.5rem 0.75rem; border-radius: 8px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .back-btn:hover { color: var(--accent-pink); }
+
+    /* Page layout */
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
+      padding: 5rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Header */
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-light);
+      letter-spacing: 0.04em;
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .page-sub {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 2.8rem;
+    }
+
+    /* Bouquet flower arrangement */
+    .bouquet-stage {
+      position: relative;
+      width: 280px;
+      height: 240px;
+      margin-bottom: -0.5rem;
+    }
+
+    .bf {
+      position: absolute;
+      font-size: 2.6rem;
+      line-height: 1;
+      animation: flower-sway ease-in-out infinite alternate;
+      transform-origin: center bottom;
+      filter: drop-shadow(0 4px 12px rgba(232,160,180,0.35));
+    }
+    @keyframes flower-sway {
+      from { transform: rotate(-5deg) translateY(0px); }
+      to   { transform: rotate(5deg)  translateY(-6px); }
+    }
+
+    /* Stem */
+    .bouquet-stem {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 70px;
+      background: linear-gradient(to bottom, rgba(80,160,80,0.7), rgba(80,160,80,0.2));
+      border-radius: 2px;
+    }
+    .bouquet-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 36px;
+      background: linear-gradient(135deg, rgba(180,25,55,0.3), rgba(212,168,83,0.2));
+      border: 1px solid rgba(212,168,83,0.25);
+      border-radius: 4px 4px 8px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bouquet-ribbon {
+      font-size: 0.65rem;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: rgba(212,168,83,0.7);
+      letter-spacing: 0.05em;
+    }
+
+    /* Note card */
+    .note-card {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2.2rem 2.4rem 2rem;
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+      text-align: center;
+      margin-top: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle corner flowers on card */
+    .note-card::before {
+      content: '🌸';
+      position: absolute;
+      top: 0.6rem; left: 0.9rem;
+      font-size: 1.1rem;
+      opacity: 0.18;
+    }
+    .note-card::after {
+      content: '🌸';
+      position: absolute;
+      bottom: 0.6rem; right: 0.9rem;
+      font-size: 1.1rem;
+      opacity: 0.18;
+    }
+
+    .to-from {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+    .to-from span {
+      color: var(--accent-pink);
+      font-style: italic;
+    }
+
+    .note-divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,160,180,0.4), transparent);
+      margin: 0 auto 1.4rem;
+    }
+
+    .note-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      color: var(--text-warm);
+      line-height: 1.85;
+      letter-spacing: 0.01em;
+    }
+    .note-text .highlight {
+      color: var(--accent-pink);
+      font-weight: 600;
+    }
+
+    .note-divider-bottom {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,168,83,0.3), transparent);
+      margin: 1.4rem auto 0;
+    }
+
+    /* CTA button */
+    .bouquet-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 2rem;
+      padding: 0.9rem 2.2rem;
+      background: linear-gradient(135deg, rgba(192,57,43,0.18), rgba(232,160,180,0.14));
+      border: 1px solid rgba(232,160,180,0.4);
+      border-radius: 50px;
+      color: var(--accent-pink);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background 0.35s, border-color 0.35s, box-shadow 0.35s, transform 0.2s;
+      box-shadow: 0 0 20px rgba(232,160,180,0.12);
+      cursor: pointer;
+    }
+    .bouquet-btn:hover {
+      background: linear-gradient(135deg, rgba(192,57,43,0.28), rgba(232,160,180,0.22));
+      border-color: rgba(232,160,180,0.7);
+      box-shadow: 0 0 32px rgba(232,160,180,0.3);
+      transform: translateY(-2px);
+    }
+    .bouquet-btn:active { transform: translateY(0); }
+
+    .btn-arrow { font-style: normal; font-size: 1rem; }
+
+    .btn-hint {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.78rem;
+      color: rgba(158,138,158,0.55);
+      margin-top: 0.7rem;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 480px) {
+      .bouquet-stage { width: 220px; height: 200px; }
+      .bf { font-size: 2.1rem; }
+      .note-card { padding: 1.8rem 1.4rem 1.6rem; }
+    }
   </style>
 </head>
 <body>
-  <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.3"></div>
 
-  <a href="../gifts.html" style="position:fixed;top:0.8rem;left:0.8rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s;min-height:44px;min-width:44px;display:inline-flex;align-items:center;padding:0.5rem 0.75rem;border-radius:8px;-webkit-tap-highlight-color:transparent">← back to gifts</a>
+  <!-- Bokeh blobs -->
+  <div class="bokeh" style="width:380px;height:380px;top:-5%;left:-8%;background:radial-gradient(circle,rgba(192,57,43,0.22) 0%,transparent 70%);animation-duration:16s;"></div>
+  <div class="bokeh" style="width:300px;height:300px;top:30%;right:-6%;background:radial-gradient(circle,rgba(232,160,180,0.18) 0%,transparent 70%);animation-duration:12s;animation-delay:3s;"></div>
+  <div class="bokeh" style="width:260px;height:260px;bottom:10%;left:5%;background:radial-gradient(circle,rgba(123,45,139,0.15) 0%,transparent 70%);animation-duration:18s;animation-delay:6s;"></div>
 
-  <div class="counter-display" id="counterDisplay">0 / 20</div>
+  <div id="particles-bg" style="opacity:0.2"></div>
 
-  <div class="page-content" style="position:relative;z-index:1">
-    <div class="page-header">
-      <h1>twenty flowers. twenty reasons.</h1>
-      <p>click each one.</p>
+  <a href="../gifts.html" class="back-btn">← back to gifts</a>
+
+  <div class="page">
+
+    <div class="page-title">a bouquet, for you.</div>
+    <div class="page-sub">picked with intention. every petal.</div>
+
+    <!-- Flower arrangement -->
+    <div class="bouquet-stage" id="bouquetStage">
+      <!-- flowers placed via JS for precise stagger -->
     </div>
 
-    <div class="garden-container" id="gardenContainer">
+    <!-- Note card -->
+    <div class="note-card" id="noteCard">
+
+      <div class="to-from">
+        to: <span>arushi</span> &nbsp;&middot;&nbsp; from: <span>motu</span>
+      </div>
+
+      <div class="note-divider"></div>
+
+      <p class="note-text">
+        I never used to understand<br>
+        how people could stare at paintings<br>
+        for hours and hours on end.<br><br>
+        Then I saw you.<br><br>
+        <span class="highlight">THANK YOU FOR BEING THE REASON<br>BEHIND SO MANY SMILES EVERYDAY!!</span><br><br>
+        HAPPY BIRTHDAY JAANU! &hearts;
+      </p>
+
+      <div class="note-divider-bottom"></div>
+
     </div>
 
-    <div class="final-message" id="finalMessage">
-      twenty flowers. not enough. never enough.
-    </div>
+    <!-- CTA -->
+    <a
+      class="bouquet-btn"
+      href="https://digibouquet.net/create-bouquet?b=JTdCJTIyZiUyMiUzQSU1QiUyMnBlb255JTIyJTJDJTIycm9zZSUyMiUyQyUyMmRhaXN5JTIyJTVEJTJDJTIyZyUyMiUzQSUyMmdyZWVuZXJ5MiUyMiUyQyUyMmMlMjIlM0ElMjJidXJudC1lZGdlJTIyJTJDJTIydG8lMjIlM0ElMjJBcnVzaGklMjIlMkMlMjJmciUyMiUzQSUyMk1vdHUlMjIlMkMlMjJtJTIyJTNBJTIySSUyMG5ldmVyJTIwdXNlZCUyMHRvJTIwdW5kZXJzdGFuZCUyMCU1Q25ob3clMjBwZW9wbGUlMjBjb3VsZCUyMHN0YXJlJTIwYXQlMjBwYWludGluZ3MlMjAlNUNuZm9yJTIwaG91cnMlMjBhbmQlMjBob3VycyUyMG9uJTIwZW5kLiU1Q25UaGVuJTIwSSUyMHNhdyUyMHlvdS4lNUNuVEhBTkslMjBZT1UlMjBGT1IlMjBCRUlORyUyMFRIRSUyMFJFQVNPTiUyMEJFSElORCUyMFNPJTIwTUFOWSUyMFNNSUxFUyUyMEVWRVJZREFZISElNUNuSEFQUFklMjBCSVJUSERBWSUyMEpBQU5VSSUyMCVFMiU5OSVBMSUyMiUyQyUyMmJnJTIyJTNBJTIyY2hlcnJ5LWJsb3Nzb20lMjIlN0Q="
+      target="_blank"
+      rel="noopener">
+      receive your bouquet <span class="btn-arrow">&#8594;</span>
+    </a>
+    <div class="btn-hint">opens in a new tab &middot; peonies, roses &amp; daisies await</div>
+
   </div>
 
   <script src="../particles-config.js"></script>
   <script>
-    if (typeof initParticles === 'function') initParticles('particles-bg', 'light');
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 28, density: { enable: true, value_area: 900 } },
+          color: { value: ['#e8a0b4', '#d4a853', '#7b2d8b', '#c0392b'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.2, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.35, random: true, out_mode: 'out' }
+        },
+        interactivity: { events: { resize: true } },
+        retina_detect: true
+      });
+    }
 
-    const reasons = [
-      "the way you laugh at your own jokes before you finish them",
-      "how you make every room feel like somewhere worth staying",
-      "the way you care — completely, quietly, without making it a thing",
-      "your taste in everything. always specific, always right.",
-      "how you show up. every single time.",
-      "the faces you make when you're pretending not to find something funny",
-      "your voice when you're excited about something",
-      "how you never do anything halfway",
-      "the way you love the people you love",
-      "your sense of direction in life (and sometimes also literally)",
-      "how you manage to look stunning while doing absolutely nothing",
-      "the way you say 'acha ji' and somehow it means fifteen different things",
-      "your patience — when you choose to use it",
-      "how you turn ordinary evenings into memories without trying",
-      "the fact that you always know when something is off",
-      "your stubbornness. yes, this is a reason.",
-      "the way you dance when you think no one is watching",
-      "how you have your own standards and you don't apologize for them",
-      "your voice notes at 2am",
-      "every single day since I've known you"
+    // Build flower bouquet arrangement
+    var FLOWERS = [
+      // [emoji, left%, top%, fontSize(rem), animDelay(s), animDuration(s)]
+      ['🌸', 50, 4,  2.8, 0,   4.5],
+      ['🌹', 32, 12, 2.4, 0.4, 5.1],
+      ['🌼', 68, 12, 2.4, 0.7, 4.8],
+      ['🪷', 18, 26, 2.2, 0.2, 5.6],
+      ['🌺', 82, 26, 2.2, 0.9, 4.3],
+      ['🌷', 38, 36, 2.0, 0.5, 5.2],
+      ['🌸', 62, 36, 2.0, 1.1, 4.7],
+      ['🌼', 50, 42, 1.8, 0.3, 5.9],
     ];
 
-    const emojis = ['🌸', '🌺', '🌼', '🌻', '🌹', '💐', '🌷', '🪷', '🌸', '🌺', '🌼', '🌻', '🌹', '💐', '🌷', '🪷', '🌸', '🌺', '🌼', '🌻'];
+    var stage = document.getElementById('bouquetStage');
 
-    const positions = [
-      [10, 8], [15, 25], [8, 45], [20, 68], [12, 85],
-      [30, 12], [35, 35], [28, 55], [32, 78], [38, 90],
-      [50, 5], [52, 30], [48, 60], [55, 82], [45, 72],
-      [65, 15], [70, 40], [62, 62], [75, 85], [80, 50]
-    ];
+    // Stem + wrap
+    var stem = document.createElement('div');
+    stem.className = 'bouquet-stem';
+    stage.appendChild(stem);
 
-    let clickedCount = 0;
-    const container = document.getElementById('gardenContainer');
+    var wrap = document.createElement('div');
+    wrap.className = 'bouquet-wrap';
+    wrap.innerHTML = '<span class="bouquet-ribbon">with love</span>';
+    stage.appendChild(wrap);
 
-    positions.forEach((pos, i) => {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'flower-wrapper';
-      wrapper.style.top = pos[0] + '%';
-      wrapper.style.left = pos[1] + '%';
-
-      const flower = document.createElement('div');
-      flower.className = 'flower';
-      flower.textContent = emojis[i];
-      flower.setAttribute('data-index', i);
-
-      const card = document.createElement('div');
-      card.className = 'reason-card';
-      card.textContent = reasons[i];
-
-      wrapper.appendChild(card);
-      wrapper.appendChild(flower);
-      container.appendChild(wrapper);
-
-      flower.addEventListener('click', () => {
-        if (flower.classList.contains('bloomed')) return;
-
-        flower.classList.add('bloomed');
-        clickedCount++;
-
-        document.getElementById('counterDisplay').textContent = clickedCount + ' / 20';
-
-        gsap.fromTo(card, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
-        card.classList.add('visible');
-
-        gsap.fromTo(flower, { scale: 1.2 }, { scale: 1.2, duration: 0.1 });
-
-        if (clickedCount === 20) {
-          setTimeout(() => {
-            const finalMsg = document.getElementById('finalMessage');
-            gsap.to(finalMsg, { opacity: 1, duration: 1.5, ease: 'power2.inOut', delay: 0.5 });
-          }, 500);
-        }
-      });
+    FLOWERS.forEach(function(f) {
+      var el = document.createElement('div');
+      el.className = 'bf';
+      el.textContent = f[0];
+      el.style.left = f[1] + '%';
+      el.style.top  = f[2] + '%';
+      el.style.fontSize = f[3] + 'rem';
+      el.style.animationDelay = f[4] + 's';
+      el.style.animationDuration = f[5] + 's';
+      stage.appendChild(el);
     });
 
-    gsap.fromTo('.page-header h1', { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' });
-    gsap.fromTo('.page-header p', { opacity: 0 }, { opacity: 1, duration: 1, delay: 0.5, ease: 'power2.out' });
+    // Falling cherry blossom petals
+    var PETALS = ['🌸', '🌺', '🪷'];
+    for (var i = 0; i < 14; i++) {
+      var p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = PETALS[i % PETALS.length];
+      p.style.left = (Math.random() * 100).toFixed(1) + '%';
+      p.style.fontSize = (0.8 + Math.random() * 0.8).toFixed(2) + 'rem';
+      p.style.animationDuration = (8 + Math.random() * 10).toFixed(1) + 's';
+      p.style.animationDelay    = (Math.random() * 12).toFixed(1) + 's';
+      p.style.opacity = '0';
+      document.body.appendChild(p);
+    }
 
-    document.querySelectorAll('.flower').forEach((f, i) => {
-      gsap.fromTo(f, { opacity: 0, scale: 0 }, {
-        opacity: 0.7,
-        scale: 0.9,
-        duration: 0.6,
-        delay: 0.8 + i * 0.08,
-        ease: 'back.out(1.7)'
+    // GSAP entrance
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.page-title', { duration: 1, opacity: 0, y: -24, ease: 'power3.out', delay: 0.1 });
+      gsap.from('.page-sub',   { duration: 0.9, opacity: 0, y: -12, ease: 'power2.out', delay: 0.3 });
+      gsap.from('.bf', {
+        duration: 0.7,
+        opacity: 0,
+        scale: 0,
+        ease: 'back.out(1.7)',
+        stagger: 0.08,
+        delay: 0.5
       });
-    });
+      gsap.from('#noteCard',    { duration: 0.9, opacity: 0, y: 30, ease: 'power3.out', delay: 1.2 });
+      gsap.from('.bouquet-btn', { duration: 0.8, opacity: 0, y: 20, ease: 'power2.out', delay: 1.55 });
+      gsap.from('.btn-hint',    { duration: 0.7, opacity: 0, ease: 'power2.out', delay: 1.8 });
+    }
   </script>
 </body>
 </html>

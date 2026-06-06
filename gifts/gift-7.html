@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Her Wordle — Arushi Turns Twenty</title>
+  <title>Your Wordle - Arushi Turns Twenty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
@@ -372,7 +372,7 @@
 
   <div class="page-content" style="position:relative;z-index:1">
     <div class="page-header">
-      <h1>her wordle</h1>
+      <h1>your wordle</h1>
       <p>five letters. six tries.</p>
     </div>
 
@@ -398,17 +398,17 @@
   <script>
     if (typeof initParticles === 'function') initParticles('particles-bg', 'light');
 
-    const WORD_LIST = ['JAANU', 'DANCE', 'VIZAG', 'BINDI', 'SAREE', 'GADHI', 'STORE', 'KAMAR'];
+    const WORD_LIST = atob('SkFBTlUsREFOQ0UsVklaQUcsQklOREksU0FSRUUsR0FESEksU1RPUkUsS0FNQVI=').split(',');
 
     const WORD_NOTES = {
-      'JAANU': '[PLACEHOLDER: Roy writes one line about this word for Arushi]',
-      'DANCE': '[PLACEHOLDER: Something about dancing together or her dancing]',
-      'VIZAG': '[PLACEHOLDER: Something about Vizag meaning]',
-      'BINDI': '[PLACEHOLDER: Something sweet about this word]',
-      'SAREE': '[PLACEHOLDER: A line about her in a saree]',
-      'GADHI': '[PLACEHOLDER: An affectionate tease]',
-      'STORE': '[PLACEHOLDER: An inside joke about a store]',
-      'KAMAR': '[PLACEHOLDER: Something fun about this word]',
+      'JAANU': 'we call each other with love.',
+      'DANCE': 'miss the time with you in the rain - no umbrellas, just us in our own music, danc______?',
+      'VIZAG': 'our first trip as a couple.',
+      'BINDI': 'i make you wear this, sometimes even with my own hands. no one understands it but i find it really pretty - my hot sanskari.',
+      'SAREE': 'onam shopping.',
+      'GADHI': 'one of the animals we call each other.',
+      'STORE': 'our fav place to sit on campus.',
+      'KAMAR': 'fav body part. you know. 😏',
     };
 
     const ROWS = 6;
@@ -615,7 +615,7 @@
       setTimeout(() => {
         const overlay = document.getElementById('reveal-overlay');
         document.getElementById('reveal-word').textContent = targetWord;
-        document.getElementById('reveal-note').textContent = "almost. — " + (WORD_NOTES[targetWord] || '');
+        document.getElementById('reveal-note').textContent = "almost. - " + (WORD_NOTES[targetWord] || '');
         overlay.classList.add('active');
       }, 1000);
     }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,20 +7,75 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="for arushi ♥" />
+  <meta property="og:description" content="twenty things. all for you." />
+  <meta property="og:image" content="assets/photos/arushi-main.jpg" />
+  <meta property="og:type" content="website" />
   <style>
     /* Page-specific styles */
-    body { overflow: hidden; }
+    body {
+      overflow: hidden;
+      background: radial-gradient(ellipse at 30% 35%, #1c0610 0%, #0d0a0f 55%, #060410 100%);
+    }
+
+    /* ── Animated background canvas ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* Twinkling stars */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      animation: star-twinkle ease-in-out infinite alternate;
+    }
+    @keyframes star-twinkle {
+      from { opacity: 0.06; transform: scale(0.75); }
+      to   { opacity: 0.8;  transform: scale(1.2); }
+    }
+
+    /* Soft bokeh glow orbs */
+    .bokeh-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      animation: bokeh-breathe ease-in-out infinite alternate;
+    }
+    @keyframes bokeh-breathe {
+      from { opacity: 0.4;  transform: scale(1); }
+      to   { opacity: 0.95; transform: scale(1.1); }
+    }
+
+    /* Falling rose petals */
+    .petal {
+      position: absolute;
+      top: -25px;
+      opacity: 0;
+      animation: petal-fall linear infinite;
+    }
+    @keyframes petal-fall {
+      0%   { transform: translateY(0px)    rotate(0deg);   opacity: 0;    }
+      6%   { opacity: 0.88; }
+      50%  { opacity: 0.7; }
+      92%  { opacity: 0.4; }
+      100% { transform: translateY(108vh)  rotate(420deg); opacity: 0;    }
+    }
 
     #particles-js {
       position: fixed;
       inset: 0;
-      z-index: 0;
+      z-index: 2;
     }
 
     .lyrics-container {
       position: fixed;
       inset: 0;
-      z-index: 1;
+      z-index: 3;
       pointer-events: none;
       overflow: hidden;
     }
@@ -43,7 +98,7 @@
 
     .main-content {
       position: relative;
-      z-index: 2;
+      z-index: 4;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -206,7 +261,7 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      /* (1) Transform-based centering — reliable on every screen size */
+      /* (1) Transform-based centering - reliable on every screen size */
       transform: translate(-50%, -50%);
       z-index: 201;
       background: #080005;
@@ -255,7 +310,7 @@
     }
     .popup-subtext.visible { opacity: 1; }
 
-    /* (4) Close button — 32×32px tap target, 12px from edges */
+    /* (4) Close button - 32×32px tap target, 12px from edges */
     .popup-close {
       position: absolute;
       top: 12px;
@@ -279,7 +334,7 @@
     .popup-close:hover,
     .popup-close:focus { background: rgba(255,255,255,0.12); color: var(--text-light); outline: none; }
 
-    /* (3) Hearts inside popup — 10-14px, drift upward 3.5s, clipped by overflow:hidden */
+    /* (3) Hearts inside popup - 10-14px, drift upward 3.5s, clipped by overflow:hidden */
     @keyframes popup-heart-rise {
       0%   { transform: translateY(0);        opacity: 0.7; }
       20%  { opacity: 0.6; }
@@ -371,6 +426,16 @@
   </style>
 </head>
 <body>
+  <!-- Animated background: stars, bokeh orbs, petals -->
+  <div id="bg-canvas" aria-hidden="true">
+    <!-- Bokeh orbs (hardcoded for perf) -->
+    <div class="bokeh-orb" style="width:420px;height:420px;top:-10%;left:-8%;background:radial-gradient(circle,rgba(180,25,55,0.24) 0%,transparent 70%);animation-duration:17s;animation-delay:0s;"></div>
+    <div class="bokeh-orb" style="width:350px;height:350px;bottom:-8%;right:-6%;background:radial-gradient(circle,rgba(100,12,135,0.22) 0%,transparent 70%);animation-duration:23s;animation-delay:-9s;"></div>
+    <div class="bokeh-orb" style="width:260px;height:260px;top:38%;left:58%;background:radial-gradient(circle,rgba(205,75,105,0.18) 0%,transparent 70%);animation-duration:27s;animation-delay:-5s;"></div>
+    <div class="bokeh-orb" style="width:210px;height:210px;bottom:22%;left:6%;background:radial-gradient(circle,rgba(212,148,45,0.15) 0%,transparent 70%);animation-duration:20s;animation-delay:-13s;"></div>
+    <div class="bokeh-orb" style="width:190px;height:190px;top:14%;left:44%;background:radial-gradient(circle,rgba(232,160,180,0.16) 0%,transparent 70%);animation-duration:25s;animation-delay:-4s;"></div>
+  </div>
+
   <!-- Particles background -->
   <div id="particles-js"></div>
 
@@ -379,19 +444,12 @@
 
   <!-- Main centred content -->
   <main class="main-content">
-    <div class="for-label entrance-1">for arushi, with everything</div>
+    <div class="for-label entrance-1">for arushi, with love</div>
 
-    <!-- Photo (Roy will replace src) -->
-    <div class="photo-placeholder-circle entrance-2" id="photo-area">
-      <span>add photo:<br>arushi-main.jpg</span>
-    </div>
-    <!-- To use real photo, replace the div above with:
-    <img src="assets/photos/arushi-main.jpg" alt="Arushi" class="photo-circle entrance-2"> -->
+    <img src="assets/photos/arushi-main.jpg" alt="Arushi" class="photo-circle entrance-2">
 
-    <!-- Roy's note (PLACEHOLDER) -->
     <p class="roy-note entrance-3">
-      <!-- PLACEHOLDER: Roy will replace this with his note -->
-      every single day i find a new reason.<br>happy birthday.
+      may you always keep smiling,<br>and have a great year ahead.
     </p>
 
     <!-- Countdown timer -->
@@ -423,7 +481,7 @@
   <!-- Popup backdrop (tap this to close) -->
   <div class="popup-overlay" id="popup-overlay"></div>
 
-  <!-- Popup box — position:fixed, centred via transform (req. 1) -->
+  <!-- Popup box - position:fixed, centred via transform (req. 1) -->
   <div class="popup-box" id="popup-box">
     <!-- (4) Close button: 32×32px, 12px from edges -->
     <button class="popup-close" id="popup-close-btn" onclick="closePopup()" aria-label="Close">×</button>
@@ -445,27 +503,175 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="particles-config.js"></script>
   <script>
-    // ── Particles ──────────────────────────────────────────────────────────
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 40, density: { enable: true, value_area: 800 } },
-        color: { value: ['#e8a0b4', '#c0392b', '#7b2d8b'] },
-        shape: {
-          type: 'char',
-          character: { value: '♥', font: 'Verdana', style: '', weight: '400' }
+    // ── Animated background: stars + petals ──────────────────────────────
+    (function() {
+      var canvas = document.getElementById('bg-canvas');
+
+      // Stars - 80 tiny twinkling dots
+      for (var i = 0; i < 80; i++) {
+        var s = document.createElement('div');
+        s.className = 'star';
+        var sz = (Math.random() * 2.2 + 0.7).toFixed(1);
+        s.style.cssText =
+          'width:' + sz + 'px;' +
+          'height:' + sz + 'px;' +
+          'left:' + (Math.random() * 100).toFixed(1) + '%;' +
+          'top:' + (Math.random() * 100).toFixed(1) + '%;' +
+          'animation-duration:' + (Math.random() * 3 + 1.4).toFixed(1) + 's;' +
+          'animation-delay:-' + (Math.random() * 4).toFixed(1) + 's;';
+        canvas.appendChild(s);
+      }
+
+      // Petals - 16 falling shapes
+      var petalColors = [
+        'rgba(232,160,180,0.55)',
+        'rgba(218,130,155,0.45)',
+        'rgba(240,185,205,0.5)',
+        'rgba(212,168,83,0.35)'
+      ];
+      for (var j = 0; j < 16; j++) {
+        var p = document.createElement('div');
+        p.className = 'petal';
+        var pw = (Math.random() * 9 + 7).toFixed(0);
+        var ph = (pw * (Math.random() * 0.5 + 0.65)).toFixed(0);
+        var dur = (Math.random() * 9 + 7).toFixed(1);
+        var flip = Math.random() > 0.5;
+        p.style.cssText =
+          'width:' + pw + 'px;' +
+          'height:' + ph + 'px;' +
+          'left:' + (Math.random() * 100).toFixed(1) + '%;' +
+          'background:' + petalColors[Math.floor(Math.random() * petalColors.length)] + ';' +
+          'border-radius:' + (flip ? '150% 0 150% 0' : '0 150% 0 150%') + ';' +
+          'animation-duration:' + dur + 's;' +
+          'animation-delay:-' + (Math.random() * parseFloat(dur)).toFixed(1) + 's;';
+        canvas.appendChild(p);
+      }
+    })();
+
+    // ── Countdown (runs first - independent of CDN scripts) ───────────────
+    var target = new Date('2026-06-12T00:00:00+03:00');
+    var unlocked = false;
+
+    function pad(n, len) {
+      var s = String(n);
+      while (s.length < (len || 2)) s = '0' + s;
+      return s;
+    }
+
+    function updateCountdown() {
+      var now  = new Date();
+      var diff = target - now;
+
+      if (diff <= 0) {
+        unlocked = true;
+        document.getElementById('countdown-display').innerHTML =
+          "<span class='its-time'>it's time, my love 🌸</span>";
+        document.getElementById('gifts-btn').classList.add('unlocked');
+        clearInterval(timer);
+        return;
+      }
+
+      var days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent  = pad(days, 3);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+
+    var timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ── Button handler ────────────────────────────────────────────────────
+    function handleGiftsBtn() {
+      if (unlocked) {
+        window.location.href = 'gifts.html';
+      } else {
+        showPopup();
+      }
+    }
+
+    // ── Popup ─────────────────────────────────────────────────────────────
+    var typewriterTimer = null;
+
+    function showPopup() {
+      var overlay = document.getElementById('popup-overlay');
+      var box     = document.getElementById('popup-box');
+      document.getElementById('popup-text').textContent = '';
+      document.getElementById('popup-subtext').classList.remove('visible');
+      overlay.classList.add('active');
+      box.classList.add('active');
+      typewriter(
+        document.getElementById('popup-text'),
+        "you're still 19 baby 🥺",
+        80,
+        function() {
+          setTimeout(function() {
+            document.getElementById('popup-subtext').classList.add('visible');
+          }, 1500);
+        }
+      );
+    }
+
+    function closePopup() {
+      var overlay = document.getElementById('popup-overlay');
+      var box     = document.getElementById('popup-box');
+      overlay.classList.remove('active');
+      box.classList.remove('active');
+      if (typewriterTimer) { clearTimeout(typewriterTimer); typewriterTimer = null; }
+      var btn = document.getElementById('gifts-btn');
+      btn.classList.remove('shimmer-once');
+      void btn.offsetWidth;
+      btn.classList.add('shimmer-once');
+      btn.addEventListener('animationend', function onShimmerEnd() {
+        btn.classList.remove('shimmer-once');
+        btn.removeEventListener('animationend', onShimmerEnd);
+      });
+    }
+
+    function typewriter(el, text, ms, cb) {
+      el.textContent = '';
+      var i = 0;
+      function tick() {
+        if (i < text.length) {
+          el.textContent += text[i++];
+          typewriterTimer = setTimeout(tick, ms);
+        } else {
+          typewriterTimer = null;
+          if (cb) cb();
+        }
+      }
+      tick();
+    }
+
+    document.getElementById('popup-overlay').addEventListener('click', closePopup);
+
+    // ── Particles (in try-catch - failure must not block countdown) ────────
+    try {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 40, density: { enable: true, value_area: 800 } },
+          color: { value: ['#e8a0b4', '#c0392b', '#7b2d8b'] },
+          shape: {
+            type: 'char',
+            character: { value: '♥', font: 'Verdana', style: '', weight: '400' }
+          },
+          opacity: { value: 0.5, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false } },
+          size: { value: 14, random: true, anim: { enable: true, speed: 2, size_min: 6, sync: false } },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 1.2, direction: 'top', random: true, straight: false, out_mode: 'out', bounce: false }
         },
-        opacity: { value: 0.5, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false } },
-        size: { value: 14, random: true, anim: { enable: true, speed: 2, size_min: 6, sync: false } },
-        line_linked: { enable: false },
-        move: { enable: true, speed: 1.2, direction: 'top', random: true, straight: false, out_mode: 'out', bounce: false }
-      },
-      interactivity: {
-        detect_on: 'canvas',
-        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: false }, resize: true },
-        modes: { repulse: { distance: 100, duration: 0.4 } }
-      },
-      retina_detect: true
-    });
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: false }, resize: true },
+          modes: { repulse: { distance: 100, duration: 0.4 } }
+        },
+        retina_detect: true
+      });
+    } catch(e) {}
 
     // ── Lyrics ticker ──────────────────────────────────────────────────────
     var lyrics = [
@@ -496,117 +702,6 @@
       ].join(';');
       container.appendChild(el);
     });
-
-    // ── Countdown ─────────────────────────────────────────────────────────
-    var target = new Date('2026-06-12T00:00:00+03:00');
-    var unlocked = false;
-
-    function pad(n, len) {
-      var s = String(n);
-      while (s.length < (len || 2)) s = '0' + s;
-      return s;
-    }
-
-    function updateCountdown() {
-      var now  = new Date();
-      var diff = target - now;
-
-      if (diff <= 0) {
-        unlocked = true;
-        document.getElementById('countdown-display').innerHTML =
-          "<span class='its-time'>it's time, my love 🌸</span>";
-        document.getElementById('gifts-btn').classList.add('unlocked');
-        clearInterval(timer);
-        return;
-      }
-
-      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      var secs  = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById('cd-days').textContent  = pad(days, 3);
-      document.getElementById('cd-hours').textContent = pad(hours);
-      document.getElementById('cd-mins').textContent  = pad(mins);
-      document.getElementById('cd-secs').textContent  = pad(secs);
-    }
-
-    var timer = setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // ── Button handler ────────────────────────────────────────────────────
-    function handleGiftsBtn() {
-      if (unlocked) {
-        window.location.href = 'gifts.html';
-      } else {
-        showPopup();
-      }
-    }
-
-    // ── Popup ─────────────────────────────────────────────────────────────
-    var typewriterTimer = null;
-
-    function showPopup() {
-      var overlay = document.getElementById('popup-overlay');
-      var box     = document.getElementById('popup-box');
-
-      // Reset before re-opening
-      document.getElementById('popup-text').textContent = '';
-      document.getElementById('popup-subtext').classList.remove('visible');
-
-      overlay.classList.add('active');
-      box.classList.add('active');
-
-      // (2) 80ms per char — more dramatic; subtext appears 1500ms AFTER typing ends
-      typewriter(
-        document.getElementById('popup-text'),
-        "you're still 19 baby 🥺",
-        80,
-        function() {
-          setTimeout(function() {
-            document.getElementById('popup-subtext').classList.add('visible');
-          }, 1500);
-        }
-      );
-    }
-
-    function closePopup() {
-      var overlay = document.getElementById('popup-overlay');
-      var box     = document.getElementById('popup-box');
-
-      overlay.classList.remove('active');
-      box.classList.remove('active');
-
-      if (typewriterTimer) { clearTimeout(typewriterTimer); typewriterTimer = null; }
-
-      // (6) One-shot shimmer on button after popup closes
-      var btn = document.getElementById('gifts-btn');
-      btn.classList.remove('shimmer-once');
-      void btn.offsetWidth;                  // force reflow so animation restarts
-      btn.classList.add('shimmer-once');
-      btn.addEventListener('animationend', function onShimmerEnd() {
-        btn.classList.remove('shimmer-once');
-        btn.removeEventListener('animationend', onShimmerEnd);
-      });
-    }
-
-    function typewriter(el, text, ms, cb) {
-      el.textContent = '';
-      var i = 0;
-      function tick() {
-        if (i < text.length) {
-          el.textContent += text[i++];
-          typewriterTimer = setTimeout(tick, ms);
-        } else {
-          typewriterTimer = null;
-          if (cb) cb();
-        }
-      }
-      tick();
-    }
-
-    // (5) Tap anywhere on the dark backdrop to close
-    document.getElementById('popup-overlay').addEventListener('click', closePopup);
 
     // ── GSAP entrance animations ──────────────────────────────────────────
     gsap.set('.entrance-1,.entrance-2,.entrance-3,.entrance-4,.entrance-5',

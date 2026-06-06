@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -81,7 +81,7 @@
     /* ── World Sections ── */
     .world-section {
       position: relative;
-      padding: 5rem 2rem;
+      padding: 3rem 2rem;
       overflow: hidden;
     }
 
@@ -114,7 +114,7 @@
       position: relative;
     }
 
-    /* (5) Animated film grain — SVG feTurbulence noise tiled + translate keyframes */
+    /* (5) Animated film grain - SVG feTurbulence noise tiled + translate keyframes */
     .world-cinema::before {
       content: '';
       position: absolute;
@@ -155,17 +155,17 @@
     /* ── World Transition Sections (req 1-4) ── */
     .world-transition {
       position: relative;
-      height: 120px;
+      height: 70px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.9rem;
+      gap: 0.7rem;
       overflow: hidden;
       z-index: 1;
     }
 
-    /* Gradient backgrounds — each blends from world-above to world-below */
+    /* Gradient backgrounds - each blends from world-above to world-below */
     .wt-1-2 { background: linear-gradient(to bottom, #1a1005 0%, #111009 50%, #080f0a 100%); }
     .wt-2-3 { background: linear-gradient(to bottom, #080f0a 0%, #121512 50%, #1a0f1e 100%); }
     .wt-3-4 { background: linear-gradient(to bottom, #1a0f1e 0%, #100c13 50%, #060608 100%); }
@@ -198,7 +198,7 @@
     .wt-2-3 .wt-heart { background: #121512; }
     .wt-3-4 .wt-heart { background: #100c13; }
 
-    /* Quote — hidden until IntersectionObserver fires (req 4) */
+    /* Quote - hidden until IntersectionObserver fires (req 4) */
     .wt-quote {
       font-family: 'Lora', serif;
       font-style: italic;
@@ -215,7 +215,8 @@
     }
 
     @media (max-width: 600px) {
-      .world-transition { height: 80px; gap: 0.65rem; }
+      .world-transition { height: 50px; gap: 0.5rem; }
+      .wt-quote { display: none; }
     }
 
     /* ── WORLD 1: Polaroids ── */
@@ -331,7 +332,7 @@
     }
 
     .flower-emoji {
-      font-size: 4rem;   /* ~64px — well above 44px tap target */
+      font-size: 4rem;   /* ~64px - well above 44px tap target */
       filter: grayscale(0.6) brightness(0.65);
       transform: scale(0.85);
       transition: all 0.5s ease;
@@ -598,6 +599,83 @@
       .flowers-container { gap: 2.5rem; }
       .film-frame-wrap { width: min(240px, 75vw); }
     }
+
+    /* ── Section animation layers ── */
+    .anim-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    /* lift content above animation layer */
+    .world-title,
+    .polaroid-table,
+    .flowers-container,
+    .envelope-wall,
+    .film-reel-section { position: relative; z-index: 1; }
+
+    /* World 1: gold dust motes */
+    .dust-mote {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(212,168,83,0.65);
+      filter: blur(0.6px);
+      animation: dust-drift ease-in-out infinite;
+    }
+    @keyframes dust-drift {
+      0%   { transform: translate(0, 0);             opacity: 0;   }
+      18%  { opacity: 0.85; }
+      82%  { opacity: 0.35; }
+      100% { transform: translate(14px, -75px);      opacity: 0;   }
+    }
+
+    /* World 2: fireflies */
+    .firefly {
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #7de87a;
+      box-shadow: 0 0 7px 2px rgba(100,230,80,0.55);
+      animation: firefly-glow ease-in-out infinite;
+    }
+    @keyframes firefly-glow {
+      0%,100% { opacity: 0;   transform: translate(0, 0)          scale(0.5); }
+      25%     { opacity: 0.95; transform: translate(20px, -14px)  scale(1.3); }
+      50%     { opacity: 0.1;  transform: translate(9px, -28px)   scale(0.6); }
+      75%     { opacity: 0.85; transform: translate(-16px,-20px)  scale(1.1); }
+    }
+
+    /* World 3: drifting letter sparks */
+    .letter-spark {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 1px;
+      background: rgba(235,225,200,0.75);
+      box-shadow: 0 0 5px 1px rgba(212,168,83,0.3);
+      animation: spark-float ease-in-out infinite;
+    }
+    @keyframes spark-float {
+      0%   { transform: translate(0, 8px)     rotate(0deg);   opacity: 0;   }
+      15%  { opacity: 0.7; }
+      50%  { transform: translate(-8px, -30px) rotate(90deg); opacity: 0.4; }
+      85%  { opacity: 0.2; }
+      100% { transform: translate(6px, -65px)  rotate(180deg); opacity: 0;  }
+    }
+
+    /* World 4: projector dust */
+    .cinema-dust {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      animation: cinema-drift linear infinite;
+    }
+    @keyframes cinema-drift {
+      0%   { transform: translate(0, 0);          opacity: 0;   }
+      12%  { opacity: 0.45; }
+      88%  { opacity: 0.12; }
+      100% { transform: translate(-25px, -85px);  opacity: 0;   }
+    }
   </style>
 </head>
 <body>
@@ -616,6 +694,7 @@
 
     <!-- ══ WORLD 1: The Polaroid Table ══ -->
     <section class="world-section world-polaroid" id="world-1">
+      <div class="anim-layer" id="anim-1"></div>
       <div class="world-title">the polaroid table</div>
       <div class="polaroid-table">
 
@@ -651,6 +730,7 @@
     <!-- ══ WORLD 2: The Garden ══ -->
     <section class="world-section world-garden" id="world-2">
       <div class="garden-ambient"></div>
+      <div class="anim-layer" id="anim-2"></div>
       <div class="world-title">the garden</div>
       <div class="flowers-container">
 
@@ -689,6 +769,7 @@
 
     <!-- ══ WORLD 3: The Envelope Wall ══ -->
     <section class="world-section world-envelopes" id="world-3">
+      <div class="anim-layer" id="anim-3"></div>
       <div class="world-title">the envelope wall</div>
       <div class="envelope-wall">
 
@@ -696,7 +777,7 @@
           <div class="envelope">
             <div class="envelope-flap"></div>
             <div class="wax-seal" style="background:var(--accent-purple);">A</div>
-            <div class="envelope-address">a magazine,<br>all hers</div>
+            <div class="envelope-address">a magazine,<br>all yours</div>
           </div>
         </a>
 
@@ -720,7 +801,7 @@
           <div class="envelope">
             <div class="envelope-flap"></div>
             <div class="wax-seal" style="background:var(--accent-pink);">A</div>
-            <div class="envelope-address">her wikipedia<br>page</div>
+            <div class="envelope-address">your wikipedia<br>page</div>
           </div>
         </a>
 
@@ -728,7 +809,7 @@
           <div class="envelope">
             <div class="envelope-flap"></div>
             <div class="wax-seal" style="background:var(--accent-red);">A</div>
-            <div class="envelope-address">for her,<br>at thirty</div>
+            <div class="envelope-address">for you,<br>at thirty</div>
           </div>
         </a>
 
@@ -736,7 +817,7 @@
           <div class="envelope">
             <div class="envelope-flap"></div>
             <div class="wax-seal" style="background:var(--accent-purple);">A</div>
-            <div class="envelope-address">the day<br>she arrived</div>
+            <div class="envelope-address">the day<br>you arrived</div>
           </div>
         </a>
 
@@ -752,7 +833,7 @@
           <div class="envelope">
             <div class="envelope-flap"></div>
             <div class="wax-seal" style="background:var(--accent-pink);">A</div>
-            <div class="envelope-address">from<br>her person</div>
+            <div class="envelope-address">from<br>your person</div>
           </div>
         </a>
 
@@ -775,6 +856,7 @@
 
     <!-- ══ WORLD 4: The Film Reel ══ -->
     <section class="world-section world-cinema" id="world-4">
+      <div class="anim-layer" id="anim-4"></div>
       <div class="world-title">the film reel</div>
       <div class="film-reel-section">
         <div class="film-strip-wrapper">
@@ -798,7 +880,7 @@
             <a href="gifts/gift-11a.html" class="film-frame-wrap" onclick="projectorFlash(event, this.href)">
               <div class="film-frame">
                 <div class="film-frame-still">🎭</div>
-                <div class="film-frame-title">she reminds me of</div>
+                <div class="film-frame-title">you remind me of</div>
               </div>
             </a>
 
@@ -821,7 +903,7 @@
         happy birthday, Arushi.
       </p>
       <p style="font-family:'Lora',serif;font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;">
-        made with everything.
+        made with love.
       </p>
     </footer>
 
@@ -919,7 +1001,7 @@
       });
     });
 
-    // Touch swipe for film strip — incremental delta so it feels natural
+    // Touch swipe for film strip - incremental delta so it feels natural
     var strip = document.getElementById('film-strip');
     var lastTouchX = 0;
     strip.addEventListener('touchstart', function(e) {
@@ -932,7 +1014,58 @@
       lastTouchX = currentX;
     }, { passive: true });
 
-    // (4) IntersectionObserver — fade-in quotes only when they scroll into view
+    // ── Section background animations ──────────────────────────────────────
+    (function() {
+      function rnd(min, max) { return (Math.random() * (max - min) + min).toFixed(1); }
+
+      // World 1: gold dust motes
+      var a1 = document.getElementById('anim-1');
+      if (a1) {
+        for (var i = 0; i < 16; i++) {
+          var d = document.createElement('div');
+          d.className = 'dust-mote';
+          var sz = rnd(1.5, 4.5);
+          d.style.cssText = 'width:'+sz+'px;height:'+sz+'px;left:'+rnd(2,98)+'%;top:'+rnd(10,95)+'%;animation-duration:'+rnd(5,10)+'s;animation-delay:-'+rnd(0,9)+'s;';
+          a1.appendChild(d);
+        }
+      }
+
+      // World 2: fireflies
+      var a2 = document.getElementById('anim-2');
+      if (a2) {
+        for (var j = 0; j < 12; j++) {
+          var f = document.createElement('div');
+          f.className = 'firefly';
+          f.style.cssText = 'left:'+rnd(5,90)+'%;top:'+rnd(10,85)+'%;animation-duration:'+rnd(3,6)+'s;animation-delay:-'+rnd(0,5)+'s;';
+          a2.appendChild(f);
+        }
+      }
+
+      // World 3: letter sparks
+      var a3 = document.getElementById('anim-3');
+      if (a3) {
+        for (var k = 0; k < 18; k++) {
+          var s = document.createElement('div');
+          s.className = 'letter-spark';
+          s.style.cssText = 'left:'+rnd(2,98)+'%;top:'+rnd(5,95)+'%;animation-duration:'+rnd(4,8)+'s;animation-delay:-'+rnd(0,7)+'s;';
+          a3.appendChild(s);
+        }
+      }
+
+      // World 4: projector dust
+      var a4 = document.getElementById('anim-4');
+      if (a4) {
+        for (var m = 0; m < 12; m++) {
+          var c = document.createElement('div');
+          c.className = 'cinema-dust';
+          var csz = rnd(0.8, 2.5);
+          c.style.cssText = 'width:'+csz+'px;height:'+csz+'px;left:'+rnd(2,98)+'%;top:'+rnd(10,95)+'%;animation-duration:'+rnd(5,9)+'s;animation-delay:-'+rnd(0,8)+'s;';
+          a4.appendChild(c);
+        }
+      }
+    })();
+
+    // (4) IntersectionObserver - fade-in quotes only when they scroll into view
     var wtQuotes = document.querySelectorAll('.wt-quote');
     if ('IntersectionObserver' in window) {
       var quoteObserver = new IntersectionObserver(function(entries) {

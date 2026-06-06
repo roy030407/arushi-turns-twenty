@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arushi, Through the Years — Arushi Turns Twenty</title>
+  <title>Arushi, Through the Years - Arushi Turns Twenty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;1,400&family=Dancing+Script:wght@400;500&display=swap" rel="stylesheet" />
@@ -167,7 +167,7 @@
       z-index: 1;
     }
 
-    /* Photo grid — masonry via CSS columns */
+    /* Photo grid - masonry via CSS columns */
     .photo-grid {
       columns: 3;
       column-gap: 1rem;
@@ -225,6 +225,24 @@
     .photo-placeholder.ratio-square::before         { padding-top: 100%; }
     .photo-placeholder.ratio-portrait::before       { padding-top: 133%; }
     .photo-placeholder.ratio-landscape::before      { padding-top: 80%;  }
+
+    /* Real photo items */
+    .photo-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .photo-item img {
+      width: 100%;
+      display: block;
+      height: auto;
+      max-height: 520px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .photo-item:hover img { transform: scale(1.04); }
 
     .photo-placeholder .placeholder-inner {
       position: absolute;
@@ -354,7 +372,7 @@
     <!-- Page header -->
     <header class="timeline-header">
       <h1>arushi, through the years.</h1>
-      <p class="subtext">200+ moments. all of them hers.</p>
+      <p class="subtext">200+ moments. all of them yours.</p>
     </header>
 
     <!-- ═══════════════════════════════════════
@@ -364,59 +382,22 @@
       <div class="era-header">
         <span class="era-year-label">2006</span>
         <h2 class="era-name">the beginning</h2>
-        <p class="era-caption">she arrived and everything got warmer.</p>
+        <p class="era-caption">you arrived and everything got warmer.</p>
       </div>
 
       <div class="photo-grid">
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌸</span>
-            <span class="placeholder-label">baby photo 1</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era1/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-square">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">✨</span>
-            <span class="placeholder-label">first smile</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era1/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌿</span>
-            <span class="placeholder-label">toddler days</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era1/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌼</span>
-            <span class="placeholder-label">growing up</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era1/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-landscape">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🕊️</span>
-            <span class="placeholder-label">early years</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era1/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌷</span>
-            <span class="placeholder-label">the beginning</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era1/</span>
-          </div>
-        </div>
-
+        <div class="photo-item"><img src="../assets/photos/childhood/057d3497-bf85-4e47-9962-4ca53595e927.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/0eff9317-d5f9-40dc-9d93-ae46cf3b4688.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/10a009fe-fe87-4053-9f81-18698b8eadd5.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/1323a6d8-ddad-4011-8b16-24e5cca73a57.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/139ce9c6-072d-44f3-9d5e-fc8b6905b0ab.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/13e97602-274d-4644-87e6-080f39db6bc6.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/19a9e7c4-e4f6-421e-b6d8-ad9417af7680.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/1abb76f0-bc76-498e-ad76-17e63aeb82c2.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/213ab973-e197-424e-8243-2a5f1f7960f0.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/231a30cd-f0e9-4512-8df7-4797800241c1.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/3416ce5d-61df-4cb6-a765-f4090a737465.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/34b9bfa3-29f7-4c3d-bdf2-d4c625f17782.jpg" alt="Arushi" loading="lazy"></div>
       </div>
     </section>
 
@@ -440,55 +421,18 @@
       </div>
 
       <div class="photo-grid">
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">📚</span>
-            <span class="placeholder-label">school days 1</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era2/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌻</span>
-            <span class="placeholder-label">school days 2</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era2/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-square">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🎨</span>
-            <span class="placeholder-label">school days 3</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era2/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-landscape">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌈</span>
-            <span class="placeholder-label">school days 4</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era2/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🦋</span>
-            <span class="placeholder-label">school days 5</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era2/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌙</span>
-            <span class="placeholder-label">school days 6</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era2/</span>
-          </div>
-        </div>
-
+        <div class="photo-item"><img src="../assets/photos/childhood/403b2a38-8ded-445d-8663-664ca8474dcb.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/468119f5-498f-4572-a7d1-9384ddfe727f.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/528b4614-5afc-4716-8ecf-7df74208ff69.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/54202d5d-c0c3-49c7-b69a-d7fc213ce5b9.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/6977893b-63f7-41c6-b1ce-0e790edc5879.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/74ad4c03-1489-4972-9eef-6bd7b0693c6f.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/8bf53b94-c00c-426e-982b-d85362061430.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/8def3642-8610-4c52-a3bf-3d89f39ede53.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/8f8ef24d-00cb-4260-87d3-61f985718c62.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/99998851-8ed8-4871-8359-abe87ebe63b9.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/abc.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/c2020e5b-028f-4326-9cdc-52e0c905cb00.jpg" alt="Arushi" loading="lazy"></div>
       </div>
     </section>
 
@@ -507,60 +451,23 @@
     <section class="era-section" id="era-3">
       <div class="era-header">
         <span class="era-year-label">2018</span>
-        <h2 class="era-name">becoming herself</h2>
-        <p class="era-caption">she always knew who she was. now everyone else does too.</p>
+        <h2 class="era-name">becoming yourself</h2>
+        <p class="era-caption">you always knew who you were. now everyone else does too.</p>
       </div>
 
       <div class="photo-grid">
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">💫</span>
-            <span class="placeholder-label">teen years 1</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era3/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌺</span>
-            <span class="placeholder-label">teen years 2</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era3/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-square">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🎵</span>
-            <span class="placeholder-label">teen years 3</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era3/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌸</span>
-            <span class="placeholder-label">teen years 4</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era3/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-landscape">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">✨</span>
-            <span class="placeholder-label">teen years 5</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era3/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌿</span>
-            <span class="placeholder-label">teen years 6</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era3/</span>
-          </div>
-        </div>
-
+        <div class="photo-item"><img src="../assets/photos/childhood/c6c78c41-632d-4b78-bd90-87cbc1c13e90.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/d25dd305-2e5f-436c-b223-c4303e79d323.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/d4c33c05-b3a8-42fb-bfd4-e8e13e423002.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/d55df996-ffcb-4372-9e93-a355442475da.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/de0bfa71-55dd-4675-8be8-0082d628f68d.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/dffeeb19-e571-4ea0-8805-b02ac3ab3065.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/e3f1f61c-3d73-42fd-8c43-df8534bb311f.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/f527c337-f715-40e1-b9f7-286e881c0b70.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/f5a8236c-455f-4def-8f5f-5377262e4b7f.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/f7bb68e3-dd3e-44fa-b1be-3744e2c0955b.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/fd1fa6f8-5006-47af-938a-2bb780877403.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/childhood/fde072eb-d030-4ed9-a589-6c0291b1bc50.jpg" alt="Arushi" loading="lazy"></div>
       </div>
     </section>
 
@@ -584,71 +491,46 @@
       </div>
 
       <div class="photo-grid">
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌟</span>
-            <span class="placeholder-label">now 1</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">💖</span>
-            <span class="placeholder-label">now 2</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-square">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌙</span>
-            <span class="placeholder-label">now 3</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-landscape">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🦋</span>
-            <span class="placeholder-label">now 4</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait-tall">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌺</span>
-            <span class="placeholder-label">now 5</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">✨</span>
-            <span class="placeholder-label">now 6</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-square">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">💫</span>
-            <span class="placeholder-label">now 7</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
-        <div class="photo-placeholder ratio-portrait">
-          <div class="placeholder-inner">
-            <span class="placeholder-icon">🌸</span>
-            <span class="placeholder-label">now 8</span>
-            <span class="placeholder-dir">add to: assets/photos/timeline/era4/</span>
-          </div>
-        </div>
-
+        <div class="photo-item"><img src="../assets/photos/era4/1f4a5e72-5f98-4bef-abe3-688c211a8892.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/20250205_215851_Original.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/43161bb3-2f4d-40fc-b872-7fe4126775c5.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/467905b1-a6be-4814-aee2-7a0d7ae2dede.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/4b2e4c87-ce86-4b69-995b-6902b87e4866.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/5ef1ca89-7605-4865-bfc4-6de2e5ca5e6d.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/6acbd833-aca0-45cd-afe3-a16d76756c7b.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/7fc4eed1-5c92-428a-b32a-9cbb9a0c5008.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/cdd05f54-d5f0-4b44-ab02-c9319f3d979e.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/d01c86f9-cb5a-43d7-be04-73037a0c7f33.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/e765e557-f961-422c-82a4-f6092ff25d8d.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/f9be3d26-5b4c-463d-acd9-7ed910083de9.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG-20250225-WA0021_Original.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_2539.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_2545.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_2643.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_2720.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_2777.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_3671.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_3679.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_3775.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4582.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4586.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4590.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4618.jpg" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4632.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4667.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4672.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4761.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_4884.JPG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6222.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6235.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6533.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6535.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6620.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6696.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6708.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6709.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_6849.PNG" alt="Arushi" loading="lazy"></div>
+        <div class="photo-item"><img src="../assets/photos/era4/IMG_7106.JPG" alt="Arushi" loading="lazy"></div>
       </div>
     </section>
 
@@ -664,8 +546,8 @@
     <!-- Closing message -->
     <div class="closing-message" id="closing-message">
       <p>
-        she has always been the reason behind everyone's smiles.<br />
-        every single room she has ever walked into got a little warmer.<br />
+        you have always been the reason behind everyone's smiles.<br />
+        every single room you have ever walked into got a little warmer.<br />
         happy birthday, Arushi.
       </p>
     </div>
@@ -673,8 +555,8 @@
     <!-- Sister's note card -->
     <div class="sisters-note" id="sisters-note">
       <p>
-        [PLACEHOLDER: Sister's note — 2-3 sentences will be added here]
-        <span class="signature">— her sister</span>
+        [PLACEHOLDER: Sister's note - 2-3 sentences will be added here]
+        <span class="signature">- your sister</span>
       </p>
     </div>
 
@@ -729,7 +611,7 @@
     function animatePhotos(eraId) {
       const section = document.getElementById(eraId);
       if (!section) return;
-      const photos = section.querySelectorAll('.photo-placeholder');
+      const photos = section.querySelectorAll('.photo-placeholder, .photo-item');
 
       gsap.fromTo(
         photos,
