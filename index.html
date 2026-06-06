@@ -186,40 +186,53 @@
       box-shadow: 0 0 20px rgba(212,168,83,0.3);
     }
 
-    /* Popup */
+    /* ── Popup backdrop (pure dark overlay, no flex centering needed) ── */
     .popup-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.78);
       z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease;
     }
-
     .popup-overlay.active {
       opacity: 1;
       pointer-events: all;
     }
 
+    /* ── Popup box: centered via transform, independent of parent layout ── */
     .popup-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      /* (1) Transform-based centering — reliable on every screen size */
+      transform: translate(-50%, -50%);
+      z-index: 201;
       background: #080005;
       border-radius: 24px;
       padding: 2.5rem 3rem;
-      max-width: 420px;
-      width: 90%;
-      position: relative;
-      box-shadow: 0 0 40px rgba(232,160,180,0.35), 0 0 80px rgba(192,57,43,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+      /* Never overflows viewport on any phone */
+      width: min(420px, calc(100vw - 2rem));
+      box-shadow: 0 0 40px rgba(232,160,180,0.35),
+                  0 0 80px rgba(192,57,43,0.2),
+                  inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;    /* clips floating hearts at top edge */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .popup-box.active {
+      opacity: 1;
+      pointer-events: all;
+      /* Pulse keeps the translate; overriding transform in keyframes preserves centering */
       animation: popup-pulse 3s ease-in-out infinite;
-      overflow: hidden;
     }
 
+    /* (1 cont.) Pulse must carry the translate so it doesn't lose centering */
     @keyframes popup-pulse {
-      0%,100% { transform: scale(1); }
-      50%      { transform: scale(1.01); }
+      0%,100% { transform: translate(-50%, -50%) scale(1); }
+      50%      { transform: translate(-50%, -50%) scale(1.012); }
     }
 
     .popup-text {
@@ -237,42 +250,63 @@
       color: var(--text-muted);
       text-align: center;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.6s ease;   /* (2) fade-in over 600ms */
       margin-top: 1rem;
     }
+    .popup-subtext.visible { opacity: 1; }
 
-    .popup-subtext.visible {
-      opacity: 1;
-    }
-
+    /* (4) Close button — 32×32px tap target, 12px from edges */
     .popup-close {
       position: absolute;
-      top: 14px;
-      right: 18px;
-      background: none;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      background: rgba(255,255,255,0.06);
       border: none;
+      border-radius: 50%;
       color: var(--text-muted);
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       cursor: pointer;
-      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, color 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
       line-height: 1;
     }
+    .popup-close:hover,
+    .popup-close:focus { background: rgba(255,255,255,0.12); color: var(--text-light); outline: none; }
 
-    .popup-close:hover {
-      color: var(--text-light);
-    }
-
+    /* (3) Hearts inside popup — 10-14px, drift upward 3.5s, clipped by overflow:hidden */
     @keyframes popup-heart-rise {
-      0%   { transform: translateY(0) scale(1);  opacity: 0.6; }
-      100% { transform: translateY(-120px) scale(0.5); opacity: 0; }
+      0%   { transform: translateY(0);        opacity: 0.7; }
+      20%  { opacity: 0.6; }
+      100% { transform: translateY(-280px);   opacity: 0; }
     }
-
     .popup-heart {
       position: absolute;
       pointer-events: none;
-      animation: popup-heart-rise 2.5s ease-in infinite;
       color: var(--accent-pink);
-      bottom: 20px;
+      bottom: 16px;
+      animation: popup-heart-rise linear infinite;
+    }
+
+    /* (6) Post-close one-shot shimmer on the gifts button */
+    @keyframes btn-shimmer-once {
+      0%   { left: -120%; opacity: 0; }
+      10%  { opacity: 1; }
+      100% { left: 220%;  opacity: 0; }
+    }
+    .gifts-btn.shimmer-once::after {
+      content: '';
+      position: absolute;
+      top: -2px; left: -120%;
+      width: 55%;
+      height: calc(100% + 4px);
+      background: linear-gradient(90deg, transparent, rgba(232,160,180,0.6), transparent);
+      animation: btn-shimmer-once 1.2s ease-out forwards;
     }
 
     @media (max-width: 768px) {
@@ -328,12 +362,11 @@
         padding: 0.8rem 1.5rem;
       }
 
-      /* Popup fits small screens */
+      /* Popup: tighter padding on small phones */
       .popup-box {
         padding: 2rem 1.5rem;
-        width: 92%;
       }
-      .popup-text { font-size: 1.4rem; }
+      .popup-text { font-size: 1.5rem; }
     }
   </style>
 </head>
@@ -387,18 +420,24 @@
     </button>
   </main>
 
-  <!-- Early-access popup -->
-  <div class="popup-overlay" id="popup-overlay">
-    <div class="popup-box" id="popup-box">
-      <button class="popup-close" onclick="closePopup()">×</button>
-      <div class="popup-text" id="popup-text"></div>
-      <div class="popup-subtext" id="popup-subtext">come back when the clock says it's time</div>
-      <!-- Floating hearts inside popup -->
-      <span class="popup-heart" style="left:15%;animation-delay:0s;font-size:1.2rem;">♥</span>
-      <span class="popup-heart" style="left:35%;animation-delay:0.8s;font-size:0.9rem;">♥</span>
-      <span class="popup-heart" style="left:60%;animation-delay:1.6s;font-size:1.4rem;">♥</span>
-      <span class="popup-heart" style="left:80%;animation-delay:0.4s;font-size:1rem;">♥</span>
-    </div>
+  <!-- Popup backdrop (tap this to close) -->
+  <div class="popup-overlay" id="popup-overlay"></div>
+
+  <!-- Popup box — position:fixed, centred via transform (req. 1) -->
+  <div class="popup-box" id="popup-box">
+    <!-- (4) Close button: 32×32px, 12px from edges -->
+    <button class="popup-close" id="popup-close-btn" onclick="closePopup()" aria-label="Close">×</button>
+
+    <div class="popup-text" id="popup-text"></div>
+    <div class="popup-subtext" id="popup-subtext">come back when the clock says it's time</div>
+
+    <!-- (3) 6 small hearts, 10-14px, staggered start times, 3-4s duration each -->
+    <span class="popup-heart" style="left:8%; font-size:12px; animation-duration:3.6s; animation-delay:0s;">♥</span>
+    <span class="popup-heart" style="left:22%;font-size:10px; animation-duration:4.1s; animation-delay:1.2s;">♥</span>
+    <span class="popup-heart" style="left:40%;font-size:14px; animation-duration:3.2s; animation-delay:0.5s;">♥</span>
+    <span class="popup-heart" style="left:58%;font-size:11px; animation-duration:3.8s; animation-delay:1.8s;">♥</span>
+    <span class="popup-heart" style="left:74%;font-size:13px; animation-duration:4.3s; animation-delay:0.9s;">♥</span>
+    <span class="popup-heart" style="left:88%;font-size:10px; animation-duration:3.5s; animation-delay:2.3s;">♥</span>
   </div>
 
   <!-- Scripts -->
@@ -505,21 +544,50 @@
     }
 
     // ── Popup ─────────────────────────────────────────────────────────────
+    var typewriterTimer = null;
+
     function showPopup() {
       var overlay = document.getElementById('popup-overlay');
+      var box     = document.getElementById('popup-box');
+
+      // Reset before re-opening
+      document.getElementById('popup-text').textContent = '';
+      document.getElementById('popup-subtext').classList.remove('visible');
+
       overlay.classList.add('active');
-      typewriter(document.getElementById('popup-text'), "you're still 19 baby 🥺", 45, function() {
-        setTimeout(function() {
-          document.getElementById('popup-subtext').classList.add('visible');
-        }, 1500);
-      });
+      box.classList.add('active');
+
+      // (2) 80ms per char — more dramatic; subtext appears 1500ms AFTER typing ends
+      typewriter(
+        document.getElementById('popup-text'),
+        "you're still 19 baby 🥺",
+        80,
+        function() {
+          setTimeout(function() {
+            document.getElementById('popup-subtext').classList.add('visible');
+          }, 1500);
+        }
+      );
     }
 
     function closePopup() {
       var overlay = document.getElementById('popup-overlay');
+      var box     = document.getElementById('popup-box');
+
       overlay.classList.remove('active');
-      document.getElementById('popup-text').textContent = '';
-      document.getElementById('popup-subtext').classList.remove('visible');
+      box.classList.remove('active');
+
+      if (typewriterTimer) { clearTimeout(typewriterTimer); typewriterTimer = null; }
+
+      // (6) One-shot shimmer on button after popup closes
+      var btn = document.getElementById('gifts-btn');
+      btn.classList.remove('shimmer-once');
+      void btn.offsetWidth;                  // force reflow so animation restarts
+      btn.classList.add('shimmer-once');
+      btn.addEventListener('animationend', function onShimmerEnd() {
+        btn.classList.remove('shimmer-once');
+        btn.removeEventListener('animationend', onShimmerEnd);
+      });
     }
 
     function typewriter(el, text, ms, cb) {
@@ -528,16 +596,17 @@
       function tick() {
         if (i < text.length) {
           el.textContent += text[i++];
-          setTimeout(tick, ms);
-        } else if (cb) cb();
+          typewriterTimer = setTimeout(tick, ms);
+        } else {
+          typewriterTimer = null;
+          if (cb) cb();
+        }
       }
       tick();
     }
 
-    // Close popup on overlay click
-    document.getElementById('popup-overlay').addEventListener('click', function(e) {
-      if (e.target === this) closePopup();
-    });
+    // (5) Tap anywhere on the dark backdrop to close
+    document.getElementById('popup-overlay').addEventListener('click', closePopup);
 
     // ── GSAP entrance animations ──────────────────────────────────────────
     gsap.set('.entrance-1,.entrance-2,.entrance-3,.entrance-4,.entrance-5',
