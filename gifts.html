@@ -114,13 +114,32 @@
       position: relative;
     }
 
+    /* (5) Animated film grain — SVG feTurbulence noise tiled + translate keyframes */
     .world-cinema::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      opacity: 0.05;
+      inset: -6%;          /* slightly oversized so edge gaps never show */
+      width: 112%;
+      height: 112%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;   /* tile at visible grain size */
+      opacity: 0.04;
       pointer-events: none;
+      will-change: transform;
+      animation: film-grain-shift 0.9s steps(9) infinite;
+    }
+
+    @keyframes film-grain-shift {
+      0%   { transform: translate(0%,   0%);   }
+      11%  { transform: translate(-2%,  -1%);  }
+      22%  { transform: translate(1%,   2%);   }
+      33%  { transform: translate(-1%,  1%);   }
+      44%  { transform: translate(2%,   -2%);  }
+      55%  { transform: translate(-2%,  2%);   }
+      66%  { transform: translate(1%,   -1%);  }
+      77%  { transform: translate(-1%,  -2%);  }
+      88%  { transform: translate(2%,   1%);   }
+      100% { transform: translate(0%,   0%);   }
     }
 
     .world-title {
@@ -133,37 +152,70 @@
       opacity: 0.7;
     }
 
-    /* ── Dividers ── */
-    .world-divider {
-      padding: 2rem 0;
+    /* ── World Transition Sections (req 1-4) ── */
+    .world-transition {
+      position: relative;
+      height: 120px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.8rem;
-      position: relative;
+      gap: 0.9rem;
+      overflow: hidden;
       z-index: 1;
     }
 
-    .divider-line {
-      width: 50%;
+    /* Gradient backgrounds — each blends from world-above to world-below */
+    .wt-1-2 { background: linear-gradient(to bottom, #1a1005 0%, #111009 50%, #080f0a 100%); }
+    .wt-2-3 { background: linear-gradient(to bottom, #080f0a 0%, #121512 50%, #1a0f1e 100%); }
+    .wt-3-4 { background: linear-gradient(to bottom, #1a0f1e 0%, #100c13 50%, #060608 100%); }
+
+    /* Full-width 1px line with heart centred on it */
+    .wt-line-row {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wt-line-row::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+      background: var(--glass-border);
     }
-
-    .divider-heart {
-      font-size: 1rem;
+    /* Heart uses a background matching its transition midpoint to "break" the line */
+    .wt-heart {
+      position: relative;
+      z-index: 1;
+      padding: 0 0.6rem;
+      font-size: 0.9rem;
       color: var(--accent-pink);
-      opacity: 0.6;
+      opacity: 0.65;
     }
+    .wt-1-2 .wt-heart { background: #111009; }
+    .wt-2-3 .wt-heart { background: #121512; }
+    .wt-3-4 .wt-heart { background: #100c13; }
 
-    .divider-quote {
+    /* Quote — hidden until IntersectionObserver fires (req 4) */
+    .wt-quote {
       font-family: 'Lora', serif;
       font-style: italic;
       font-size: 0.85rem;
       color: var(--text-muted);
       text-align: center;
-      opacity: 0.7;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .wt-quote.visible {
+      opacity: 0.72;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .world-transition { height: 80px; gap: 0.65rem; }
     }
 
     /* ── WORLD 1: Polaroids ── */
@@ -590,12 +642,10 @@
       </div>
     </section>
 
-    <!-- Divider 1→2 -->
-    <div class="world-divider">
-      <div class="divider-line"></div>
-      <div class="divider-heart">♥</div>
-      <div class="divider-quote">some things bloom slowly.</div>
-      <div class="divider-line"></div>
+    <!-- Transition 1→2: Polaroid (warm brown) → Garden (deep green-black) -->
+    <div class="world-transition wt-1-2">
+      <div class="wt-line-row"><span class="wt-heart">♥</span></div>
+      <div class="wt-quote">some things bloom slowly.</div>
     </div>
 
     <!-- ══ WORLD 2: The Garden ══ -->
@@ -631,12 +681,10 @@
       </div>
     </section>
 
-    <!-- Divider 2→3 -->
-    <div class="world-divider">
-      <div class="divider-line"></div>
-      <div class="divider-heart">♥</div>
-      <div class="divider-quote">some things are meant to be unsealed.</div>
-      <div class="divider-line"></div>
+    <!-- Transition 2→3: Garden (deep green-black) → Envelopes (bg-mid purple) -->
+    <div class="world-transition wt-2-3">
+      <div class="wt-line-row"><span class="wt-heart">♥</span></div>
+      <div class="wt-quote">some things are meant to be unsealed.</div>
     </div>
 
     <!-- ══ WORLD 3: The Envelope Wall ══ -->
@@ -719,12 +767,10 @@
       </div>
     </section>
 
-    <!-- Divider 3→4 -->
-    <div class="world-divider">
-      <div class="divider-line"></div>
-      <div class="divider-heart">♥</div>
-      <div class="divider-quote">some things deserve a cinema.</div>
-      <div class="divider-line"></div>
+    <!-- Transition 3→4: Envelopes (bg-mid purple) → Cinema (near black) -->
+    <div class="world-transition wt-3-4">
+      <div class="wt-line-row"><span class="wt-heart">♥</span></div>
+      <div class="wt-quote">some things deserve a cinema.</div>
     </div>
 
     <!-- ══ WORLD 4: The Film Reel ══ -->
@@ -885,6 +931,23 @@
       strip.scrollLeft += dx;
       lastTouchX = currentX;
     }, { passive: true });
+
+    // (4) IntersectionObserver — fade-in quotes only when they scroll into view
+    var wtQuotes = document.querySelectorAll('.wt-quote');
+    if ('IntersectionObserver' in window) {
+      var quoteObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            quoteObserver.unobserve(entry.target);  // fire once only
+          }
+        });
+      }, { threshold: 0.4 });
+      wtQuotes.forEach(function(q) { quoteObserver.observe(q); });
+    } else {
+      // Fallback for very old browsers
+      wtQuotes.forEach(function(q) { q.classList.add('visible'); });
+    }
   </script>
 </body>
 </html>
