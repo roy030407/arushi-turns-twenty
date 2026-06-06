@@ -13,15 +13,11 @@
       --bg-dark: #0d0a0f;
       --bg-mid: #1a0f1e;
       --bg-card: #221528;
-      --accent-red: #c0392b;
-      --accent-purple: #7b2d8b;
       --accent-pink: #e8a0b4;
       --accent-gold: #d4a853;
       --text-light: #f5f0eb;
       --text-muted: #9e8a9e;
       --text-warm: #e8ddd0;
-      --glass: rgba(255,255,255,0.04);
-      --glass-border: rgba(255,255,255,0.08);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,7 +58,6 @@
     }
     .back-btn:hover { color: var(--accent-pink); }
 
-    /* Header */
     .page-header {
       text-align: center;
       margin-bottom: 0.6rem;
@@ -76,7 +71,6 @@
       line-height: 1.2;
     }
 
-    /* Decorative line under header */
     .header-accent {
       display: flex;
       align-items: center;
@@ -101,107 +95,59 @@
       opacity: 0.6;
     }
 
-    /* Video container */
+    /* Video card */
     .video-container {
       max-width: 900px;
       margin: 2rem auto;
       background: var(--bg-card);
       border-radius: 16px;
       overflow: hidden;
-      border: 2px solid var(--accent-pink);
+      border: 2px solid rgba(232,160,180,0.35);
       box-shadow:
-        0 0 30px rgba(232,160,180,0.2),
-        0 0 60px rgba(232,160,180,0.08),
+        0 0 30px rgba(232,160,180,0.15),
+        0 0 60px rgba(232,160,180,0.06),
         0 20px 60px rgba(0,0,0,0.5);
       position: relative;
     }
 
-    /* 16:9 aspect ratio wrapper */
+    .ambient-dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(60px);
+      z-index: 0;
+    }
+    .ambient-dot-1 {
+      width: 300px; height: 300px;
+      background: rgba(232,160,180,0.04);
+      top: -80px; right: -60px;
+    }
+    .ambient-dot-2 {
+      width: 250px; height: 250px;
+      background: rgba(123,45,139,0.04);
+      bottom: -60px; left: -40px;
+    }
+
+    /* Native video element */
     .video-wrapper {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #0a0006;
+      z-index: 1;
     }
 
-    .video-wrapper iframe {
+    .video-wrapper video {
       position: absolute;
-      top: 0; left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
-      border: none;
+      object-fit: contain;
       display: block;
+      background: #000;
     }
 
-    /* PLACEHOLDER: Replace VIDEO_ID_HERE with the actual YouTube video ID when uploaded */
-
-    /* Placeholder overlay shown while ID is not set */
-    .video-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.2rem;
-      background: linear-gradient(135deg, #120009 0%, #0d0a0f 50%, #09060d 100%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .vp-play-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: rgba(232,160,180,0.12);
-      border: 2px solid rgba(232,160,180,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-    .vp-play-icon svg {
-      width: 30px;
-      height: 30px;
-      fill: rgba(232,160,180,0.6);
-      margin-left: 4px;
-    }
-
-    .vp-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--text-warm);
-      opacity: 0.55;
-      text-align: center;
-      letter-spacing: 0.04em;
-    }
-
-    .vp-sub {
-      font-family: 'Lora', serif;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      opacity: 0.4;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    /* Scanline effect on placeholder */
-    .vp-scanlines {
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(0,0,0,0.08) 3px,
-        rgba(0,0,0,0.08) 4px
-      );
-      pointer-events: none;
-    }
-
-    /* Bottom bar of video container */
+    /* Bottom bar */
     .video-bar {
       padding: 0.7rem 1.2rem;
       background: rgba(0,0,0,0.3);
@@ -209,8 +155,9 @@
       align-items: center;
       justify-content: space-between;
       border-top: 1px solid rgba(232,160,180,0.1);
+      position: relative;
+      z-index: 1;
     }
-
     .video-bar-label {
       font-family: 'Lora', serif;
       font-size: 0.75rem;
@@ -218,7 +165,6 @@
       color: var(--text-muted);
       letter-spacing: 0.04em;
     }
-
     .video-bar-badge {
       display: flex;
       align-items: center;
@@ -229,14 +175,75 @@
       letter-spacing: 0.08em;
     }
     .video-bar-dot {
-      width: 5px;
-      height: 5px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       background: var(--accent-pink);
       opacity: 0.5;
     }
 
-    /* Caption */
+    /* Custom volume bar */
+    .volume-row {
+      padding: 0.55rem 1.2rem;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      position: relative;
+      z-index: 1;
+    }
+    .volume-icon {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      user-select: none;
+      flex-shrink: 0;
+      width: 1.1rem;
+      text-align: center;
+    }
+    .volume-label {
+      font-family: 'Lora', serif;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .volume-slider {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+      outline: none;
+      cursor: pointer;
+      background: linear-gradient(to right, rgba(232,160,180,0.7) 0%, rgba(232,160,180,0.7) 80%, rgba(255,255,255,0.1) 80%);
+    }
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--accent-pink);
+      cursor: pointer;
+      box-shadow: 0 0 6px rgba(232,160,180,0.5);
+    }
+    .volume-slider::-moz-range-thumb {
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--accent-pink);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 6px rgba(232,160,180,0.5);
+    }
+    .volume-pct {
+      font-family: 'Lora', serif;
+      font-size: 0.65rem;
+      color: rgba(232,160,180,0.5);
+      width: 2.2rem;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
     .video-caption {
       text-align: center;
       margin-top: 1.5rem;
@@ -248,29 +255,6 @@
       line-height: 1.6;
     }
 
-    /* Ambient glow dots */
-    .ambient-dot {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      filter: blur(60px);
-    }
-    .ambient-dot-1 {
-      width: 300px;
-      height: 300px;
-      background: rgba(232,160,180,0.04);
-      top: -80px;
-      right: -60px;
-    }
-    .ambient-dot-2 {
-      width: 250px;
-      height: 250px;
-      background: rgba(123,45,139,0.04);
-      bottom: -60px;
-      left: -40px;
-    }
-
-    /* Bottom ornament */
     .ornament {
       text-align: center;
       margin-top: 3rem;
@@ -294,10 +278,8 @@
       letter-spacing: 0.06em;
     }
 
-    /* Responsive */
     @media (max-width: 600px) {
       .video-container { border-radius: 12px; border-width: 1.5px; }
-      .vp-title { font-size: 1.2rem; }
     }
   </style>
 </head>
@@ -318,44 +300,38 @@
       <div class="header-accent-line rev"></div>
     </div>
 
-    <div class="video-container" id="videoContainer" style="position:relative;">
+    <div class="video-container" id="videoContainer">
       <div class="ambient-dot ambient-dot-1"></div>
       <div class="ambient-dot ambient-dot-2"></div>
 
-      <!-- PLACEHOLDER: Replace VIDEO_ID_HERE with the actual YouTube video ID when uploaded -->
-      <div class="video-wrapper" id="videoWrapper">
-        <iframe
-          src="https://www.youtube.com/embed/VIDEO_ID_HERE"
-          title="For Arushi"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          id="ytFrame">
-        </iframe>
-
-        <!-- Placeholder shown until video ID is set -->
-        <div class="video-placeholder" id="videoPlaceholder">
-          <div class="vp-scanlines"></div>
-          <div class="vp-play-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          </div>
-          <div class="vp-title">a video edit. just for you.</div>
-          <div class="vp-sub">uploading soon</div>
-        </div>
+      <div class="video-wrapper">
+        <video
+          controls
+          preload="metadata"
+          playsinline
+          controlslist="nodownload"
+          src="../assets/videos/arushi-edit.mp4">
+          Your browser doesn't support the video tag.
+        </video>
       </div>
 
       <div class="video-bar">
         <span class="video-bar-label">for arushi · twenty</span>
         <div class="video-bar-badge">
           <div class="video-bar-dot"></div>
-          <span>made with everything i had</span>
+          <span>made with love</span>
         </div>
+      </div>
+
+      <div class="volume-row">
+        <span class="volume-icon" id="volIcon">&#128266;</span>
+        <span class="volume-label">volume</span>
+        <input type="range" class="volume-slider" id="volSlider" min="0" max="100" value="80" />
+        <span class="volume-pct" id="volPct">80%</span>
       </div>
     </div>
 
-    <p class="video-caption">made with everything i had.</p>
+    <p class="video-caption">made with love.</p>
 
     <div class="ornament">
       <div class="ornament-inner">
@@ -367,14 +343,11 @@
 
   </div>
 
-  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <!-- particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="../particles-config.js"></script>
 
   <script>
-    // Init particles
     if (typeof initParticles === 'function') {
       initParticles('particles-bg', 'light');
     } else if (typeof particlesJS === 'function') {
@@ -393,43 +366,51 @@
       });
     }
 
-    // Check if video ID is set — hide placeholder if real URL
-    const frame = document.getElementById('ytFrame');
-    const placeholder = document.getElementById('videoPlaceholder');
+    // Volume control
+    var vid = document.querySelector('video');
+    var slider = document.getElementById('volSlider');
+    var pctEl = document.getElementById('volPct');
+    var iconEl = document.getElementById('volIcon');
 
-    if (frame && frame.src && !frame.src.includes('VIDEO_ID_HERE')) {
-      if (placeholder) placeholder.style.display = 'none';
+    function updateSliderTrack(val) {
+      slider.style.background = 'linear-gradient(to right, rgba(232,160,180,0.7) 0%, rgba(232,160,180,0.7) ' + val + '%, rgba(255,255,255,0.1) ' + val + '%)';
     }
 
-    // GSAP entrance animation
+    function updateIcon(vol) {
+      if (vol === 0) { iconEl.innerHTML = '&#128263;'; }
+      else if (vol < 40) { iconEl.innerHTML = '&#128264;'; }
+      else if (vol < 70) { iconEl.innerHTML = '&#128265;'; }
+      else { iconEl.innerHTML = '&#128266;'; }
+    }
+
+    vid.volume = 0.8;
+
+    slider.addEventListener('input', function() {
+      var val = parseInt(this.value);
+      vid.volume = val / 100;
+      vid.muted = val === 0;
+      pctEl.textContent = val + '%';
+      updateSliderTrack(val);
+      updateIcon(val);
+    });
+
+    // Sync icon if video muted externally
+    vid.addEventListener('volumechange', function() {
+      var val = Math.round(vid.volume * 100);
+      if (vid.muted) val = 0;
+      slider.value = val;
+      pctEl.textContent = val + '%';
+      updateSliderTrack(val);
+      updateIcon(val);
+    });
+
+    updateSliderTrack(80);
+
     if (typeof gsap !== 'undefined') {
-      gsap.from('.page-header h1', {
-        duration: 1,
-        opacity: 0,
-        y: 24,
-        ease: 'power3.out',
-        delay: 0.2
-      });
-      gsap.from('.video-container', {
-        duration: 1.2,
-        opacity: 0,
-        y: 36,
-        ease: 'power3.out',
-        delay: 0.4
-      });
-      gsap.from('.video-caption', {
-        duration: 0.9,
-        opacity: 0,
-        y: 16,
-        ease: 'power2.out',
-        delay: 0.9
-      });
-      gsap.from('.ornament', {
-        duration: 0.9,
-        opacity: 0,
-        ease: 'power2.out',
-        delay: 1.1
-      });
+      gsap.from('.page-header h1', { duration: 1, opacity: 0, y: 24, ease: 'power3.out', delay: 0.2 });
+      gsap.from('.video-container',  { duration: 1.2, opacity: 0, y: 36, ease: 'power3.out', delay: 0.4 });
+      gsap.from('.video-caption',    { duration: 0.9, opacity: 0, y: 16, ease: 'power2.out', delay: 0.9 });
+      gsap.from('.ornament',         { duration: 0.9, opacity: 0,         ease: 'power2.out', delay: 1.1 });
     }
   </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Puzzle Box — Arushi Turns Twenty</title>
+  <title>The Puzzle Box - Arushi Turns Twenty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
@@ -331,7 +331,7 @@
 
     const RIDDLES = [
       {
-        riddle: "[PLACEHOLDER RIDDLE 1 — Roy writes a riddle based on a shared memory or inside joke. Answer should be a single word.]",
+        riddle: "[PLACEHOLDER RIDDLE 1 - Roy writes a riddle based on a shared memory or inside joke. Answer should be a single word.]",
         answer: "ANSWER1",
         hint: "[PLACEHOLDER: A gentle hint Roy will write]",
         unlockMsg: "[A sweet/funny one-liner that appears when she gets it right]"
@@ -355,10 +355,10 @@
         unlockMsg: "[Sweet line 4]"
       },
       {
-        riddle: "[PLACEHOLDER RIDDLE 5 — the final one. Answer leads her somewhere.]",
+        riddle: "[PLACEHOLDER RIDDLE 5 - the final one. Answer leads her somewhere.]",
         answer: "ANSWER5",
         hint: "[PLACEHOLDER HINT 5]",
-        unlockMsg: "you did it. all five. — go read the poem."
+        unlockMsg: "you did it. all five. - go read the poem."
       }
     ];
 
@@ -477,7 +477,7 @@
 
       const indicator = document.getElementById('wrongCountIndicator');
       if (wrongAttempts >= 3) {
-        indicator.textContent = `${wrongAttempts} attempts — hint available below`;
+        indicator.textContent = `${wrongAttempts} attempts - hint available below`;
         const hintBtn = document.getElementById('hintBtn');
         hintBtn.classList.add('visible');
         gsap.fromTo(hintBtn, { opacity: 0 }, { opacity: 1, duration: 0.5 });

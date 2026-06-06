@@ -394,6 +394,70 @@
       from { transform: translateY(100%); }
       to   { transform: translateY(0); }
     }
+
+    /* ── VIDEO MODAL ── */
+    .nf-video-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.96);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.2rem;
+      padding: 1rem;
+    }
+    .nf-video-overlay.open { display: flex; }
+
+    .nf-video-box {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 0 60px rgba(229,9,20,0.3);
+      aspect-ratio: 16/9;
+    }
+    .nf-video-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .nf-video-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+    .nf-video-close:hover { background: var(--nf-red); border-color: var(--nf-red); }
+
+    .nf-video-fallback {
+      color: rgba(255,255,255,0.6);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .nf-video-fallback a {
+      color: var(--nf-red);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .nf-video-fallback a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -438,8 +502,8 @@
             <span>20 Seasons</span>
           </div>
           <div class="nf-hero-btns">
-            <button class="nf-btn nf-btn-play">▶ &nbsp;Play</button>
-            <button class="nf-btn nf-btn-info">ⓘ &nbsp;More Info</button>
+            <button class="nf-btn nf-btn-play" onclick="openVideoModal()">▶ &nbsp;Play</button>
+            <button class="nf-btn nf-btn-info" onclick="scrollToContent()">ⓘ &nbsp;More Info</button>
           </div>
         </div>
       </section>
@@ -449,7 +513,7 @@
 
         <!-- ROW 1: Her Favourites - toast on click, no modal -->
         <div class="nf-row">
-          <div class="nf-row-title">Her Favourites</div>
+          <div class="nf-row-title">Your Favourites</div>
           <div class="nf-scroll">
 
             <div class="nf-card clickable" onclick="showToast()">
@@ -693,6 +757,24 @@
     </div>
   </div>
 
+  <!-- VIDEO MODAL -->
+  <div class="nf-video-overlay" id="videoOverlay" onclick="closeVideoOutside(event)">
+    <div class="nf-video-box" id="videoBox">
+      <button class="nf-video-close" onclick="closeVideoModal()">✕</button>
+      <iframe
+        id="canvaFrame"
+        src=""
+        allowfullscreen
+        allow="autoplay; fullscreen"
+        title="The Arushi Pundir Story">
+      </iframe>
+    </div>
+    <div class="nf-video-fallback">
+      if it doesn't load here -
+      <a href="https://canva.link/09nsa0oukarxiri" target="_blank" rel="noopener">watch full screen &rarr;</a>
+    </div>
+  </div>
+
   <!-- TOAST -->
   <div id="nf-toast">you have excellent taste.</div>
 
@@ -836,9 +918,33 @@
       if (e.target === document.getElementById('modalOverlay')) closeModal();
     }
 
+    // ── VIDEO MODAL ──
+    function openVideoModal() {
+      document.getElementById('canvaFrame').src = 'https://canva.link/09nsa0oukarxiri';
+      document.getElementById('videoOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal() {
+      document.getElementById('videoOverlay').classList.remove('open');
+      document.getElementById('canvaFrame').src = '';
+      document.body.style.overflow = '';
+    }
+
+    function closeVideoOutside(e) {
+      if (e.target === document.getElementById('videoOverlay')) closeVideoModal();
+    }
+
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') {
+        closeModal();
+        closeVideoModal();
+      }
     });
+
+    function scrollToContent() {
+      document.querySelector('.nf-rows').scrollIntoView({ behavior: 'smooth' });
+    }
 
     // ── TOAST ──
     var toastTimer = null;
