@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Gifts · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-dark:#0d0a0f; --bg-mid:#1a0f1e; --bg-card:#221528;
+      --accent-red:#c0392b; --accent-purple:#7b2d8b; --accent-pink:#e8a0b4;
+      --accent-gold:#d4a853; --text-light:#f5f0eb; --text-muted:#9e8a9e;
+      --text-warm:#e8ddd0; --glass:rgba(255,255,255,0.04);
+      --glass-border:rgba(255,255,255,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      overflow-x: hidden;
+    }
+
+    /* Ambient hearts background */
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .page-content { position: relative; z-index: 1; }
+
+    /* ── Page Header ── */
+    .page-header {
+      min-height: 30vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    .scroll-hint {
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @keyframes bounce-arrow {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
+    }
+
+    .bounce-arrow {
+      animation: bounce-arrow 1.5s ease-in-out infinite;
+      font-size: 1.2rem;
+      color: var(--accent-pink);
+    }
+
+    /* ── World Sections ── */
+    .world-section {
+      position: relative;
+      padding: 5rem 2rem;
+      overflow: hidden;
+    }
+
+    .world-polaroid {
+      background: radial-gradient(ellipse at 30% 50%, #2a1a08 0%, #1a1005 50%, #0d0a06 100%);
+    }
+
+    .world-garden {
+      background: radial-gradient(ellipse at 50% 80%, #0d1f10 0%, #080f0a 60%, #050806 100%);
+    }
+
+    .world-envelopes {
+      background: var(--bg-mid);
+      position: relative;
+    }
+
+    .world-envelopes::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .world-cinema {
+      background: #060608;
+      position: relative;
+    }
+
+    .world-cinema::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .world-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 3rem;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+    }
+
+    /* ── Dividers ── */
+    .world-divider {
+      padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .divider-line {
+      width: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    }
+
+    .divider-heart {
+      font-size: 1rem;
+      color: var(--accent-pink);
+      opacity: 0.6;
+    }
+
+    .divider-quote {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    /* ── WORLD 1: Polaroids ── */
+    .polaroid-table {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .polaroid {
+      background: #f5f0e8;
+      border-radius: 4px;
+      padding: 14px 14px 50px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: all 0.4s ease-out;
+      width: 200px;
+      position: relative;
+      text-decoration: none;
+      display: block;
+    }
+
+    .polaroid:nth-child(1) { transform: rotate(-6deg) translateY(10px); }
+    .polaroid:nth-child(2) { transform: rotate(4deg) translateY(-15px); }
+    .polaroid:nth-child(3) { transform: rotate(-3deg) translateY(20px); }
+    .polaroid:nth-child(4) { transform: rotate(7deg) translateY(-5px); }
+
+    .polaroid:hover {
+      transform: translateY(-12px) rotate(0deg) !important;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      z-index: 10;
+    }
+
+    .polaroid-image {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #ddd5c8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 0;
+    }
+
+    .polaroid-label {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2rem;
+      color: #1a1008;
+      text-align: center;
+      position: absolute;
+      bottom: 14px;
+      left: 0;
+      right: 0;
+    }
+
+    /* ── WORLD 2: Garden ── */
+    .garden-scene {
+      position: relative;
+      min-height: 500px;
+      padding: 3rem 2rem;
+    }
+
+    .garden-ambient {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(40,100,40,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .flowers-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4rem;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .flower-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .flower-emoji {
+      font-size: 4rem;
+      filter: grayscale(0.6) brightness(0.65);
+      transform: scale(0.85);
+      transition: all 0.5s ease;
+      display: block;
+      line-height: 1;
+    }
+
+    .flower-wrapper:hover .flower-emoji,
+    .flower-wrapper.touched .flower-emoji {
+      filter: grayscale(0) brightness(1.1);
+      transform: scale(1.25);
+      drop-shadow: 0 0 20px currentColor;
+    }
+
+    .flower-stem {
+      width: 3px;
+      height: 40px;
+      background: linear-gradient(to bottom, #2d6a2d, #1a3d1a);
+      margin: 0 auto;
+    }
+
+    .flower-tag {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: rgba(8,15,10,0.8);
+      border: 1px solid var(--glass-border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      margin-top: 0.5rem;
+      transition: all 0.4s ease;
+    }
+
+    .flower-wrapper:hover .flower-tag {
+      color: var(--text-light);
+      background: rgba(40,80,40,0.4);
+      border-color: rgba(100,180,100,0.3);
+    }
+
+    .flower-wrapper:nth-child(1) { transform: translateY(20px); }
+    .flower-wrapper:nth-child(2) { transform: translateY(-10px); }
+    .flower-wrapper:nth-child(3) { transform: translateY(30px); }
+    .flower-wrapper:nth-child(4) { transform: translateY(5px); }
+
+    /* ── WORLD 3: Envelopes ── */
+    .envelope-wall {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .envelope-wrap {
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+
+    .envelope-wrap:nth-child(2n)   { transform: translateY(15px); }
+    .envelope-wrap:nth-child(3n)   { transform: translateY(-10px); }
+
+    .envelope {
+      background: #f0ead8;
+      border-radius: 4px;
+      position: relative;
+      padding: 2.5rem 1.2rem 1.2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      overflow: hidden;
+      transition: all 0.4s ease;
+      min-height: 120px;
+    }
+
+    .envelope:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: #e4dcc8;
+      clip-path: polygon(0 0, 50% 55%, 100% 0);
+      transform-origin: top center;
+      transition: transform 0.4s ease;
+    }
+
+    .envelope:hover .envelope-flap {
+      transform: rotateX(-35deg) translateY(-3px);
+    }
+
+    .envelope-flap-inner {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      clip-path: polygon(0 0, 50% 55%, 100% 0);
+      background: #ddd5be;
+    }
+
+    .wax-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -35%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Dancing Script', cursive;
+      z-index: 2;
+    }
+
+    .envelope-address {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.75rem;
+      color: #4a3828;
+      line-height: 1.6;
+      margin-top: 0.5rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* ── WORLD 4: Film Reel ── */
+    .film-reel-section {
+      padding: 3rem 0;
+      position: relative;
+    }
+
+    .film-strip-wrapper {
+      position: relative;
+      padding: 25px 0;
+    }
+
+    .film-sprockets {
+      position: absolute;
+      left: 0; right: 0;
+      height: 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 2;
+      background: #000;
+      pointer-events: none;
+    }
+
+    .film-sprockets.top { top: 0; }
+    .film-sprockets.bottom { bottom: 0; }
+
+    .sprocket-hole {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      background: #1a1a1a;
+      border: 1px solid #0a0a0a;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    .film-strip {
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+      padding: 0 2rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      background: #0a0a0a;
+      scrollbar-width: thin;
+      scrollbar-color: #333 #0a0a0a;
+    }
+
+    .film-frame-wrap {
+      scroll-snap-align: center;
+      flex-shrink: 0;
+      width: min(280px, 80vw);
+      padding: 1.5rem 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+
+    .film-frame {
+      border: 4px solid #2a2a2a;
+      border-radius: 2px;
+      background: #111;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      position: relative;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .film-frame:hover {
+      box-shadow: 0 0 30px rgba(212,168,83,0.3), 0 0 10px rgba(212,168,83,0.15);
+      border-color: #3a3a2a;
+    }
+
+    .film-frame-still {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      background: linear-gradient(135deg, #0a0a14, #14141e);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .film-frame-still::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent);
+      pointer-events: none;
+    }
+
+    .film-frame-title {
+      background: #0a0a0a;
+      padding: 0.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    /* Projector flash overlay */
+    .projector-flash {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .polaroid-table { gap: 1.5rem; }
+      .polaroid { width: 160px; padding: 10px 10px 40px; }
+      .envelope-wall { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .flowers-container { gap: 2.5rem; }
+      .film-frame-wrap { width: min(240px, 75vw); }
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="projector-flash" id="projector-flash"></div>
+
+  <div class="page-content">
+    <!-- Header -->
+    <header class="page-header" id="page-header">
+      <h1>twenty things. all for you.</h1>
+      <div class="scroll-hint">
+        <span>scroll to explore</span>
+        <span class="bounce-arrow">↓</span>
+      </div>
+    </header>
+
+    <!-- ══ WORLD 1: The Polaroid Table ══ -->
+    <section class="world-section world-polaroid" id="world-1">
+      <div class="world-title">the polaroid table</div>
+      <div class="polaroid-table">
+
+        <a href="gifts/gift-1.html" class="polaroid">
+          <div class="polaroid-image">🎵</div>
+          <span class="polaroid-label">a playlist, for you</span>
+        </a>
+
+        <a href="gifts/gift-4.html" class="polaroid">
+          <div class="polaroid-image">✍️</div>
+          <span class="polaroid-label">words i wrote</span>
+        </a>
+
+        <a href="gifts/gift-10.html" class="polaroid">
+          <div class="polaroid-image">💬</div>
+          <span class="polaroid-label">things you say</span>
+        </a>
+
+        <a href="gifts/gift-13.html" class="polaroid">
+          <div class="polaroid-image">💌</div>
+          <span class="polaroid-label">a letter, sealed</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Divider 1→2 -->
+    <div class="world-divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">♥</div>
+      <div class="divider-quote">some things bloom slowly.</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- ══ WORLD 2: The Garden ══ -->
+    <section class="world-section world-garden" id="world-2">
+      <div class="garden-ambient"></div>
+      <div class="world-title">the garden</div>
+      <div class="flowers-container">
+
+        <a href="gifts/gift-6.html" class="flower-wrapper" style="text-decoration:none;">
+          <span class="flower-emoji">🌸</span>
+          <div class="flower-stem"></div>
+          <span class="flower-tag">a bouquet</span>
+        </a>
+
+        <a href="gifts/gift-7.html" class="flower-wrapper" style="text-decoration:none;">
+          <span class="flower-emoji">🌼</span>
+          <div class="flower-stem"></div>
+          <span class="flower-tag">a little game</span>
+        </a>
+
+        <a href="gifts/gift-9a.html" class="flower-wrapper" style="text-decoration:none;">
+          <span class="flower-emoji">🌺</span>
+          <div class="flower-stem"></div>
+          <span class="flower-tag">your story, part one</span>
+        </a>
+
+        <a href="gifts/gift-12.html" class="flower-wrapper" style="text-decoration:none;">
+          <span class="flower-emoji">🌻</span>
+          <div class="flower-stem"></div>
+          <span class="flower-tag">who you are</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Divider 2→3 -->
+    <div class="world-divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">♥</div>
+      <div class="divider-quote">some things are meant to be unsealed.</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- ══ WORLD 3: The Envelope Wall ══ -->
+    <section class="world-section world-envelopes" id="world-3">
+      <div class="world-title">the envelope wall</div>
+      <div class="envelope-wall">
+
+        <a href="gifts/gift-2.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-purple);">A</div>
+            <div class="envelope-address">a magazine,<br>all hers</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-8.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-red);">A</div>
+            <div class="envelope-address">a puzzle,<br>if you dare</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-14.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-gold);">A</div>
+            <div class="envelope-address">exhibit a,<br>b, and c</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-15.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-pink);">A</div>
+            <div class="envelope-address">her wikipedia<br>page</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-16.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-red);">A</div>
+            <div class="envelope-address">for her,<br>at thirty</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-17.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-purple);">A</div>
+            <div class="envelope-address">the day<br>she arrived</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-18.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-gold);">A</div>
+            <div class="envelope-address">drawn<br>by hand</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-19.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-pink);">A</div>
+            <div class="envelope-address">from<br>her person</div>
+          </div>
+        </a>
+
+        <a href="gifts/gift-20.html" class="envelope-wrap">
+          <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal" style="background:var(--accent-red);">A</div>
+            <div class="envelope-address">from<br>me</div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Divider 3→4 -->
+    <div class="world-divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">♥</div>
+      <div class="divider-quote">some things deserve a cinema.</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- ══ WORLD 4: The Film Reel ══ -->
+    <section class="world-section world-cinema" id="world-4">
+      <div class="world-title">the film reel</div>
+      <div class="film-reel-section">
+        <div class="film-strip-wrapper">
+          <div class="film-sprockets top" id="sprockets-top"></div>
+          <div class="film-strip" id="film-strip">
+
+            <a href="gifts/gift-3.html" class="film-frame-wrap" onclick="projectorFlash(event, this.href)">
+              <div class="film-frame">
+                <div class="film-frame-still">📺</div>
+                <div class="film-frame-title">ArushiFlix</div>
+              </div>
+            </a>
+
+            <a href="gifts/gift-5.html" class="film-frame-wrap" onclick="projectorFlash(event, this.href)">
+              <div class="film-frame">
+                <div class="film-frame-still">🎬</div>
+                <div class="film-frame-title">the edit</div>
+              </div>
+            </a>
+
+            <a href="gifts/gift-11a.html" class="film-frame-wrap" onclick="projectorFlash(event, this.href)">
+              <div class="film-frame">
+                <div class="film-frame-still">🎭</div>
+                <div class="film-frame-title">she reminds me of</div>
+              </div>
+            </a>
+
+            <a href="gifts/gift-11b.html" class="film-frame-wrap" onclick="projectorFlash(event, this.href)">
+              <div class="film-frame">
+                <div class="film-frame-still">💕</div>
+                <div class="film-frame-title">our film</div>
+              </div>
+            </a>
+
+          </div>
+          <div class="film-sprockets bottom" id="sprockets-bottom"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="text-align:center;padding:3rem 2rem;background:var(--bg-dark);">
+      <p style="font-family:'Dancing Script',cursive;font-size:1.6rem;color:var(--accent-gold);">
+        happy birthday, Arushi.
+      </p>
+      <p style="font-family:'Lora',serif;font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;">
+        made with everything.
+      </p>
+    </footer>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="particles-config.js"></script>
+  <script>
+    // Ambient hearts
+    if (typeof initParticles === 'function') {
+      initParticles('particles-js', 'light');
+    }
+
+    // Generate sprocket holes
+    function makeSprockets(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var n = Math.ceil(window.innerWidth / 40);
+      for (var i = 0; i < n; i++) {
+        var hole = document.createElement('div');
+        hole.className = 'sprocket-hole';
+        el.appendChild(hole);
+      }
+    }
+    makeSprockets('sprockets-top');
+    makeSprockets('sprockets-bottom');
+
+    // Touch events for flower wrappers
+    document.querySelectorAll('.flower-wrapper').forEach(function(el) {
+      el.addEventListener('touchstart', function() {
+        this.classList.add('touched');
+      });
+      el.addEventListener('touchend', function() {
+        setTimeout(function() {
+          el.classList.remove('touched');
+        }, 1000);
+      });
+    });
+
+    // Projector flash effect
+    function projectorFlash(e, href) {
+      e.preventDefault();
+      var flash = document.getElementById('projector-flash');
+      gsap.fromTo(flash,
+        { opacity: 0, pointerEvents: 'none' },
+        { opacity: 1, duration: 0.08, ease: 'none', onComplete: function() {
+          gsap.to(flash, { opacity: 0, duration: 0.25, ease: 'power2.out', onComplete: function() {
+            window.location.href = href;
+          }});
+        }}
+      );
+    }
+
+    // GSAP ScrollTrigger entrance animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.set('#page-header', { opacity: 0, y: 30 });
+    gsap.to('#page-header', { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: 'power2.out' });
+
+    // Animate polaroids on scroll
+    gsap.utils.toArray('.polaroid').forEach(function(el, i) {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        opacity: 0, y: 40, rotation: 0, duration: 0.7,
+        delay: i * 0.12, ease: 'power2.out'
+      });
+    });
+
+    // Animate flowers on scroll
+    gsap.utils.toArray('.flower-wrapper').forEach(function(el, i) {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        opacity: 0, y: 50, scale: 0.7, duration: 0.8,
+        delay: i * 0.15, ease: 'back.out(1.5)'
+      });
+    });
+
+    // Animate envelopes on scroll
+    gsap.utils.toArray('.envelope-wrap').forEach(function(el, i) {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        opacity: 0, y: 30, duration: 0.6,
+        delay: i * 0.08, ease: 'power2.out'
+      });
+    });
+
+    // Animate film frames on scroll
+    gsap.utils.toArray('.film-frame-wrap').forEach(function(el, i) {
+      gsap.from(el, {
+        scrollTrigger: { trigger: '#world-4', start: 'top 70%' },
+        opacity: 0, x: 40, duration: 0.7,
+        delay: i * 0.15, ease: 'power2.out'
+      });
+    });
+
+    // Touch swipe for film strip
+    var strip = document.getElementById('film-strip');
+    var startX = 0;
+    strip.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+    strip.addEventListener('touchmove', function(e) {
+      var dx = startX - e.touches[0].clientX;
+      strip.scrollLeft += dx * 0.5;
+    }, { passive: true });
+  </script>
+</body>
+</html>

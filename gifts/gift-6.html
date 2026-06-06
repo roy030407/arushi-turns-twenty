@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twenty Flowers — Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      font-family: 'Lora', serif;
+      overflow-x: hidden;
+    }
+
+    .page-header {
+      text-align: center;
+      padding: 5rem 2rem 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--text-light);
+      letter-spacing: 0.05em;
+    }
+
+    .page-header p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .counter-display {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-family: 'Lora', serif;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      z-index: 100;
+      background: rgba(13, 10, 15, 0.7);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+    }
+
+    .garden-container {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .flower {
+      position: absolute;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+      filter: grayscale(0.5) opacity(0.7);
+      transform: scale(0.9);
+      user-select: none;
+      z-index: 2;
+    }
+
+    .flower:hover {
+      transform: scale(1.0) !important;
+      filter: grayscale(0.2) opacity(0.9) !important;
+    }
+
+    .flower.bloomed {
+      filter: none !important;
+      transform: scale(1.2) !important;
+      filter: drop-shadow(0 0 12px rgba(232, 160, 180, 0.7)) drop-shadow(0 0 24px rgba(232, 160, 180, 0.3)) !important;
+    }
+
+    .flower.bloomed:hover {
+      transform: scale(1.3) !important;
+    }
+
+    .reason-card {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--text-warm);
+      max-width: 200px;
+      min-width: 160px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      white-space: normal;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .reason-card.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .reason-card::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--glass-border);
+    }
+
+    .final-message {
+      text-align: center;
+      padding: 4rem 2rem 6rem;
+      opacity: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2.5rem;
+      color: var(--accent-pink);
+      position: relative;
+      z-index: 3;
+    }
+
+    .flower-wrapper {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.3"></div>
+
+  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s">← back to gifts</a>
+
+  <div class="counter-display" id="counterDisplay">0 / 20</div>
+
+  <div class="page-content" style="position:relative;z-index:1">
+    <div class="page-header">
+      <h1>twenty flowers. twenty reasons.</h1>
+      <p>click each one.</p>
+    </div>
+
+    <div class="garden-container" id="gardenContainer">
+    </div>
+
+    <div class="final-message" id="finalMessage">
+      twenty flowers. not enough. never enough.
+    </div>
+  </div>
+
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') initParticles('particles-bg', 'light');
+
+    const reasons = [
+      "the way you laugh at your own jokes before you finish them",
+      "how you make every room feel like somewhere worth staying",
+      "the way you care — completely, quietly, without making it a thing",
+      "your taste in everything. always specific, always right.",
+      "how you show up. every single time.",
+      "the faces you make when you're pretending not to find something funny",
+      "your voice when you're excited about something",
+      "how you never do anything halfway",
+      "the way you love the people you love",
+      "your sense of direction in life (and sometimes also literally)",
+      "how you manage to look stunning while doing absolutely nothing",
+      "the way you say 'acha ji' and somehow it means fifteen different things",
+      "your patience — when you choose to use it",
+      "how you turn ordinary evenings into memories without trying",
+      "the fact that you always know when something is off",
+      "your stubbornness. yes, this is a reason.",
+      "the way you dance when you think no one is watching",
+      "how you have your own standards and you don't apologize for them",
+      "your voice notes at 2am",
+      "every single day since I've known you"
+    ];
+
+    const emojis = ['🌸', '🌺', '🌼', '🌻', '🌹', '💐', '🌷', '🪷', '🌸', '🌺', '🌼', '🌻', '🌹', '💐', '🌷', '🪷', '🌸', '🌺', '🌼', '🌻'];
+
+    const positions = [
+      [10, 8], [15, 25], [8, 45], [20, 68], [12, 85],
+      [30, 12], [35, 35], [28, 55], [32, 78], [38, 90],
+      [50, 5], [52, 30], [48, 60], [55, 82], [45, 72],
+      [65, 15], [70, 40], [62, 62], [75, 85], [80, 50]
+    ];
+
+    let clickedCount = 0;
+    const container = document.getElementById('gardenContainer');
+
+    positions.forEach((pos, i) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flower-wrapper';
+      wrapper.style.top = pos[0] + '%';
+      wrapper.style.left = pos[1] + '%';
+
+      const flower = document.createElement('div');
+      flower.className = 'flower';
+      flower.textContent = emojis[i];
+      flower.setAttribute('data-index', i);
+
+      const card = document.createElement('div');
+      card.className = 'reason-card';
+      card.textContent = reasons[i];
+
+      wrapper.appendChild(card);
+      wrapper.appendChild(flower);
+      container.appendChild(wrapper);
+
+      flower.addEventListener('click', () => {
+        if (flower.classList.contains('bloomed')) return;
+
+        flower.classList.add('bloomed');
+        clickedCount++;
+
+        document.getElementById('counterDisplay').textContent = clickedCount + ' / 20';
+
+        gsap.fromTo(card, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+        card.classList.add('visible');
+
+        gsap.fromTo(flower, { scale: 1.2 }, { scale: 1.2, duration: 0.1 });
+
+        if (clickedCount === 20) {
+          setTimeout(() => {
+            const finalMsg = document.getElementById('finalMessage');
+            gsap.to(finalMsg, { opacity: 1, duration: 1.5, ease: 'power2.inOut', delay: 0.5 });
+          }, 500);
+        }
+      });
+    });
+
+    gsap.fromTo('.page-header h1', { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' });
+    gsap.fromTo('.page-header p', { opacity: 0 }, { opacity: 1, duration: 1, delay: 0.5, ease: 'power2.out' });
+
+    document.querySelectorAll('.flower').forEach((f, i) => {
+      gsap.fromTo(f, { opacity: 0, scale: 0 }, {
+        opacity: 0.7,
+        scale: 0.9,
+        duration: 0.6,
+        delay: 0.8 + i * 0.08,
+        ease: 'back.out(1.7)'
+      });
+    });
+  </script>
+</body>
+</html>

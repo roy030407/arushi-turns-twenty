@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Arushi, At Thirty — Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .back-btn-wrap {
+      position: fixed;
+      top: 1.2rem;
+      left: 1.5rem;
+      z-index: 100;
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    .page-header {
+      margin-bottom: 0.6rem;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 2.4rem;
+      color: var(--text-light);
+      letter-spacing: 0.02em;
+    }
+
+    .page-subtitle {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .envelope-area {
+      margin: 3rem auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .envelope {
+      width: 200px;
+      height: 140px;
+      background: #f0ead8;
+      position: relative;
+      margin: 0 auto 2rem;
+      border-radius: 2px;
+      perspective: 600px;
+    }
+
+    .envelope-body {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f0ead8;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .envelope-bottom-fold {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: #e4dcc8;
+      clip-path: polygon(0 100%, 50% 0%, 100% 100%);
+    }
+
+    .envelope-left-fold {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: #ece5d4;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+
+    .envelope-right-fold {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: #e8e0ce;
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: #e4dcc8;
+      clip-path: polygon(0 0, 50% 55%, 100% 0);
+      transform-origin: top center;
+      z-index: 10;
+    }
+
+    .letter-card {
+      background: #f5f0e5;
+      color: #1a1008;
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 8px;
+      padding: 3.5rem 4rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      opacity: 0;
+      transform: translateY(30px);
+      text-align: left;
+      position: relative;
+    }
+
+    .letter-salutation {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: #1a1008;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 2;
+      color: #4a3828;
+    }
+
+    .letter-body p {
+      margin-bottom: 1.4rem;
+    }
+
+    .letter-placeholder {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #8a6a54;
+      border-left: 2px solid #c8b89a;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .letter-signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: #4a3018;
+      text-align: right;
+      margin-top: 2rem;
+    }
+
+    .wax-seal {
+      width: 50px;
+      height: 50px;
+      background: var(--accent-red);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f5f0e5;
+      font-size: 0.65rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin: 2rem auto 0;
+      box-shadow: 0 2px 8px rgba(192,57,43,0.4), inset 0 1px 3px rgba(255,255,255,0.15);
+      position: relative;
+    }
+
+    .wax-seal::before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 3px;
+      bottom: 3px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .date-stamp {
+      display: inline-block;
+      margin: 1.5rem auto;
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border: 1px solid var(--glass-border);
+      padding: 0.4rem 1.2rem;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      .letter-card {
+        padding: 2.5rem 1.8rem;
+      }
+      .page-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <div class="back-btn-wrap">
+    <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
+  </div>
+
+  <div class="page-content">
+
+    <div class="page-header">
+      <h1 class="page-title">for arushi, at thirty.</h1>
+      <p class="page-subtitle">written when she was twenty. to be read when she is thirty.</p>
+    </div>
+
+    <div class="envelope-area">
+
+      <div class="envelope">
+        <div class="envelope-body">
+          <div class="envelope-left-fold"></div>
+          <div class="envelope-right-fold"></div>
+          <div class="envelope-bottom-fold"></div>
+        </div>
+        <div class="envelope-flap"></div>
+      </div>
+
+      <div class="letter-card">
+
+        <div class="letter-salutation">dear arushi,</div>
+
+        <!-- Roy will write the letter here. This card will display the full letter. -->
+
+        <div class="letter-body">
+          <p>By the time you read this, you'll already know whether you were right about yourself.</p>
+          <p>I think you were.</p>
+        </div>
+
+        <div class="letter-placeholder">
+          [The rest of the letter goes here — Roy will write this. The template is ready.]
+        </div>
+
+        <div class="letter-signature">— Roy, June 2026</div>
+
+        <div class="wax-seal">A ♥ R</div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:0.5rem;">
+        <span class="date-stamp">Written: June 2026 · Open: June 2036</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS !== 'undefined') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 50, density: { enable: true, value_area: 800 } },
+          color: { value: '#d4a853' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.15, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.5, direction: 'none', random: true, straight: false, out_mode: 'out' }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+        },
+        retina_detect: true
+      });
+    }
+
+    gsap.to('.envelope-flap', {
+      rotateX: -180,
+      duration: 0.8,
+      ease: 'power2.inOut',
+      transformOrigin: 'top',
+      delay: 1
+    });
+
+    gsap.to('.letter-card', {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      delay: 1.8,
+      ease: 'power2.out'
+    });
+  </script>
+
+</body>
+</html>

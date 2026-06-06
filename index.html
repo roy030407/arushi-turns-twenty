@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Page-specific styles */
+    body { overflow: hidden; }
+
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .lyrics-container {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .lyrics-line {
+      position: absolute;
+      white-space: nowrap;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: var(--accent-pink);
+      opacity: 0.10;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    @keyframes drift-diagonal {
+      from { transform: translate(-30vw, 110vh); }
+      to   { transform: translate(130vw, -20vh); }
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      gap: 1.5rem;
+    }
+
+    .for-label {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.05em;
+    }
+
+    .photo-circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-pink);
+      box-shadow: 0 0 30px rgba(232,160,180,0.4), 0 0 60px rgba(232,160,180,0.15);
+    }
+
+    .photo-placeholder-circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 3px solid var(--accent-pink);
+      box-shadow: 0 0 30px rgba(232,160,180,0.4), 0 0 60px rgba(232,160,180,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .roy-note {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 300px;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .countdown-display {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .countdown-unit {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      min-width: 80px;
+      text-align: center;
+      padding: 1rem 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .countdown-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: var(--text-light);
+      line-height: 1;
+      display: block;
+      font-weight: 600;
+    }
+
+    .countdown-label {
+      font-family: 'Lora', serif;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    .its-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2.5rem;
+      color: var(--accent-pink);
+      text-align: center;
+    }
+
+    .gifts-btn {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-light);
+      background: transparent;
+      border: 1px solid var(--accent-pink);
+      border-radius: 50px;
+      padding: 0.9rem 2.8rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease-out;
+      margin-top: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .gifts-btn::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -100%;
+      width: 60%;
+      height: calc(100% + 4px);
+      background: linear-gradient(90deg, transparent, rgba(232,160,180,0.4), transparent);
+      animation: shimmer-sweep 2.5s infinite;
+    }
+
+    @keyframes shimmer-sweep {
+      0%   { left: -100%; }
+      100% { left: 200%;  }
+    }
+
+    .gifts-btn:hover {
+      background: linear-gradient(135deg, rgba(232,160,180,0.15), rgba(192,57,43,0.1));
+      box-shadow: 0 0 25px rgba(232,160,180,0.3);
+      transform: scale(1.03);
+    }
+
+    .gifts-btn.unlocked {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      box-shadow: 0 0 20px rgba(212,168,83,0.3);
+    }
+
+    /* Popup */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .popup-box {
+      background: #080005;
+      border-radius: 24px;
+      padding: 2.5rem 3rem;
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 0 40px rgba(232,160,180,0.35), 0 0 80px rgba(192,57,43,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
+      animation: popup-pulse 3s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    @keyframes popup-pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.01); }
+    }
+
+    .popup-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--text-light);
+      text-align: center;
+      min-height: 2.5em;
+    }
+
+    .popup-subtext {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      margin-top: 1rem;
+    }
+
+    .popup-subtext.visible {
+      opacity: 1;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      line-height: 1;
+    }
+
+    .popup-close:hover {
+      color: var(--text-light);
+    }
+
+    @keyframes popup-heart-rise {
+      0%   { transform: translateY(0) scale(1);  opacity: 0.6; }
+      100% { transform: translateY(-120px) scale(0.5); opacity: 0; }
+    }
+
+    .popup-heart {
+      position: absolute;
+      pointer-events: none;
+      animation: popup-heart-rise 2.5s ease-in infinite;
+      color: var(--accent-pink);
+      bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .countdown-num { font-size: 2.5rem; }
+      .countdown-unit { min-width: 60px; padding: 0.7rem 0.9rem; }
+      .main-content { gap: 1.2rem; }
+      .for-label { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Particles background -->
+  <div id="particles-js"></div>
+
+  <!-- Lyrics drifting across screen -->
+  <div class="lyrics-container" id="lyrics-container"></div>
+
+  <!-- Main centred content -->
+  <main class="main-content">
+    <div class="for-label entrance-1">for arushi, with everything</div>
+
+    <!-- Photo (Roy will replace src) -->
+    <div class="photo-placeholder-circle entrance-2" id="photo-area">
+      <span>add photo:<br>arushi-main.jpg</span>
+    </div>
+    <!-- To use real photo, replace the div above with:
+    <img src="assets/photos/arushi-main.jpg" alt="Arushi" class="photo-circle entrance-2"> -->
+
+    <!-- Roy's note (PLACEHOLDER) -->
+    <p class="roy-note entrance-3">
+      <!-- PLACEHOLDER: Roy will replace this with his note -->
+      every single day i find a new reason.<br>happy birthday.
+    </p>
+
+    <!-- Countdown timer -->
+    <div class="countdown-display entrance-4" id="countdown-display">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">000</span>
+        <span class="countdown-label">days</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">00</span>
+        <span class="countdown-label">hrs</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-mins">00</span>
+        <span class="countdown-label">min</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-secs">00</span>
+        <span class="countdown-label">sec</span>
+      </div>
+    </div>
+
+    <!-- Button -->
+    <button class="gifts-btn entrance-5" id="gifts-btn" onclick="handleGiftsBtn()">
+      open your gifts
+    </button>
+  </main>
+
+  <!-- Early-access popup -->
+  <div class="popup-overlay" id="popup-overlay">
+    <div class="popup-box" id="popup-box">
+      <button class="popup-close" onclick="closePopup()">×</button>
+      <div class="popup-text" id="popup-text"></div>
+      <div class="popup-subtext" id="popup-subtext">come back when the clock says it's time</div>
+      <!-- Floating hearts inside popup -->
+      <span class="popup-heart" style="left:15%;animation-delay:0s;font-size:1.2rem;">♥</span>
+      <span class="popup-heart" style="left:35%;animation-delay:0.8s;font-size:0.9rem;">♥</span>
+      <span class="popup-heart" style="left:60%;animation-delay:1.6s;font-size:1.4rem;">♥</span>
+      <span class="popup-heart" style="left:80%;animation-delay:0.4s;font-size:1rem;">♥</span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="particles-config.js"></script>
+  <script>
+    // ── Particles ──────────────────────────────────────────────────────────
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 40, density: { enable: true, value_area: 800 } },
+        color: { value: ['#e8a0b4', '#c0392b', '#7b2d8b'] },
+        shape: {
+          type: 'char',
+          character: { value: '♥', font: 'Verdana', style: '', weight: '400' }
+        },
+        opacity: { value: 0.5, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false } },
+        size: { value: 14, random: true, anim: { enable: true, speed: 2, size_min: 6, sync: false } },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 1.2, direction: 'top', random: true, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: false }, resize: true },
+        modes: { repulse: { distance: 100, duration: 0.4 } }
+      },
+      retina_detect: true
+    });
+
+    // ── Lyrics ticker ──────────────────────────────────────────────────────
+    var lyrics = [
+      "a thousand years... I have loved you for a thousand years",
+      "raataan lambiyan... teriyan meriyan",
+      "until I found you, I was never whole",
+      "suniyan suniyan, dil di gal suniyan",
+      "heaven, I'm in heaven",
+      "ik tara bole... tun tun tara",
+      "because I'm happy...",
+      "it's your birthday and I want it to be special",
+      "my love, always"
+    ];
+
+    var container = document.getElementById('lyrics-container');
+
+    lyrics.forEach(function(lyric, i) {
+      var el = document.createElement('div');
+      el.className = 'lyrics-line';
+      el.textContent = lyric;
+      var duration = 65 + (i % 4) * 8;
+      var delay = -(i * (duration / lyrics.length));
+      var vertPos = 10 + (i * 10) % 80;
+      el.style.cssText = [
+        'animation: drift-diagonal ' + duration + 's linear ' + delay + 's infinite',
+        'bottom: ' + vertPos + '%',
+        'left: 0'
+      ].join(';');
+      container.appendChild(el);
+    });
+
+    // ── Countdown ─────────────────────────────────────────────────────────
+    var target = new Date('2026-06-12T00:00:00+03:00');
+    var unlocked = false;
+
+    function pad(n, len) {
+      var s = String(n);
+      while (s.length < (len || 2)) s = '0' + s;
+      return s;
+    }
+
+    function updateCountdown() {
+      var now  = new Date();
+      var diff = target - now;
+
+      if (diff <= 0) {
+        unlocked = true;
+        document.getElementById('countdown-display').innerHTML =
+          "<span class='its-time'>it's time, my love 🌸</span>";
+        document.getElementById('gifts-btn').classList.add('unlocked');
+        clearInterval(timer);
+        return;
+      }
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent  = pad(days, 3);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+
+    var timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ── Button handler ────────────────────────────────────────────────────
+    function handleGiftsBtn() {
+      if (unlocked) {
+        window.location.href = 'gifts.html';
+      } else {
+        showPopup();
+      }
+    }
+
+    // ── Popup ─────────────────────────────────────────────────────────────
+    function showPopup() {
+      var overlay = document.getElementById('popup-overlay');
+      overlay.classList.add('active');
+      typewriter(document.getElementById('popup-text'), "you're still 19 baby 🥺", 45, function() {
+        setTimeout(function() {
+          document.getElementById('popup-subtext').classList.add('visible');
+        }, 1500);
+      });
+    }
+
+    function closePopup() {
+      var overlay = document.getElementById('popup-overlay');
+      overlay.classList.remove('active');
+      document.getElementById('popup-text').textContent = '';
+      document.getElementById('popup-subtext').classList.remove('visible');
+    }
+
+    function typewriter(el, text, ms, cb) {
+      el.textContent = '';
+      var i = 0;
+      function tick() {
+        if (i < text.length) {
+          el.textContent += text[i++];
+          setTimeout(tick, ms);
+        } else if (cb) cb();
+      }
+      tick();
+    }
+
+    // Close popup on overlay click
+    document.getElementById('popup-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closePopup();
+    });
+
+    // ── GSAP entrance animations ──────────────────────────────────────────
+    gsap.set('.entrance-1,.entrance-2,.entrance-3,.entrance-4,.entrance-5',
+      { opacity: 0, y: 24 });
+    gsap.to('.entrance-1', { opacity: 1, y: 0, duration: 0.7, delay: 0.2, ease: 'power2.out' });
+    gsap.to('.entrance-2', { opacity: 1, y: 0, duration: 0.7, delay: 0.4, ease: 'power2.out' });
+    gsap.to('.entrance-3', { opacity: 1, y: 0, duration: 0.7, delay: 0.6, ease: 'power2.out' });
+    gsap.to('.entrance-4', { opacity: 1, y: 0, duration: 0.7, delay: 0.8, ease: 'power2.out' });
+    gsap.to('.entrance-5', { opacity: 1, y: 0, duration: 0.7, delay: 1.0, ease: 'power2.out' });
+  </script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Playlist, Spelled Out For You · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    .back-btn {
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-bottom: 2.5rem;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: var(--accent-pink); }
+
+    .page-header {
+      margin-bottom: 0.6rem;
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-light);
+      line-height: 1.2;
+    }
+    .page-subtext {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 2.8rem;
+      line-height: 1.7;
+    }
+
+    /* Song list */
+    .song-list {
+      list-style: none;
+      margin-bottom: 2.5rem;
+    }
+
+    .song-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1rem 0.5rem;
+      border-bottom: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: background 0.25s;
+      border-radius: 8px;
+    }
+    .song-row:hover {
+      background: var(--glass);
+    }
+
+    .song-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      color: var(--accent-pink);
+      min-width: 50px;
+      text-align: center;
+      line-height: 1;
+      flex-shrink: 0;
+      text-shadow: 0 0 18px rgba(232,160,180,0.45);
+      transition: text-shadow 0.3s;
+    }
+    .song-row:hover .song-letter {
+      text-shadow: 0 0 28px rgba(232,160,180,0.75);
+    }
+
+    .song-info { flex: 1; }
+    .song-title {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+    .song-artist {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Reveal button */
+    .reveal-btn {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 0.75rem 2.5rem;
+      background: transparent;
+      border: 1.5px solid var(--accent-pink);
+      border-radius: 50px;
+      color: var(--accent-pink);
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+    .reveal-btn:hover {
+      background: rgba(232,160,180,0.12);
+      box-shadow: 0 0 20px rgba(232,160,180,0.3);
+    }
+
+    /* Acrostic reveal */
+    #acrostic-reveal {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin: 1.5rem 0;
+    }
+    #acrostic-reveal.active { display: block; }
+
+    .acrostic-letters {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .acro-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 600;
+      color: var(--accent-pink);
+      text-shadow: 0 0 30px rgba(232,160,180,0.7), 0 0 60px rgba(232,160,180,0.3);
+      opacity: 0;
+      transform: translateY(20px) scale(0.85);
+      transition: opacity 0.5s ease, transform 0.5s ease, text-shadow 0.5s ease;
+      display: inline-block;
+      line-height: 1;
+    }
+    .acro-letter.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .acrostic-message {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-warm);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+      line-height: 1.5;
+    }
+    .acrostic-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Spotify embed */
+    .spotify-container {
+      margin-top: 3rem;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--bg-card);
+      padding: 0.5rem;
+      border: 1px solid var(--glass-border);
+    }
+    .spotify-label {
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 0.6rem 0 0.2rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .song-letter { font-size: 2.5rem; min-width: 38px; }
+      .song-row { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <div class="page-content">
+    <a href="../gifts.html" class="back-btn">← back to gifts</a>
+
+    <div class="page-header">
+      <h1>a playlist. spelled out for you.</h1>
+    </div>
+    <p class="page-subtext">Read the first letter of each song. Then read them again, together.</p>
+
+    <ul class="song-list" id="songList">
+
+      <li class="song-row">
+        <span class="song-letter">A</span>
+        <div class="song-info">
+          <div class="song-title">a thousand years</div>
+          <div class="song-artist">Christina Perri</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">R</span>
+        <div class="song-info">
+          <div class="song-title">Raataan Lambiyan</div>
+          <div class="song-artist">Tanishk Bagchi</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">U</span>
+        <div class="song-info">
+          <div class="song-title">Until I Found You</div>
+          <div class="song-artist">Stephen Sanchez &amp; Em Beihold</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">S</span>
+        <div class="song-info">
+          <div class="song-title">Suniyan Suniyan</div>
+          <div class="song-artist">Juss &amp; MixSingh</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">H</span>
+        <div class="song-info">
+          <div class="song-title">Heaven</div>
+          <div class="song-artist">Julia Michaels</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">I</span>
+        <div class="song-info">
+          <div class="song-title">Iktara</div>
+          <div class="song-artist">Amit Trivedi</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">H</span>
+        <div class="song-info">
+          <div class="song-title">Happy</div>
+          <div class="song-artist">Pharrell Williams</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">2</span>
+        <div class="song-info">
+          <div class="song-title">20</div>
+          <div class="song-artist">Annie DiRusso</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">B</span>
+        <div class="song-info">
+          <div class="song-title">Birthday</div>
+          <div class="song-artist">Anne-Marie</div>
+        </div>
+      </li>
+
+      <li class="song-row">
+        <span class="song-letter">M</span>
+        <div class="song-info">
+          <div class="song-title">My Love</div>
+          <div class="song-artist">Route 94 &amp; Jess Glynne</div>
+        </div>
+      </li>
+
+    </ul>
+
+    <button class="reveal-btn" id="revealBtn" onclick="revealAcrostic()">see what it spells →</button>
+
+    <div id="acrostic-reveal">
+      <div class="acrostic-letters" id="acrosticLetters">
+        <span class="acro-letter" data-i="0">A</span>
+        <span class="acro-letter" data-i="1">R</span>
+        <span class="acro-letter" data-i="2">U</span>
+        <span class="acro-letter" data-i="3">S</span>
+        <span class="acro-letter" data-i="4">H</span>
+        <span class="acro-letter" data-i="5">I</span>
+      </div>
+      <p class="acrostic-message" id="acrosticMessage">
+        happy 20th birthday, my love
+      </p>
+    </div>
+
+    <div class="spotify-container">
+      <div class="spotify-label">the full playlist ↓</div>
+      <iframe
+        style="border-radius:12px"
+        src="https://open.spotify.com/embed/playlist/3QfgMUQDcNBc3HzH38diUi?utm_source=generator&theme=0"
+        width="100%" height="380"
+        frameBorder="0" allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+
+  <script>
+    // Init particles
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 35, density: { enable: true, value_area: 900 } },
+          color: { value: ['#e8a0b4', '#d4a853', '#7b2d8b'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.35, random: true },
+          size: { value: 2.5, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.5, random: true, out_mode: 'out' }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+        },
+        retina_detect: true
+      });
+    }
+
+    // Acrostic reveal
+    let revealed = false;
+    function revealAcrostic() {
+      if (revealed) return;
+      revealed = true;
+
+      const btn = document.getElementById('revealBtn');
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+
+      const container = document.getElementById('acrostic-reveal');
+      container.classList.add('active');
+
+      const letters = document.querySelectorAll('.acro-letter');
+      letters.forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add('show');
+        }, i * 160);
+      });
+
+      const totalLetterTime = letters.length * 160 + 500;
+      setTimeout(() => {
+        const msg = document.getElementById('acrosticMessage');
+        msg.classList.add('show');
+      }, totalLetterTime);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Letter · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+    }
+
+    /* Ambient starlike dots */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, rgba(255,255,230,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 25% 40%, rgba(212,168,83,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 70%, rgba(255,255,230,0.03) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 20%, rgba(212,168,83,0.05) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 55%, rgba(255,255,230,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 80%, rgba(212,168,83,0.03) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 85%, rgba(255,255,230,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 50%, rgba(212,168,83,0.03) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 10%, rgba(255,255,230,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 35%, rgba(212,168,83,0.04) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 5% 60%, rgba(255,255,230,0.03) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 70% 90%, rgba(212,168,83,0.03) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 30%, rgba(255,255,230,0.05) 0%, transparent 100%),
+        radial-gradient(1px 1px at 20% 65%, rgba(212,168,83,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 10%, rgba(255,255,230,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 95%, rgba(212,168,83,0.03) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 50%, rgba(255,255,230,0.03) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 75%, rgba(212,168,83,0.04) 0%, transparent 100%),
+        radial-gradient(1px 1px at 95% 45%, rgba(255,255,230,0.03) 0%, transparent 100%),
+        radial-gradient(1px 1px at 8% 30%, rgba(212,168,83,0.04) 0%, transparent 100%);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--text-light);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-intro {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    .embed-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .letter-card {
+      background: #f5f0e8;
+      color: #1a1008;
+      border-radius: 16px;
+      padding: 3rem 3.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      font-family: 'Lora', serif;
+      line-height: 1.9;
+    }
+
+    .letter-salutation {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: #1a1008;
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-placeholder {
+      color: #4a3828;
+      font-size: 1rem;
+      font-style: italic;
+      opacity: 0.6;
+    }
+
+    .letter-sign {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: #1a1008;
+      margin-top: 2rem;
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      .letter-card {
+        padding: 2rem 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
+
+  <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.25"></div>
+
+  <div style="position:relative;z-index:1">
+
+    <div class="page-header">
+      <h1>a letter. for you.</h1>
+    </div>
+
+    <p class="page-intro">
+      written word by word. because some things need to be said properly.
+    </p>
+
+    <div class="embed-container">
+
+      <!--
+        PLACEHOLDER:
+        Option A — Replace with Letterbyheart.com embed URL:
+        <iframe src="YOUR_LETTERBYHEART_URL" width="100%" height="700px" frameborder="0" style="border-radius:16px;"></iframe>
+
+        Option B — Replace with the letter text directly (if no embed):
+        Use the styled letter card below.
+      -->
+
+      <!-- Letter card placeholder (shown until embed is added) -->
+      <div class="letter-card">
+        <p class="letter-salutation">dear arushi,</p>
+        <p class="letter-placeholder"><!-- PLACEHOLDER: Roy will write the letter here and either paste it as text or embed it via Letterbyheart --></p>
+        <p class="letter-sign">— Roy</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 40, density: { enable: true, value_area: 800 } },
+          color: { value: ['#d4a853', '#f5f0eb', '#e8a0b4'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.35, random: true },
+          size: { value: 1.5, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.4, direction: 'none', random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
+        retina_detect: true
+      });
+    }
+
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.page-header h1', {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        ease: 'power3.out'
+      });
+
+      gsap.from('.page-intro', {
+        opacity: 0,
+        y: 15,
+        duration: 0.9,
+        delay: 0.3,
+        ease: 'power3.out'
+      });
+
+      gsap.from('.letter-card', {
+        opacity: 0,
+        y: 30,
+        duration: 1.1,
+        delay: 0.5,
+        ease: 'power3.out'
+      });
+    }
+  </script>
+</body>
+</html>

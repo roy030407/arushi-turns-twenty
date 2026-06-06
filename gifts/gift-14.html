@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Case Against Roy · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      padding: 4rem 2rem 3rem;
+    }
+
+    .page-wrapper {
+      padding: 3rem 2rem;
+    }
+
+    .document-card {
+      background: #f2ead8;
+      color: #1a1008;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 6px;
+      padding: 4rem 4.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      position: relative;
+    }
+
+    .document-card::before {
+      content: '';
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(0,0,0,0.12);
+      pointer-events: none;
+    }
+
+    .document-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .court-seal {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid #4a3018;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      background: #f0e5c8;
+      gap: 0.15rem;
+    }
+
+    .court-seal .seal-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .court-seal .seal-text {
+      font-size: 0.5rem;
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4a3018;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .doc-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 2rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #1a1008;
+      line-height: 1.25;
+    }
+
+    .doc-sub-heading {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #4a3018;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-ruled-line {
+      border: 0;
+      border-top: 2px solid #8a7060;
+      margin-bottom: 2rem;
+    }
+
+    .doc-body {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: #1a1008;
+    }
+
+    .doc-body p + p {
+      margin-top: 0.9rem;
+    }
+
+    .doc-section-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #1a1008;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid #c0a870;
+      padding-bottom: 0.3rem;
+    }
+
+    .exhibit-label {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5a2010;
+    }
+
+    .verdict-stamp {
+      text-align: center;
+      margin: 3rem 0 1rem;
+      position: relative;
+    }
+
+    .verdict-stamp-inner {
+      display: inline-block;
+      border: 3px solid #8b0000;
+      padding: 0.8rem 2rem;
+      transform: rotate(-2deg);
+      position: relative;
+    }
+
+    .verdict-word {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      color: #8b0000;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .verdict-sub {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      color: #8b0000;
+      opacity: 0.7;
+      margin-top: 0.2rem;
+    }
+
+    .doc-closing {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: #1a1008;
+      margin-top: 1.5rem;
+    }
+
+    .doc-signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: #4a3018;
+      text-align: right;
+      margin-top: 2rem;
+    }
+
+    .page-note {
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .document-card {
+        padding: 3rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
+
+  <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.25"></div>
+
+  <div style="position:relative;z-index:1">
+    <div class="page-wrapper">
+
+      <div class="document-card">
+        <div class="document-inner">
+
+          <!-- Court Seal -->
+          <div class="court-seal">
+            <span class="seal-icon">⚖</span>
+            <span class="seal-text">COURT SEAL</span>
+          </div>
+
+          <!-- Document Heading -->
+          <div class="doc-heading">IN THE MATTER OF: THE HEART v. ROY</div>
+          <div class="doc-sub-heading">Case No. 002006 · Docket: You Know What You Did</div>
+
+          <hr class="doc-ruled-line" />
+
+          <!-- Preamble -->
+          <div class="doc-section-header">PREAMBLE</div>
+          <div class="doc-body">
+            <p>This matter comes before the Court on the petition of The Heart, seeking formal acknowledgment of the following: that one Roy, hereinafter 'the Defendant,' has conducted himself in a manner that — while technically defensible — has resulted in a series of events the Defendant was fully aware would result in exactly this outcome.</p>
+            <p>The Heart files this action not out of complaint, but out of an obligation to the record.</p>
+          </div>
+
+          <!-- Exhibit A -->
+          <div class="doc-section-header">
+            <span class="exhibit-label">EXHIBIT A:</span> THE ORDINARY THINGS HE NOTICED
+          </div>
+          <div class="doc-body">
+            <p>The Defendant noticed the way she laughs at her own jokes. The particular sound of her voice when she's excited about something she wants to explain. The face she makes when she's pretending something isn't funny. The way she enters a room. The way she talks when she forgets to edit herself. The way she exists, generally.</p>
+            <p>The Court notes that noticing these things is not, in itself, actionable. The Court also notes that the Defendant noticed all of them and filed them carefully, which suggests intent.</p>
+          </div>
+
+          <!-- Exhibit B -->
+          <div class="doc-section-header">
+            <span class="exhibit-label">EXHIBIT B:</span> THE RECORD OF PATIENCE
+          </div>
+          <div class="doc-body">
+            <p>The Defendant waited. He waited through Sirf Dost. He waited through 'we're just friends' said with decreasing conviction. He waited through every group call, every late text, every exam season, every distance.</p>
+            <p>The Heart submits that this kind of patience is either extremely disciplined or completely inevitable — and that in this case, it was both.</p>
+          </div>
+
+          <!-- Exhibit C -->
+          <div class="doc-section-header">
+            <span class="exhibit-label">EXHIBIT C:</span> THE ONGOING OFFENCE
+          </div>
+          <div class="doc-body">
+            <p>The Defendant continues, as of the date of this filing, to be exactly himself. He has made no attempt to be less. The Heart finds this unreasonable and fully intends to continue finding it so.</p>
+          </div>
+
+          <!-- Verdict Stamp -->
+          <div class="verdict-stamp">
+            <div class="verdict-stamp-inner">
+              <div class="verdict-word">GUILTY</div>
+              <div class="verdict-sub">Lucky. Indefinitely.</div>
+            </div>
+          </div>
+
+          <!-- Closing -->
+          <div class="doc-closing">
+            The Heart rests. The matter is ongoing. Court adjourned.
+          </div>
+
+          <div class="doc-signature">The Heart</div>
+
+        </div>
+      </div>
+
+      <div class="page-note">this is a legal document. it is completely binding. there is no appeals process.</div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 50, density: { enable: true, value_area: 800 } },
+          color: { value: ['#d4a853', '#e8a0b4', '#c0392b'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.35, random: true },
+          size: { value: 1.8, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.5, direction: 'none', random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
+        retina_detect: true
+      });
+    }
+
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.document-card', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: 'power3.out',
+        delay: 0.2
+      });
+
+      gsap.from('.court-seal', {
+        opacity: 0,
+        scale: 0.7,
+        duration: 0.9,
+        ease: 'back.out(1.7)',
+        delay: 0.6
+      });
+
+      gsap.from('.verdict-stamp-inner', {
+        opacity: 0,
+        scale: 0.5,
+        rotation: -10,
+        duration: 0.7,
+        ease: 'back.out(1.4)',
+        delay: 0.2,
+        scrollTrigger: {
+          trigger: '.verdict-stamp',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+
+      // Fallback for verdict stamp if ScrollTrigger not available
+      setTimeout(() => {
+        const stamp = document.querySelector('.verdict-stamp-inner');
+        if (stamp && getComputedStyle(stamp).opacity < 0.5) {
+          gsap.to(stamp, { opacity: 1, scale: 1, rotation: -2, duration: 0.7, ease: 'back.out(1.4)' });
+        }
+      }, 800);
+    }
+  </script>
+</body>
+</html>

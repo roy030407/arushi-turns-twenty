@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dil Ka Nautanki · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      padding: 4rem 1.5rem;
+    }
+
+    .outer-container {
+      max-width: 720px;
+      margin: 3rem auto;
+      padding: 2rem;
+    }
+
+    .booklet {
+      background: #f5f0e5;
+      color: #1a1008;
+      border-radius: 8px;
+      padding: 3rem 3.5rem;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+
+    .booklet::before {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      outline: 2px solid #8a7a5a;
+      outline-offset: 0;
+      pointer-events: none;
+    }
+
+    .booklet-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .film-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 3rem;
+      color: #1a1008;
+      letter-spacing: 0.05em;
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    .film-tagline {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: #4a3828;
+      text-align: center;
+      margin-top: 0.6rem;
+    }
+
+    .film-epigraph {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: #8a6a20;
+      text-align: center;
+      margin-top: 0.6rem;
+    }
+
+    .booklet-hr {
+      border: 0;
+      border-top: 1px solid #c0a870;
+      margin: 1.5rem 0;
+    }
+
+    .booklet-section-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #1a1008;
+      border-bottom: 1px solid #8a7a5a;
+      padding-bottom: 0.3rem;
+      margin: 2rem 0 0.8rem;
+    }
+
+    .booklet-body {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: #1a1008;
+    }
+
+    .booklet-body p + p {
+      margin-top: 1rem;
+    }
+
+    .cast-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      color: #1a1008;
+    }
+
+    .cast-table td {
+      padding: 0.3rem 0.5rem;
+    }
+
+    .cast-table td:first-child {
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .cast-table td:nth-child(2) {
+      padding: 0.3rem 0.8rem;
+      color: #6a5840;
+    }
+
+    .interval-card {
+      border: 1.5px dashed #a08050;
+      background: #ede5cf;
+      padding: 1.5rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .interval-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #1a1008;
+      letter-spacing: 0.05em;
+    }
+
+    .interval-body {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #4a3828;
+      margin-top: 0.5rem;
+    }
+
+    .hindi-verse-box {
+      border: 1.5px dashed #a08050;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .hindi-verse {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #2a1808;
+      line-height: 1.9;
+    }
+
+    .page-note {
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
+
+  <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.25"></div>
+
+  <div style="position:relative;z-index:1">
+    <div class="outer-container">
+
+      <div class="booklet">
+        <div class="booklet-inner">
+
+          <div class="film-title">DIL KA NAUTANKI</div>
+          <div class="film-tagline">a film about being obvious and getting away with it</div>
+          <div class="film-epigraph">Dost the. Phir kya hua? Wahi hua jo hona tha.</div>
+
+          <hr class="booklet-hr" />
+
+          <div class="booklet-section-header">STARRING</div>
+
+          <table class="cast-table">
+            <tbody>
+              <tr>
+                <td>Arushi Pundir</td>
+                <td>...</td>
+                <td>as Herself (in all her complexity)</td>
+              </tr>
+              <tr>
+                <td>Roy</td>
+                <td>...</td>
+                <td>as The One Who Noticed First</td>
+              </tr>
+              <tr>
+                <td>The Group Chat</td>
+                <td>...</td>
+                <td>as Greek Chorus</td>
+              </tr>
+              <tr>
+                <td>That One Exam Season</td>
+                <td>...</td>
+                <td>as The Antagonist</td>
+              </tr>
+              <tr>
+                <td>Distance</td>
+                <td>...</td>
+                <td>as Plot Device</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr class="booklet-hr" />
+
+          <div class="booklet-section-header">ACT ONE: THE MEET</div>
+          <div class="booklet-body">
+            <p>The setting: unremarkable. Two people in the same place at the same time, as people often are. No significant eye contact. No dramatic music. No slow-motion hair flip. Just: oh, this person exists. Noted. Filed. Moved on.</p>
+            <p>Except not moved on. Because here is the thing about her — she is the kind of person you notice and then cannot un-notice. Not because she is trying to be noticed. Because she is simply being herself, which turns out to be a lot.</p>
+          </div>
+
+          <div class="booklet-section-header">ACT TWO: SIRF DOST</div>
+          <div class="booklet-body">
+            <p>The declaration: 'We are just friends.' Repeated with increasing conviction to decreasing audiences. The group chat knows. The timing of the texts knows. The way he saves her name in his phone knows.</p>
+            <p>She, for her part, is entirely plausible as Just Friends. This is the most unnerving part. She is good at things. She is good at this. She says 'yaar' with exactly the correct frequency and laughs at the appropriate moments and genuinely seems to mean it.</p>
+            <p>Reader: she does not mean it in the way she says it. Neither does he. They both know. They both continue.</p>
+          </div>
+
+          <div class="interval-card">
+            <div class="interval-title">INTERVAL</div>
+            <div class="interval-body">snacks are available in the lobby. the characters are also taking a break to figure things out.</div>
+          </div>
+
+          <div class="booklet-section-header">ACT THREE: CLARITY (FINALLY)</div>
+          <div class="booklet-body">
+            <p>There is a moment — not dramatic, not orchestrated — when the obvious becomes something you say out loud instead of just knowing.</p>
+            <p>It is not a grand gesture. It is not a montage. It is just: finally. Finally the word catches up with the feeling. Finally the conversation is the conversation it has been trying to be.</p>
+            <p>She looks exactly the way she always has. That is, of course, the entire point.</p>
+          </div>
+
+          <div class="booklet-section-header">THE OPEN ENDING</div>
+          <div class="booklet-body">
+            <p>This film does not end. It is still in production. The leads are still in it. The story is still being written.</p>
+            <p>Rating: inevitable. Running time: ongoing. Sequels: expected.</p>
+          </div>
+
+          <div class="hindi-verse-box">
+            <div class="hindi-verse">
+              वो किसी के बारे में नहीं सोचता था।<br />
+              फिर वो आई।<br />
+              अब वो उसके बारे में सोचता है।
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="page-note">this is a true story. names have not been changed. everyone already knows anyway.</div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 50, density: { enable: true, value_area: 800 } },
+          color: { value: ['#d4a853', '#e8a0b4', '#7b2d8b'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.4, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.5, direction: 'none', random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
+        retina_detect: true
+      });
+    }
+
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.booklet', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: 'power3.out'
+      });
+    }
+  </script>
+</body>
+</html>

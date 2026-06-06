@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawn For You — Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 1.5rem 5rem;
+      text-align: center;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 2.4rem;
+      color: var(--text-light);
+      letter-spacing: 0.02em;
+    }
+
+    .page-subtitle {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .gallery-area {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .sketch-frame {
+      background: #f5f0e5;
+      border-radius: 4px;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      display: inline-block;
+      position: relative;
+      transition: box-shadow 0.4s ease;
+      cursor: default;
+    }
+
+    .sketch-frame:hover {
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 40px rgba(212,168,83,0.15);
+    }
+
+    .sketch-frame::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 1px solid rgba(160,140,110,0.25);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .sketch-matte {
+      position: relative;
+      z-index: 0;
+    }
+
+    .sketch-placeholder {
+      width: 400px;
+      max-width: 100%;
+      aspect-ratio: 3/4;
+      background: #ede5d8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: #8a7a6a;
+      font-style: italic;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 2px;
+    }
+
+    .sketch-placeholder .pencil-icon {
+      font-size: 3rem;
+      display: block;
+    }
+
+    .sketch-placeholder .coming-soon {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #8a7a6a;
+    }
+
+    .sketch-placeholder .path-hint {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      font-family: 'Lora', serif;
+    }
+
+    .sketch-label {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: #4a3018;
+      text-align: center;
+      margin-top: 0.8rem;
+    }
+
+    .ambient-marks {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .pencil-mark {
+      position: fixed;
+      opacity: 0.04;
+      border-radius: 50%;
+      filter: blur(40px);
+    }
+
+    .pencil-mark-1 {
+      width: 300px;
+      height: 80px;
+      background: #d4a853;
+      top: 20%;
+      left: 5%;
+      transform: rotate(-15deg);
+    }
+
+    .pencil-mark-2 {
+      width: 200px;
+      height: 60px;
+      background: #e8a0b4;
+      bottom: 25%;
+      right: 8%;
+      transform: rotate(10deg);
+    }
+
+    .pencil-mark-3 {
+      width: 150px;
+      height: 50px;
+      background: #9e8a9e;
+      top: 60%;
+      left: 3%;
+      transform: rotate(5deg);
+    }
+
+    @media (max-width: 500px) {
+      .sketch-frame {
+        padding: 1.2rem;
+      }
+      .page-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <div class="pencil-mark pencil-mark-1"></div>
+  <div class="pencil-mark pencil-mark-2"></div>
+  <div class="pencil-mark pencil-mark-3"></div>
+
+  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
+
+  <div class="page-content">
+
+    <div class="page-header">
+      <h1 class="page-title">drawn for you.</h1>
+      <p class="page-subtitle">by hand. imperfect. made with love.</p>
+    </div>
+
+    <div class="gallery-area">
+
+      <div class="sketch-frame">
+        <div class="sketch-matte">
+
+          <!-- PLACEHOLDER: Roy will add the sketch image to: assets/photos/sketch.jpg -->
+          <!-- Replace the div below with: <img src="../assets/photos/sketch.jpg" alt="A sketch, made for Arushi" style="display:block;max-width:100%;border-radius:2px;"> -->
+
+          <div class="sketch-placeholder">
+            <span class="pencil-icon">&#9999;&#65039;</span>
+            <span class="coming-soon">sketch coming soon.</span>
+            <span class="path-hint">add sketch.jpg to assets/photos/</span>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="sketch-label">— drawn by Roy, June 2026</p>
+
+    </div>
+
+  </div>
+
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS !== 'undefined') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 40, density: { enable: true, value_area: 800 } },
+          color: { value: '#d4a853' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.12, random: true },
+          size: { value: 1.5, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.4, direction: 'none', random: true, straight: false, out_mode: 'out' }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+        },
+        retina_detect: true
+      });
+    }
+
+    gsap.from('.page-header', {
+      opacity: 0,
+      y: -20,
+      duration: 1,
+      ease: 'power2.out',
+      delay: 0.3
+    });
+
+    gsap.from('.sketch-frame', {
+      opacity: 0,
+      y: 30,
+      duration: 1.2,
+      ease: 'power2.out',
+      delay: 0.6
+    });
+
+    gsap.from('.sketch-label', {
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      delay: 1.2
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 6rem;
+    }
+
+    .back-btn {
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-bottom: 2.5rem;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: var(--accent-pink); }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-light);
+      line-height: 1.2;
+    }
+
+    /* Divider */
+    .header-divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
+      margin: 1rem auto 0;
+      opacity: 0.5;
+    }
+
+    /* Poem area */
+    .poem-area {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      text-align: center;
+      min-height: 300px;
+      position: relative;
+    }
+
+    .poem-text {
+      font-family: 'Lora', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--text-warm);
+      line-height: 2.2;
+      text-align: center;
+      white-space: pre-wrap;
+    }
+
+    /* Individual lines */
+    .poem-line {
+      display: block;
+      min-height: 1.5em; /* preserve blank lines */
+      position: relative;
+    }
+
+    /* Blinking cursor */
+    .tw-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--accent-pink);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: cursorBlink 0.7s step-end infinite;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .tw-cursor.hidden {
+      display: none;
+    }
+
+    /* Signature */
+    .poem-signature {
+      display: block;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      text-align: center;
+      margin-top: 2.5rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+      letter-spacing: 0.04em;
+    }
+    .poem-signature.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Ambient glow behind poem */
+    .poem-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(232,160,180,0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Start button */
+    .start-btn {
+      display: block;
+      margin: 1.5rem auto 0;
+      padding: 0.7rem 2.5rem;
+      background: transparent;
+      border: 1.5px solid rgba(232,160,180,0.4);
+      border-radius: 50px;
+      color: var(--accent-pink);
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .start-btn:hover {
+      border-color: var(--accent-pink);
+      background: rgba(232,160,180,0.08);
+      box-shadow: 0 0 20px rgba(232,160,180,0.2);
+    }
+    .start-btn.hidden {
+      display: none;
+    }
+
+    /* Bottom ornament */
+    .ornament {
+      text-align: center;
+      margin-top: 3rem;
+      opacity: 0;
+      transition: opacity 1s ease 0.5s;
+    }
+    .ornament.show { opacity: 1; }
+    .ornament-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .ornament-dash {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,168,83,0.4));
+    }
+    .ornament-dash.rev {
+      background: linear-gradient(90deg, rgba(212,168,83,0.4), transparent);
+    }
+    .ornament-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-gold);
+      opacity: 0.4;
+    }
+
+    @media (max-width: 500px) {
+      .poem-text { font-size: 1.1rem; line-height: 2; }
+      .poem-area { padding: 2rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <div class="page-content">
+    <a href="../gifts.html" class="back-btn">← back to gifts</a>
+
+    <div class="page-header">
+      <h1>for you.</h1>
+      <div class="header-divider"></div>
+    </div>
+
+    <div class="poem-area">
+      <div class="poem-glow"></div>
+
+      <!-- POEM PLACEHOLDER: Replace the lines inside poemLines array with the actual poem -->
+
+      <div class="poem-text" id="poemText">
+        <!-- Lines will be rendered here by JS -->
+      </div>
+
+      <span class="poem-signature" id="poemSignature">— Roy</span>
+    </div>
+
+    <button class="start-btn" id="startBtn" onclick="startPoem()">read it →</button>
+
+    <div class="ornament" id="ornament">
+      <div class="ornament-line">
+        <div class="ornament-dash"></div>
+        <div class="ornament-dot"></div>
+        <div class="ornament-dash rev"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+
+  <script>
+    // Init particles
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 30, density: { enable: true, value_area: 900 } },
+          color: { value: ['#e8a0b4', '#d4a853', '#c8b8d8'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.3, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.4, random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { resize: true } },
+        retina_detect: true
+      });
+    }
+
+    // ── POEM LINES ──
+    // PLACEHOLDER: Roy will write the poem here.
+    // Each line is one item in the array.
+    // Empty string = blank line (pause only, no text rendered).
+    const poemLines = [
+      "PLACEHOLDER: Roy will write the poem here.",
+      "Each line on its own line in this array.",
+      "The typewriter will animate them one by one.",
+      "",
+      "The last line before the signature.",
+    ];
+
+    // ── TYPEWRITER ENGINE ──
+    const CHAR_DELAY   = 40;   // ms per character
+    const LINE_PAUSE   = 600;  // ms pause after each line finishes
+    const BLANK_PAUSE  = 500;  // ms pause for blank lines
+
+    const poemTextEl   = document.getElementById('poemText');
+    const signatureEl  = document.getElementById('poemSignature');
+    const ornamentEl   = document.getElementById('ornament');
+    const startBtn     = document.getElementById('startBtn');
+
+    let isRunning = false;
+
+    // Build line elements upfront (hidden)
+    const lineEls = [];
+    poemLines.forEach((_, i) => {
+      const span = document.createElement('span');
+      span.className = 'poem-line';
+      poemTextEl.appendChild(span);
+      lineEls.push(span);
+    });
+
+    // Cursor element (moves to current line)
+    const cursorEl = document.createElement('span');
+    cursorEl.className = 'tw-cursor';
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function typewriteLine(lineEl, text) {
+      // Attach cursor to end of this line
+      lineEl.appendChild(cursorEl);
+      for (let i = 0; i < text.length; i++) {
+        // Insert text node before cursor
+        const charNode = document.createTextNode(text[i]);
+        lineEl.insertBefore(charNode, cursorEl);
+        await sleep(CHAR_DELAY);
+      }
+      await sleep(LINE_PAUSE);
+      // Remove cursor (will be appended to next line)
+      if (cursorEl.parentNode === lineEl) lineEl.removeChild(cursorEl);
+    }
+
+    async function startPoem() {
+      if (isRunning) return;
+      isRunning = true;
+      startBtn.classList.add('hidden');
+
+      for (let i = 0; i < poemLines.length; i++) {
+        const line = poemLines[i];
+        const el   = lineEls[i];
+
+        if (line === '') {
+          // Blank line: just pause
+          await sleep(BLANK_PAUSE);
+        } else {
+          await typewriteLine(el, line);
+        }
+      }
+
+      // Hide cursor after last line
+      cursorEl.classList.add('hidden');
+
+      // Show signature
+      await sleep(400);
+      signatureEl.classList.add('show');
+      ornamentEl.classList.add('show');
+    }
+
+    // GSAP page entrance
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.page-header h1', { duration: 1, opacity: 0, y: 20, ease: 'power2.out', delay: 0.2 });
+      gsap.from('.start-btn', { duration: 0.8, opacity: 0, y: 15, ease: 'power2.out', delay: 0.5 });
+    }
+  </script>
+</body>
+</html>

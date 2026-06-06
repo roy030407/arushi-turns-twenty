@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You, In Motion · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .page-content {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 6rem;
+    }
+
+    .back-btn {
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-bottom: 2.5rem;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: var(--accent-pink); }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 0.6rem;
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-light);
+      line-height: 1.2;
+    }
+
+    /* Decorative line under header */
+    .header-accent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin: 0.9rem auto 2.5rem;
+      max-width: 200px;
+    }
+    .header-accent-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,160,180,0.4));
+    }
+    .header-accent-line.rev {
+      background: linear-gradient(90deg, rgba(232,160,180,0.4), transparent);
+    }
+    .header-accent-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--accent-pink);
+      transform: rotate(45deg);
+      opacity: 0.6;
+    }
+
+    /* Video container */
+    .video-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--accent-pink);
+      box-shadow:
+        0 0 30px rgba(232,160,180,0.2),
+        0 0 60px rgba(232,160,180,0.08),
+        0 20px 60px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    /* 16:9 aspect ratio wrapper */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0a0006;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* PLACEHOLDER: Replace VIDEO_ID_HERE with the actual YouTube video ID when uploaded */
+
+    /* Placeholder overlay shown while ID is not set */
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      background: linear-gradient(135deg, #120009 0%, #0d0a0f 50%, #09060d 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .vp-play-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(232,160,180,0.12);
+      border: 2px solid rgba(232,160,180,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .vp-play-icon svg {
+      width: 30px;
+      height: 30px;
+      fill: rgba(232,160,180,0.6);
+      margin-left: 4px;
+    }
+
+    .vp-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-warm);
+      opacity: 0.55;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .vp-sub {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.4;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Scanline effect on placeholder */
+    .vp-scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.08) 3px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Bottom bar of video container */
+    .video-bar {
+      padding: 0.7rem 1.2rem;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(232,160,180,0.1);
+    }
+
+    .video-bar-label {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      font-style: italic;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .video-bar-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      color: rgba(232,160,180,0.5);
+      letter-spacing: 0.08em;
+    }
+    .video-bar-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-pink);
+      opacity: 0.5;
+    }
+
+    /* Caption */
+    .video-caption {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+
+    /* Ambient glow dots */
+    .ambient-dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(60px);
+    }
+    .ambient-dot-1 {
+      width: 300px;
+      height: 300px;
+      background: rgba(232,160,180,0.04);
+      top: -80px;
+      right: -60px;
+    }
+    .ambient-dot-2 {
+      width: 250px;
+      height: 250px;
+      background: rgba(123,45,139,0.04);
+      bottom: -60px;
+      left: -40px;
+    }
+
+    /* Bottom ornament */
+    .ornament {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .ornament-inner {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .ornament-line-h {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,168,83,0.3), transparent);
+    }
+    .ornament-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      opacity: 0.4;
+      letter-spacing: 0.06em;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .video-container { border-radius: 12px; border-width: 1.5px; }
+      .vp-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <div class="page-content">
+    <a href="../gifts.html" class="back-btn">← back to gifts</a>
+
+    <div class="page-header">
+      <h1>you, in motion.</h1>
+    </div>
+
+    <div class="header-accent">
+      <div class="header-accent-line"></div>
+      <div class="header-accent-diamond"></div>
+      <div class="header-accent-line rev"></div>
+    </div>
+
+    <div class="video-container" id="videoContainer" style="position:relative;">
+      <div class="ambient-dot ambient-dot-1"></div>
+      <div class="ambient-dot ambient-dot-2"></div>
+
+      <!-- PLACEHOLDER: Replace VIDEO_ID_HERE with the actual YouTube video ID when uploaded -->
+      <div class="video-wrapper" id="videoWrapper">
+        <iframe
+          src="https://www.youtube.com/embed/VIDEO_ID_HERE"
+          title="For Arushi"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          id="ytFrame">
+        </iframe>
+
+        <!-- Placeholder shown until video ID is set -->
+        <div class="video-placeholder" id="videoPlaceholder">
+          <div class="vp-scanlines"></div>
+          <div class="vp-play-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+          <div class="vp-title">a video edit. just for you.</div>
+          <div class="vp-sub">uploading soon</div>
+        </div>
+      </div>
+
+      <div class="video-bar">
+        <span class="video-bar-label">for arushi · twenty</span>
+        <div class="video-bar-badge">
+          <div class="video-bar-dot"></div>
+          <span>made with everything i had</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="video-caption">made with everything i had.</p>
+
+    <div class="ornament">
+      <div class="ornament-inner">
+        <div class="ornament-line-h"></div>
+        <div class="ornament-text">with love, always</div>
+        <div class="ornament-line-h"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+
+  <script>
+    // Init particles
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 30, density: { enable: true, value_area: 900 } },
+          color: { value: ['#e8a0b4', '#d4a853', '#c8b0d8'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.3, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.4, random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { resize: true } },
+        retina_detect: true
+      });
+    }
+
+    // Check if video ID is set — hide placeholder if real URL
+    const frame = document.getElementById('ytFrame');
+    const placeholder = document.getElementById('videoPlaceholder');
+
+    if (frame && frame.src && !frame.src.includes('VIDEO_ID_HERE')) {
+      if (placeholder) placeholder.style.display = 'none';
+    }
+
+    // GSAP entrance animation
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.page-header h1', {
+        duration: 1,
+        opacity: 0,
+        y: 24,
+        ease: 'power3.out',
+        delay: 0.2
+      });
+      gsap.from('.video-container', {
+        duration: 1.2,
+        opacity: 0,
+        y: 36,
+        ease: 'power3.out',
+        delay: 0.4
+      });
+      gsap.from('.video-caption', {
+        duration: 0.9,
+        opacity: 0,
+        y: 16,
+        ease: 'power2.out',
+        delay: 0.9
+      });
+      gsap.from('.ornament', {
+        duration: 0.9,
+        opacity: 0,
+        ease: 'power2.out',
+        delay: 1.1
+      });
+    }
+  </script>
+</body>
+</html>

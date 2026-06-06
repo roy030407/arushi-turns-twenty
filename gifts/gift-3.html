@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArushiFlix · Watch Something Good</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    :root {
+      --nf-red: #e50914;
+      --nf-dark: #0a0a0a;
+      --nf-card: #141414;
+      --nf-card-hover: #2a2a2a;
+      --nf-grey: #808080;
+      --nf-light: #ffffff;
+      --nf-text: #d2d2d2;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--nf-dark);
+      color: var(--nf-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 100;
+      display: inline-block;
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      background: rgba(0,0,0,0.6);
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .back-btn:hover { color: var(--accent-pink); border-color: var(--accent-pink); }
+
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── NAV BAR ── */
+    .nf-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 68px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 100%);
+    }
+
+    .nf-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--nf-red);
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 12px rgba(229,9,20,0.4);
+      user-select: none;
+    }
+
+    .nf-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .nf-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #7b2d8b, #c0392b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .nf-username {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: var(--nf-text);
+    }
+
+    /* ── HERO ── */
+    .nf-hero {
+      position: relative;
+      height: 65vh;
+      min-height: 420px;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 3rem 3.5rem;
+      background:
+        linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%),
+        linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.3) 40%, transparent 100%),
+        linear-gradient(135deg, #1a0a0a 0%, #0d0510 50%, #0a0a1a 100%);
+    }
+
+    /* Faint film-grain overlay */
+    .nf-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 25% 40%, rgba(229,9,20,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 30%, rgba(123,45,139,0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .nf-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+    }
+
+    .nf-hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 0.7rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+    }
+
+    .nf-hero-meta {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: #d2d2d2;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .nf-hero-meta .dot { color: var(--nf-red); }
+
+    .nf-match {
+      color: #46d369;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .nf-hero-btns {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .nf-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.6rem;
+      border-radius: 4px;
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: filter 0.2s, transform 0.15s;
+    }
+    .nf-btn:hover { filter: brightness(0.85); transform: scale(1.02); }
+    .nf-btn:active { transform: scale(0.97); }
+
+    .nf-btn-play {
+      background: white;
+      color: #0a0a0a;
+    }
+
+    .nf-btn-info {
+      background: rgba(109,109,110,0.7);
+      color: white;
+    }
+
+    /* ── ROWS ── */
+    .nf-rows {
+      padding: 1rem 0 4rem;
+    }
+
+    .nf-row {
+      margin-bottom: 2.5rem;
+    }
+
+    .nf-row-title {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--nf-text);
+      padding: 0 3rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .nf-scroll {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding: 0.5rem 3rem 1rem;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.15) transparent;
+    }
+    .nf-scroll::-webkit-scrollbar { height: 4px; }
+    .nf-scroll::-webkit-scrollbar-track { background: transparent; }
+    .nf-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+    /* ── CARDS ── */
+    .nf-card {
+      flex-shrink: 0;
+      width: 140px;
+      aspect-ratio: 2/3;
+      border-radius: 4px;
+      background: var(--nf-card);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .nf-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      z-index: 5;
+    }
+
+    .nf-card-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+
+    .nf-card-bg.red   { background: linear-gradient(135deg, #1a0a0a 0%, #2d0505 100%); }
+    .nf-card-bg.purple { background: linear-gradient(135deg, #1a0a1e 0%, #2d0545 100%); }
+    .nf-card-bg.blue  { background: linear-gradient(135deg, #0a0a1e 0%, #050545 100%); }
+    .nf-card-bg.green { background: linear-gradient(135deg, #0a1a0a 0%, #052d05 100%); }
+    .nf-card-bg.warm  { background: linear-gradient(135deg, #1a100a 0%, #2d1505 100%); }
+    .nf-card-bg.teal  { background: linear-gradient(135deg, #0a1a1a 0%, #052d2d 100%); }
+    .nf-card-bg.dark  { background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%); }
+    .nf-card-bg.rose  { background: linear-gradient(135deg, #1a0a0f 0%, #2d0515 100%); }
+    .nf-card-bg.navy  { background: linear-gradient(135deg, #080818 0%, #10103a 100%); }
+
+    .nf-card-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 0.6rem;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    }
+
+    .nf-card-label {
+      font-family: 'Lora', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      line-height: 1.3;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    }
+
+    /* Red overlay strip at top for Netflix-feel */
+    .nf-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--nf-red);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .nf-card:hover::after { opacity: 1; }
+
+    /* Interactive cards (clickable) indicator */
+    .nf-card.clickable .nf-card-bg::before {
+      content: '▶';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── MODAL ── */
+    .nf-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+    .nf-modal-overlay.open { display: flex; }
+
+    .nf-modal {
+      background: #181818;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+      animation: modalIn 0.25s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.93) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .nf-modal-header {
+      position: relative;
+      height: 220px;
+      background: linear-gradient(135deg, #1a0510 0%, #0d0a1a 50%, #0a0a14 100%);
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+    }
+
+    .nf-modal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(to top, #181818, transparent);
+    }
+
+    .nf-modal-header-emoji {
+      font-size: 4rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -65%);
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.6));
+    }
+
+    .nf-modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(30,30,30,0.9);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: white;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+    .nf-modal-close:hover { background: rgba(60,60,60,0.9); }
+
+    .nf-modal-body {
+      padding: 1.5rem;
+    }
+
+    .nf-modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .nf-modal-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nf-tag {
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      padding: 0.2rem 0.6rem;
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      color: var(--nf-text);
+    }
+
+    .nf-match-pct {
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: #46d369;
+      font-weight: 700;
+    }
+
+    .nf-modal-desc {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      color: #d2d2d2;
+      line-height: 1.85;
+      font-style: italic;
+    }
+
+    .nf-modal-play-btn {
+      margin-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.8rem;
+      background: white;
+      color: #0a0a0a;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .nf-modal-play-btn:hover { filter: brightness(0.85); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nf-nav { padding: 0 1.2rem; }
+      .nf-hero { padding: 0 1.2rem 2.5rem; }
+      .nf-row-title { padding: 0 1.2rem; }
+      .nf-scroll { padding: 0.5rem 1.2rem 1rem; }
+      .nf-card { width: 115px; }
+      .nf-modal-header { height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <a href="../gifts.html" class="back-btn">← back to gifts</a>
+
+  <div class="page-wrapper">
+
+    <!-- NAV -->
+    <nav class="nf-nav">
+      <div class="nf-logo">ArushiFlix</div>
+      <div class="nf-nav-right">
+        <div class="nf-avatar">A</div>
+        <span class="nf-username">Arushi</span>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="nf-hero">
+      <div class="nf-hero-content">
+        <div class="nf-hero-title">The Arushi Pundir Story</div>
+        <div class="nf-hero-meta">
+          <span class="nf-match">99% Match</span>
+          <span class="dot">·</span>
+          <span>Drama</span>
+          <span class="dot">·</span>
+          <span>Romance</span>
+          <span class="dot">·</span>
+          <span>Unstoppable</span>
+          <span class="dot">·</span>
+          <span>20 Seasons</span>
+        </div>
+        <div class="nf-hero-btns">
+          <button class="nf-btn nf-btn-play">▶ &nbsp;Play</button>
+          <button class="nf-btn nf-btn-info">ⓘ &nbsp;More Info</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROWS -->
+    <div class="nf-rows">
+
+      <!-- ROW 1: Her Favourites -->
+      <div class="nf-row">
+        <div class="nf-row-title">Her Favourites</div>
+        <div class="nf-scroll">
+
+          <div class="nf-card">
+            <div class="nf-card-bg red">
+              <div class="nf-card-emoji">🎬</div>
+              <div class="nf-card-label">Jab We Met</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg purple">
+              <div class="nf-card-emoji">🌟</div>
+              <div class="nf-card-label">YJHD</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg rose">
+              <div class="nf-card-emoji">💕</div>
+              <div class="nf-card-label">Mohabbatein</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg blue">
+              <div class="nf-card-emoji">🌊</div>
+              <div class="nf-card-label">ZNMD</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg warm">
+              <div class="nf-card-emoji">👗</div>
+              <div class="nf-card-label">How to Lose a Guy in 10 Days</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg teal">
+              <div class="nf-card-emoji">☕</div>
+              <div class="nf-card-label">Friends</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg dark">
+              <div class="nf-card-emoji">🐉</div>
+              <div class="nf-card-label">Game of Thrones</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg navy">
+              <div class="nf-card-emoji">⚖️</div>
+              <div class="nf-card-label">Suits</div>
+            </div>
+          </div>
+
+          <div class="nf-card">
+            <div class="nf-card-bg green">
+              <div class="nf-card-emoji">🧩</div>
+              <div class="nf-card-label">The Imitation Game</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ROW 2: Her Vibe -->
+      <div class="nf-row">
+        <div class="nf-row-title">Her Vibe</div>
+        <div class="nf-scroll">
+
+          <div class="nf-card clickable" onclick="openModal('notif')">
+            <div class="nf-card-bg dark">
+              <div class="nf-card-emoji">🔕</div>
+              <div class="nf-card-label">Notifications Off</div>
+            </div>
+          </div>
+
+          <div class="nf-card clickable" onclick="openModal('walker')">
+            <div class="nf-card-bg blue">
+              <div class="nf-card-emoji">🚶‍♀️</div>
+              <div class="nf-card-label">The Walking Talker</div>
+            </div>
+          </div>
+
+          <div class="nf-card clickable" onclick="openModal('variety')">
+            <div class="nf-card-bg warm">
+              <div class="nf-card-emoji">🍽️</div>
+              <div class="nf-card-label">Variety Hour</div>
+            </div>
+          </div>
+
+          <div class="nf-card clickable" onclick="openModal('fashion')">
+            <div class="nf-card-bg rose">
+              <div class="nf-card-emoji">✨</div>
+              <div class="nf-card-label">Golden Hour Fashion</div>
+            </div>
+          </div>
+
+          <div class="nf-card clickable" onclick="openModal('loyalty')">
+            <div class="nf-card-bg purple">
+              <div class="nf-card-emoji">🤝</div>
+              <div class="nf-card-label">Loyalty Files</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ROW 3: Your Story -->
+      <div class="nf-row">
+        <div class="nf-row-title">Your Story</div>
+        <div class="nf-scroll">
+
+          <div class="nf-card clickable" onclick="openModal('sirf')">
+            <div class="nf-card-bg teal">
+              <div class="nf-card-emoji">💬</div>
+              <div class="nf-card-label">Sirf Dost</div>
+            </div>
+          </div>
+
+          <div class="nf-card clickable" onclick="openModal('rakhi')">
+            <div class="nf-card-bg red">
+              <div class="nf-card-emoji">🎀</div>
+              <div class="nf-card-label">The Rakhi Incident</div>
+            </div>
+          </div>
+
+          <div class="nf-card clickable" onclick="openModal('hips')">
+            <div class="nf-card-bg green">
+              <div class="nf-card-emoji">🎵</div>
+              <div class="nf-card-label">Hips Don't Lie Era</div>
+            </div>
+          </div>
+
+          <div class="nf-card clickable" onclick="openModal('longdist')">
+            <div class="nf-card-bg navy">
+              <div class="nf-card-emoji">📡</div>
+              <div class="nf-card-label">Long Distance, Short Patience</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- /ROWS -->
+
+  </div>
+  <!-- /page-wrapper -->
+
+  <!-- ── MODAL ── -->
+  <div class="nf-modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="nf-modal" id="nfModal">
+      <div class="nf-modal-header" id="modalHeader">
+        <div class="nf-modal-header-emoji" id="modalEmoji"></div>
+        <button class="nf-modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="nf-modal-body">
+        <div class="nf-modal-title" id="modalTitle"></div>
+        <div class="nf-modal-meta" id="modalMeta"></div>
+        <p class="nf-modal-desc" id="modalDesc"></p>
+        <button class="nf-modal-play-btn">▶ &nbsp;Play Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+
+  <script>
+    // Particles — very subtle on dark background
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 20, density: { enable: true, value_area: 1200 } },
+          color: { value: ['#e50914', '#7b2d8b'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.15, random: true },
+          size: { value: 1.5, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.3, random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { resize: true } },
+        retina_detect: true
+      });
+    }
+
+    // Modal data
+    const modalData = {
+      notif: {
+        emoji: '🔕',
+        title: 'Notifications Off',
+        tags: ['Mystery', '1 Season'],
+        match: '97%',
+        bg: 'linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%)',
+        desc: 'In this gripping mystery, one woman disables all incoming alerts and somehow still knows exactly what\'s happening. Critics call it "inexplicable." She calls it peace.'
+      },
+      walker: {
+        emoji: '🚶‍♀️',
+        title: 'The Walking Talker',
+        tags: ['Documentary', 'Ongoing'],
+        match: '99%',
+        bg: 'linear-gradient(135deg, #0a0a1e 0%, #050545 100%)',
+        desc: 'An unprecedented documentary following one subject\'s remarkable ability to cover significant distances during phone calls. Runtime: unlimited.'
+      },
+      variety: {
+        emoji: '🍽️',
+        title: 'Variety Hour',
+        tags: ['Food', '20 Episodes'],
+        match: '98%',
+        bg: 'linear-gradient(135deg, #1a100a 0%, #2d1505 100%)',
+        desc: 'A multi-genre exploration of one woman\'s determination to eat something good. Every episode she finds something better than the last.'
+      },
+      fashion: {
+        emoji: '✨',
+        title: 'Golden Hour Fashion',
+        tags: ['Style', 'Continuous'],
+        match: '100%',
+        bg: 'linear-gradient(135deg, #1a0a0f 0%, #2d0515 100%)',
+        desc: 'She dresses for herself. Always has. Always will. The camera simply agrees.'
+      },
+      loyalty: {
+        emoji: '🤝',
+        title: 'Loyalty Files',
+        tags: ['Drama', 'Limited Series'],
+        match: '100%',
+        bg: 'linear-gradient(135deg, #1a0a1e 0%, #2d0545 100%)',
+        desc: 'A limited series about someone who, once she decides you\'re her person, remains your person. Full stop. No plot twists needed.'
+      },
+      sirf: {
+        emoji: '💬',
+        title: 'Sirf Dost',
+        tags: ['Romance', 'The Early Season'],
+        match: '99%',
+        bg: 'linear-gradient(135deg, #0a1a1a 0%, #052d2d 100%)',
+        desc: 'A slow-burn drama in which two people insist, repeatedly and to anyone who will listen, that they are just friends. The audience has known since Episode 1.'
+      },
+      rakhi: {
+        emoji: '🎀',
+        title: 'The Rakhi Incident',
+        tags: ['Drama', 'A Very Special Episode'],
+        match: '96%',
+        bg: 'linear-gradient(135deg, #1a0a0a 0%, #2d0505 100%)',
+        desc: 'A gripping special episode in which one party attempts to establish a sibling relationship. The other party has filed an objection. Case pending.'
+      },
+      hips: {
+        emoji: '🎵',
+        title: "Hips Don't Lie Era",
+        tags: ['Musical', 'The Soundtrack'],
+        match: '100%',
+        bg: 'linear-gradient(135deg, #0a1a0a 0%, #052d05 100%)',
+        desc: 'Shakira dropped this anthem on June 12, 2006. Coincidence? The evidence suggests otherwise.'
+      },
+      longdist: {
+        emoji: '📡',
+        title: 'Long Distance, Short Patience',
+        tags: ['Thriller', 'Ongoing'],
+        match: '98%',
+        bg: 'linear-gradient(135deg, #080818 0%, #10103a 100%)',
+        desc: 'A thriller in which two people maintain a connection across cities, time zones, and exam seasons. Tension: constant. Resolution: also constant.'
+      }
+    };
+
+    function openModal(key) {
+      const d = modalData[key];
+      if (!d) return;
+
+      document.getElementById('modalEmoji').textContent = d.emoji;
+      document.getElementById('modalTitle').textContent = d.title;
+      document.getElementById('modalHeader').style.background = d.bg;
+      document.getElementById('modalDesc').textContent = d.desc;
+
+      const metaEl = document.getElementById('modalMeta');
+      metaEl.innerHTML = '';
+
+      // Match %
+      const matchSpan = document.createElement('span');
+      matchSpan.className = 'nf-match-pct';
+      matchSpan.textContent = d.match + ' Match';
+      metaEl.appendChild(matchSpan);
+
+      d.tags.forEach(tag => {
+        const t = document.createElement('span');
+        t.className = 'nf-tag';
+        t.textContent = tag;
+        metaEl.appendChild(t);
+      });
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) {
+        closeModal();
+      }
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

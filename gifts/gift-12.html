@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who She Is · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      padding: 5rem 1.5rem 4rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--text-light);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .page-header p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .moodboard-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      column-count: 3;
+      column-gap: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .moodboard-grid {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .moodboard-grid {
+        column-count: 1;
+      }
+    }
+
+    .mood-img {
+      break-inside: avoid;
+      margin-bottom: 1.2rem;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+    }
+
+    .mood-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px rgba(232,160,180,0.2);
+    }
+
+    .mood-img-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.8rem;
+      font-family: 'Lora', serif;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .mood-quote {
+      break-inside: avoid;
+      margin-bottom: 1.2rem;
+      padding: 1.5rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      line-height: 1.4;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .closing-statement {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--text-warm);
+      text-align: center;
+      margin: 3rem auto;
+      max-width: 700px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
+
+  <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.25"></div>
+
+  <div style="position:relative;z-index:1">
+
+    <div class="page-header">
+      <h1>who she is.</h1>
+      <p>fashion. travel. food. peace. people. in no particular order.</p>
+    </div>
+
+    <div class="moodboard-grid">
+
+      <!-- Photo 1 — aspect 3/4 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:3/4;">
+          [ photo 1 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 1 -->
+      <div class="mood-quote" style="font-size:2rem;color:var(--accent-pink);">
+        "dressed for herself, always."
+      </div>
+
+      <!-- Photo 2 — aspect 1/1 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:1/1;">
+          [ photo 2 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 2 -->
+      <div class="mood-quote" style="font-size:1.8rem;color:var(--text-light);">
+        "knows exactly what she wants."
+      </div>
+
+      <!-- Photo 3 — aspect 4/5 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:4/5;">
+          [ photo 3 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 3 -->
+      <div class="mood-quote" style="font-size:2.2rem;color:var(--accent-gold);">
+        "every room gets warmer."
+      </div>
+
+      <!-- Photo 4 — aspect 2/3 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:2/3;">
+          [ photo 4 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 4 -->
+      <div class="mood-quote" style="font-size:1.6rem;color:#b06fc0;">
+        "loyal beyond reason."
+      </div>
+
+      <!-- Photo 5 — aspect 16/9 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:16/9;">
+          [ photo 5 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 5 -->
+      <div class="mood-quote" style="font-size:1.5rem;color:var(--text-warm);">
+        "the kind of person who dances while she walks."
+      </div>
+
+      <!-- Photo 6 — aspect 3/4 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:3/4;">
+          [ photo 6 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 6 -->
+      <div class="mood-quote" style="font-size:1.7rem;color:var(--accent-pink);">
+        "she makes things beautiful by being in them."
+      </div>
+
+      <!-- Photo 7 — aspect 1/1 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:1/1;">
+          [ photo 7 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 7 -->
+      <div class="mood-quote" style="font-size:2rem;color:var(--text-light);">
+        "unbothered. intentional. always."
+      </div>
+
+      <!-- Photo 8 — aspect 4/5 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:4/5;">
+          [ photo 8 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 8 -->
+      <div class="mood-quote" style="font-size:1.8rem;color:var(--accent-gold);">
+        "her 20s will be exactly what she makes them."
+      </div>
+
+      <!-- Photo 9 — aspect 2/3 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:2/3;">
+          [ photo 9 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 9 -->
+      <div class="mood-quote" style="font-size:1.6rem;color:var(--text-warm);">
+        "everything about her is deliberate."
+      </div>
+
+      <!-- Photo 10 — aspect 3/4 -->
+      <div class="mood-img">
+        <div class="mood-img-inner" style="aspect-ratio:3/4;">
+          [ photo 10 — moodboard ]
+        </div>
+      </div>
+
+      <!-- Quote 10 -->
+      <div class="mood-quote" style="font-size:3rem;color:var(--accent-pink);">
+        "she already knows."
+      </div>
+
+    </div>
+
+    <div class="closing-statement">
+      her 20s will be exactly what she makes them. and she makes everything beautiful.
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 60, density: { enable: true, value_area: 800 } },
+          color: { value: ['#d4a853', '#e8a0b4', '#7b2d8b'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.4, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.6, direction: 'none', random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
+        retina_detect: true
+      });
+    }
+
+    if (typeof gsap !== 'undefined') {
+      const items = document.querySelectorAll('.mood-img, .mood-quote');
+      items.forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 20,
+          duration: 0.7,
+          delay: (i % 6) * 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+
+      gsap.from('.closing-statement', {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.closing-statement',
+          start: 'top 90%',
+          toggleActions: 'play none none none'
+        }
+      });
+    }
+  </script>
+</body>
+</html>

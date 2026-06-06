@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Dispatch — 12 June 2006</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #e8dfc4;
+      color: #1a1008;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.9rem;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.05;
+    }
+
+    .back-btn-light {
+      position: fixed;
+      top: 1.2rem;
+      left: 1.5rem;
+      font-family: 'Lora', serif;
+      color: #4a3018;
+      text-decoration: none;
+      z-index: 100;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+      background: rgba(232,223,196,0.9);
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      border: 1px solid #a08060;
+    }
+
+    .back-btn-light:hover {
+      color: #8a6020;
+    }
+
+    .page-outer {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 1rem 3rem;
+    }
+
+    .newspaper {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: #f0e8d0;
+      color: #1a1008;
+      padding: 0 0 3rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .masthead {
+      border-top: 3px solid #1a1008;
+      border-bottom: 3px solid #1a1008;
+      padding: 1.2rem 2rem;
+      text-align: center;
+    }
+
+    .masthead-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 3.5rem;
+      letter-spacing: 0.08em;
+      color: #1a1008;
+      line-height: 1;
+    }
+
+    .masthead-sub {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
+      color: #4a3018;
+    }
+
+    .masthead-sub .ornament {
+      font-size: 0.9rem;
+    }
+
+    .masthead-border-bottom {
+      border-bottom: 1px solid #1a1008;
+      margin-top: 0.6rem;
+    }
+
+    .headline-section {
+      padding: 1.5rem 2rem 0.5rem;
+      text-align: center;
+    }
+
+    .date-line {
+      font-family: 'Lora', serif;
+      font-size: 0.8rem;
+      color: #4a3018;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .main-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 2.8rem;
+      line-height: 1.2;
+      color: #1a1008;
+      text-align: center;
+    }
+
+    .sub-headline {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      font-style: italic;
+      text-align: center;
+      margin-top: 0.5rem;
+      color: #4a3018;
+    }
+
+    .section-rule {
+      border: 0;
+      border-top: 1px solid #4a3018;
+      margin: 1rem 2rem;
+    }
+
+    .content-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .article {
+      margin-bottom: 1.5rem;
+    }
+
+    .article-head {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #4a3018;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.6rem;
+      color: #1a1008;
+    }
+
+    .article-body {
+      font-family: 'Lora', serif;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: #1a1008;
+    }
+
+    .article-body p {
+      margin-bottom: 0.8rem;
+    }
+
+    .pull-quote {
+      border-left: 4px solid #8b0000;
+      background: rgba(139,0,0,0.05);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #1a1008;
+    }
+
+    .full-width-quote {
+      margin: 2rem 2rem 0;
+      text-align: center;
+    }
+
+    .closing-quote-box {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      border: 1px solid #8a6a20;
+      padding: 1.5rem 3rem;
+      margin: 0 auto;
+      max-width: 600px;
+      background: rgba(139,100,32,0.05);
+      color: #1a1008;
+      line-height: 1.5;
+    }
+
+    .newspaper-footer {
+      border-top: 1px solid #4a3018;
+      padding-top: 1rem;
+      margin-top: 2rem;
+      padding-bottom: 0.5rem;
+      text-align: center;
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      color: #4a3018;
+    }
+
+    @media (max-width: 680px) {
+      .content-columns {
+        grid-template-columns: 1fr;
+      }
+      .masthead-title {
+        font-size: 2.2rem;
+      }
+      .main-headline {
+        font-size: 1.8rem;
+      }
+      .masthead-sub {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .newspaper {
+        padding: 0 0 2rem;
+      }
+      .closing-quote-box {
+        padding: 1rem 1.5rem;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <a href="../gifts.html" class="back-btn-light">← back to gifts</a>
+
+  <div class="page-outer">
+
+    <div class="newspaper">
+
+      <div class="masthead">
+        <div class="masthead-title">THE DAILY DISPATCH</div>
+        <div class="masthead-sub">
+          <span>Est. 12 June 2006</span>
+          <span class="ornament">✦</span>
+          <span>One Edition Only</span>
+        </div>
+        <div class="masthead-border-bottom"></div>
+      </div>
+
+      <div class="headline-section">
+        <p class="date-line">Monday, 12 June 2006 · The 163rd Day of the Year · Doha, Qatar</p>
+        <h1 class="main-headline">THE WORLD ARRANGED ITSELF,<br>AND SHE ARRIVED.</h1>
+        <p class="sub-headline">12 June 2006 · The 163rd Day of the Year · Summer Had Just Begun</p>
+      </div>
+
+      <hr class="section-rule">
+
+      <div class="content-columns">
+
+        <div class="left-column">
+
+          <div class="article">
+            <h2 class="article-head">NOW PLAYING IN CINEMAS</h2>
+            <div class="article-body">
+              <p>On the day Arushi Pundir arrived in the world, audiences across India were watching Fanaa — a film about love, loss, and a woman who is, by all accounts, more interesting than anyone around her. In Hollywood, Pixar's Cars had just opened, and the world was driving somewhere, though it didn't quite know where yet.</p>
+              <p>It was a summer of stories. A reasonable one to be born into.</p>
+            </div>
+          </div>
+
+          <div class="article">
+            <h2 class="article-head">THE NUMBER ONE SONG</h2>
+            <div class="article-body">
+              <p>Shakira's 'Hips Don't Lie,' featuring Wyclef Jean, held the number one position globally on 12 June 2006. This is the song that was playing somewhere in the world the moment she arrived. The Court has noted this as evidence.</p>
+            </div>
+            <div class="pull-quote">
+              "She was born the same day Shakira told the world hips don't lie. The timing is noted."
+            </div>
+          </div>
+
+        </div>
+
+        <div class="right-column">
+
+          <div class="article">
+            <h2 class="article-head">SPORTS DESK: THE WORLD CUP</h2>
+            <div class="article-body">
+              <p>The 2006 FIFA World Cup was underway in Germany. On June 12, the tournament was in its group stage — Italy, France, Brazil, Germany all still in it. The world was watching football. It had other things to attend to, as it turned out.</p>
+            </div>
+          </div>
+
+          <div class="article">
+            <h2 class="article-head">THE YEAR SHE ARRIVED IN</h2>
+            <div class="article-body">
+              <p>2006 was the year YouTube was a new thing. The year Twitter was about to exist. The year of the iPod nano and flip phones and ringtones you downloaded one at a time.</p>
+              <p>She arrived into a world that was just learning what a smartphone would be — a world that would change completely before she was old enough to drive. She handled it.</p>
+            </div>
+          </div>
+
+          <div class="article">
+            <h2 class="article-head">THE WORLD'S VERDICT</h2>
+            <div class="article-body" style="font-style:italic;">
+              <p>Twelve years from 2006, she would be in Doha. Six years after that, she would be twenty. The days in between: 7,305 of them. Each one hers. None of them wasted.</p>
+              <p>She was born on 12 June 2006. The rest of us just got luckier.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="full-width-quote">
+        <blockquote class="closing-quote-box">
+          "She was born on 12 June 2006. The rest of us just got luckier."
+        </blockquote>
+      </div>
+
+      <div class="newspaper-footer">
+        Est. 12 June 2006 &nbsp;·&nbsp; One Edition Only &nbsp;·&nbsp; Not For Sale &nbsp;·&nbsp; Only For Her
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS !== 'undefined') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 20, density: { enable: true, value_area: 800 } },
+          color: { value: '#8a6a20' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.1, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.3, direction: 'none', random: true, straight: false, out_mode: 'out' }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+        },
+        retina_detect: true
+      });
+    }
+
+    gsap.from('.newspaper', {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: 'power2.out',
+      delay: 0.3
+    });
+  </script>
+
+</body>
+</html>

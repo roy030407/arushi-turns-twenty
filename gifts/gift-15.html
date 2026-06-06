@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arushi Pundir — Wikipedia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f8f9fa;
+      color: #202122;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    #particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.04;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 1.2rem;
+      left: 1.5rem;
+      font-family: 'Lora', serif;
+      color: #3366cc;
+      text-decoration: none;
+      z-index: 100;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+      background: rgba(248,249,250,0.9);
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      border: 1px solid #a2a9b1;
+    }
+
+    .back-btn:hover {
+      color: #1a3a7a;
+      background: #eaf3fb;
+    }
+
+    .wiki-wrapper {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 1.5rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .wiki-banner {
+      background: #eaf3fb;
+      border: 1px solid #a2a9b1;
+      padding: 0.5rem 1rem;
+      margin-bottom: 1.5rem;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+      color: #3366cc;
+    }
+
+    .wiki-layout {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .wiki-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wiki-infobox {
+      width: 280px;
+      flex-shrink: 0;
+      background: #f8f9fa;
+      border: 1px solid #a2a9b1;
+      font-size: 0.85rem;
+    }
+
+    .infobox-header {
+      background: #222;
+      color: white;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-family: 'Lora', serif;
+      font-weight: 600;
+    }
+
+    .infobox-photo {
+      background: #ddd;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    .infobox-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Lora', serif;
+      font-size: 0.85rem;
+    }
+
+    .infobox-table td {
+      padding: 0.3rem 0.5rem;
+      vertical-align: top;
+      border-top: 1px solid #eaecf0;
+    }
+
+    .infobox-table td.label {
+      font-weight: 600;
+      width: 120px;
+      color: #202122;
+    }
+
+    .infobox-table td.value {
+      color: #202122;
+    }
+
+    .article-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 2rem;
+      border-bottom: 1px solid #a2a9b1;
+      padding-bottom: 0.3rem;
+      color: #202122;
+      margin-bottom: 1rem;
+    }
+
+    .wiki-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      border-bottom: 1px solid #a2a9b1;
+      padding-bottom: 0.2rem;
+      margin: 1.5rem 0 0.6rem;
+      color: #202122;
+    }
+
+    .wiki-section p {
+      font-family: 'Lora', serif;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: #202122;
+      margin-bottom: 0.8rem;
+    }
+
+    a.wiki-link {
+      color: #3366cc;
+      text-decoration: none;
+    }
+
+    a.wiki-link:hover {
+      text-decoration: underline;
+    }
+
+    sup.cite {
+      color: #0645ad;
+      font-size: 0.75em;
+      cursor: help;
+      text-decoration: none;
+    }
+
+    sup.cite a {
+      color: #0645ad;
+      text-decoration: none;
+    }
+
+    sup.cite a:hover {
+      text-decoration: underline;
+    }
+
+    .references-section {
+      margin-top: 2rem;
+    }
+
+    .references-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      border-bottom: 1px solid #a2a9b1;
+      padding-bottom: 0.2rem;
+      margin-bottom: 0.8rem;
+      color: #202122;
+    }
+
+    .references-list {
+      list-style: none;
+      padding: 0;
+      font-size: 0.8rem;
+      font-family: 'Lora', serif;
+      color: #202122;
+    }
+
+    .references-list li {
+      margin-bottom: 0.4rem;
+      padding-left: 1.5rem;
+      text-indent: -1.5rem;
+    }
+
+    .categories-bar {
+      margin-top: 2.5rem;
+      border-top: 1px solid #a2a9b1;
+      padding-top: 0.8rem;
+      font-size: 0.82rem;
+      font-family: 'Lora', serif;
+      color: #202122;
+    }
+
+    .categories-bar strong {
+      font-weight: 600;
+    }
+
+    .categories-bar a {
+      color: #3366cc;
+      text-decoration: none;
+      margin: 0 0.3rem;
+    }
+
+    .categories-bar a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      .wiki-layout {
+        flex-direction: column;
+      }
+      .wiki-infobox {
+        width: 100%;
+      }
+      .wiki-wrapper {
+        padding: 4.5rem 1rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-bg"></div>
+
+  <a href="../gifts.html" class="back-btn">← back to gifts</a>
+
+  <div class="wiki-wrapper">
+
+    <div class="wiki-banner">
+      This article may contain information that is entirely accurate, deeply personal, and written by someone who has been paying very close attention.
+    </div>
+
+    <div class="wiki-layout">
+
+      <div class="wiki-body">
+
+        <h1 class="article-title">Arushi Pundir</h1>
+
+        <div class="wiki-section">
+          <h2>Early Life</h2>
+          <p>
+            Arushi Pundir (born 12 June 2006) is a notable individual<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>, widely recognised for her ability to make any room she enters significantly warmer<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup> and her advanced proficiency in the field of selective notification management.<sup class="cite"><a href="#ref1">[1]</a></sup>
+          </p>
+          <p>
+            She was born on 12 June 2006, the same day Shakira's "Hips Don't Lie" was the number one song globally, a coincidence that scholars have described as "too convenient to be coincidental."<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>
+          </p>
+        </div>
+
+        <div class="wiki-section">
+          <h2>Personal Life</h2>
+          <p>
+            Pundir is known for her distinctive approach to communication, which combines high clarity of thought<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup> with a strategic deployment of "acha ji" — a phrase whose precise meaning remains one of the great unsolved problems of modern linguistics.<sup class="cite"><a href="#ref2">[2]</a></sup>
+          </p>
+          <p>
+            She maintains a wide social circle, characterised by a loyalty that one source described as "completely unreasonable and entirely non-negotiable."<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>
+          </p>
+          <p>
+            Her fashion choices have been consistently described by observers as "intentional," "specific," and "correct."<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup> She has never been observed to dress for anyone other than herself, a trait regarded by historians as remarkable.<sup class="cite"><a href="#ref3">[3]</a></sup>
+          </p>
+        </div>
+
+        <div class="wiki-section">
+          <h2>The Notification Incident (2024)</h2>
+          <p>
+            In an event now referred to simply as The Notification Incident, Pundir reportedly disabled all notifications across multiple platforms for a period of time.<sup class="cite"><a href="#ref1">[1]</a></sup> When asked about this decision, she responded with a phrase that experts have been unable to fully translate.<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>
+          </p>
+          <p>
+            The incident has been described as "a masterclass in knowing exactly what you need"<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup> and "completely reasonable when you understand her."<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>
+          </p>
+        </div>
+
+        <div class="wiki-section">
+          <h2>The Perpetual Walk</h2>
+          <p>
+            Pundir is the subject of an ongoing documentation project concerning her tendency to walk significant distances during phone calls.<sup class="cite"><a href="#ref2">[2]</a></sup> Analysts have noted that the distance covered appears to correlate positively with the depth of the conversation, suggesting a possible causal relationship that is as yet unexplained.<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>
+          </p>
+        </div>
+
+        <div class="wiki-section">
+          <h2>Legacy</h2>
+          <p>
+            Pundir's legacy is, as of the publication date of this article, still being actively written by Pundir herself. Projections suggest it will be considerable.<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>
+          </p>
+          <p>
+            She turns twenty on 12 June 2026. The rest of us simply got luckier.<sup class="cite"><a href="#ref-cn" title="citation needed">[citation needed]</a></sup>
+          </p>
+        </div>
+
+        <div class="references-section">
+          <h2>References</h2>
+          <ol class="references-list">
+            <li id="ref1">1. ^ "Notification Management: A Case Study in Knowing What You Need." Unpublished. Roy, 2026.</li>
+            <li id="ref2">2. ^ "The Perpetual Walk: Distance, Depth, and One Remarkable Subject." Field Notes. Roy, 2025–2026.</li>
+            <li id="ref3">3. ^ "Fashion as Self-Respect: On Dressing Intentionally." Personal observation. Roy, ongoing.</li>
+          </ol>
+        </div>
+
+        <div class="categories-bar">
+          <strong>Categories:</strong>
+          <a href="#" class="wiki-link">People born on 12 June</a> ·
+          <a href="#" class="wiki-link">Geminis</a> ·
+          <a href="#" class="wiki-link">Notable individuals (verified)</a> ·
+          <a href="#" class="wiki-link">People Roy is very fond of</a>
+        </div>
+
+      </div>
+
+      <aside class="wiki-infobox">
+        <div class="infobox-header">Arushi Pundir</div>
+        <div class="infobox-photo">[photo]</div>
+        <table class="infobox-table">
+          <tbody>
+            <tr>
+              <td class="label">Born</td>
+              <td class="value">12 June 2006</td>
+            </tr>
+            <tr>
+              <td class="label">Also known as</td>
+              <td class="value">The Management</td>
+            </tr>
+            <tr>
+              <td class="label">Occupation</td>
+              <td class="value">Making rooms warmer; Being right</td>
+            </tr>
+            <tr>
+              <td class="label">Known for</td>
+              <td class="value">
+                Notification management (disputed)<sup class="cite"><a href="#ref1">[1]</a></sup>,
+                The Perpetual Walk<sup class="cite"><a href="#ref2">[2]</a></sup>,
+                The Variety Principle<sup class="cite"><a href="#ref3">[3]</a></sup>
+              </td>
+            </tr>
+            <tr>
+              <td class="label">Notable work</td>
+              <td class="value">Everyone's group chats</td>
+            </tr>
+            <tr>
+              <td class="label">Status</td>
+              <td class="value">Still writing the story</td>
+            </tr>
+          </tbody>
+        </table>
+      </aside>
+
+    </div>
+  </div>
+
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg', 'light');
+    } else if (typeof particlesJS !== 'undefined') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 30, density: { enable: true, value_area: 800 } },
+          color: { value: '#a2a9b1' },
+          shape: { type: 'circle' },
+          opacity: { value: 0.15, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.4, direction: 'none', random: true, straight: false, out_mode: 'out' }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
+        },
+        retina_detect: true
+      });
+    }
+  </script>
+
+</body>
+</html>

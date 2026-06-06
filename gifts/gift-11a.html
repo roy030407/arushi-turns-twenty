@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>She Reminds Me Of · Arushi Turns Twenty</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0d0a0f;
+      --bg-mid: #1a0f1e;
+      --bg-card: #221528;
+      --accent-red: #c0392b;
+      --accent-purple: #7b2d8b;
+      --accent-pink: #e8a0b4;
+      --accent-gold: #d4a853;
+      --text-light: #f5f0eb;
+      --text-muted: #9e8a9e;
+      --text-warm: #e8ddd0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Lora', serif;
+      min-height: 100vh;
+      padding: 5rem 1.5rem 4rem;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 3rem;
+      font-weight: 400;
+      color: var(--text-light);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-header p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .cards-stack {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .character-card {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: row;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .character-card:hover {
+      box-shadow: 0 0 30px rgba(212,168,83,0.15);
+      transform: translateY(-2px);
+    }
+
+    .card-left {
+      width: 300px;
+      flex-shrink: 0;
+      background: #0d0a12;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .film-still {
+      width: 180px;
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.3);
+      border: 2px solid var(--glass-border);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .film-still .film-emoji {
+      font-size: 1.6rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .film-still .char-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--accent-gold);
+      line-height: 1.3;
+    }
+
+    .film-still .film-label {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .card-right {
+      padding: 2rem 2.5rem;
+      flex: 1;
+    }
+
+    .card-right .char-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--accent-gold);
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    .card-right .film-name {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      margin-top: 0.2rem;
+    }
+
+    .card-right .card-body {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: var(--text-warm);
+      line-height: 1.85;
+    }
+
+    @media (max-width: 680px) {
+      .character-card {
+        flex-direction: column;
+      }
+
+      .card-left {
+        width: 100%;
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
+
+  <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.25"></div>
+
+  <div style="position:relative;z-index:1">
+
+    <div class="page-header">
+      <h1>she reminds me of.</h1>
+      <p>not because she is them. because they remind me of her.</p>
+    </div>
+
+    <div class="cards-stack">
+
+      <!-- Card 1: Geet, Jab We Met -->
+      <div class="character-card">
+        <div class="card-left">
+          <div class="film-still">
+            <span class="film-emoji">🎬</span>
+            <span class="char-label">Geet</span>
+            <span class="film-label">Jab We Met</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="char-name">Geet</div>
+          <div class="film-name">Jab We Met, 2007</div>
+          <div class="card-body">
+            She walks into a room and the room rearranges itself around her. Not because she demands it — because she simply takes up exactly as much space as she was supposed to. She is loud in the best possible way, certain about what she wants, and entirely unbothered by what she is not. She has a plan and a backup plan and a feeling about the backup plan. She turns strangers into people she knows. She makes the journey the destination. Geet is chaos with a compass. So is she.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Andie Anderson, How to Lose a Guy in 10 Days -->
+      <div class="character-card">
+        <div class="card-left">
+          <div class="film-still">
+            <span class="film-emoji">🎬</span>
+            <span class="char-label">Andie Anderson</span>
+            <span class="film-label">How to Lose a Guy in 10 Days</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="char-name">Andie Anderson</div>
+          <div class="film-name">How to Lose a Guy in 10 Days, 2003</div>
+          <div class="card-body">
+            She is the most put-together person in the room and she knows it — with a lightness that makes you adore her for it rather than resent it. She can walk into any situation and make it hers without making it feel like a takeover. She is funny when she chooses to be and sharp when she needs to be. She dresses well because she respects herself. She wins arguments without raising her voice. She does things with style not because style is the point, but because she simply can't do them any other way.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Rachel Green, Friends -->
+      <div class="character-card">
+        <div class="card-left">
+          <div class="film-still">
+            <span class="film-emoji">🎬</span>
+            <span class="char-label">Rachel Green</span>
+            <span class="film-label">Friends</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="char-name">Rachel Green</div>
+          <div class="film-name">Friends, 1994–2004</div>
+          <div class="card-body">
+            She figures herself out. That is the whole arc, and it is a beautiful one. She starts knowing her taste and learns to trust it. She builds her own version of a life — not the version handed to her, not the version expected of her, but the one she actually wanted. She is surrounded by people who love her and she loves them back fiercely, imperfectly, completely. She gets better at knowing what she wants without losing any of what makes her herself.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Donna Paulsen, Suits -->
+      <div class="character-card">
+        <div class="card-left">
+          <div class="film-still">
+            <span class="film-emoji">🎬</span>
+            <span class="char-label">Donna Paulsen</span>
+            <span class="film-label">Suits</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="char-name">Donna Paulsen</div>
+          <div class="film-name">Suits, 2011–2019</div>
+          <div class="card-body">
+            She is the person in the room who has read the situation three steps ahead of everyone else — and is choosing, generously, not to say so yet. She is loyal in a way that is almost architectural. She will walk through a difficult moment without needing applause afterward. She has standards, and she doesn't apologise for them. She is elegant, she is capable, she is funny in a way that cuts through everything — and she knows exactly when to use which version of herself.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5: Imara, Zindagi Na Milegi Dobara -->
+      <div class="character-card">
+        <div class="card-left">
+          <div class="film-still">
+            <span class="film-emoji">🎬</span>
+            <span class="char-label">Imara</span>
+            <span class="film-label">Zindagi Na Milegi Dobara</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="char-name">Imara</div>
+          <div class="film-name">Zindagi Na Milegi Dobara, 2011</div>
+          <div class="card-body">
+            She turns up in someone's life and somehow that person starts remembering what they actually want. Not because she tells them — because of how she is. She is present. She is certain. She makes being alive look like something worth being careful with. She doesn't fix anyone. She just reminds them, quietly, that there's more to them than the version they've been performing.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="../particles-config.js"></script>
+  <script>
+    if (typeof initParticles === 'function') {
+      initParticles('particles-bg');
+    } else if (typeof particlesJS === 'function') {
+      particlesJS('particles-bg', {
+        particles: {
+          number: { value: 60, density: { enable: true, value_area: 800 } },
+          color: { value: ['#d4a853', '#e8a0b4', '#7b2d8b'] },
+          shape: { type: 'circle' },
+          opacity: { value: 0.4, random: true },
+          size: { value: 2, random: true },
+          line_linked: { enable: false },
+          move: { enable: true, speed: 0.6, direction: 'none', random: true, out_mode: 'out' }
+        },
+        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
+        retina_detect: true
+      });
+    }
+
+    // GSAP scroll animation
+    const cards = document.querySelectorAll('.character-card');
+
+    if (typeof gsap !== 'undefined') {
+      cards.forEach((card, i) => {
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: i * 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+
+      // Fallback: if ScrollTrigger not loaded, just animate on load
+      setTimeout(() => {
+        cards.forEach((card, i) => {
+          if (getComputedStyle(card).opacity < 0.5) {
+            gsap.to(card, {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              delay: i * 0.2,
+              ease: 'power3.out'
+            });
+          }
+        });
+      }, 300);
+    } else {
+      // No GSAP, just show cards
+      cards.forEach(card => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      });
+    }
+  </script>
+</body>
+</html>
