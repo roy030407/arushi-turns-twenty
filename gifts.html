@@ -202,6 +202,24 @@
       z-index: 10;
     }
 
+    /* Mobile: stack polaroids vertically, no rotation overlap */
+    @media (max-width: 600px) {
+      .polaroid-table {
+        flex-direction: column;
+        align-items: center;
+        min-height: unset;
+        gap: 1.5rem;
+        padding: 1rem;
+      }
+      .polaroid {
+        width: min(260px, 80vw);
+        transform: none !important; /* remove all rotations */
+      }
+      .polaroid:hover {
+        transform: translateY(-6px) !important;
+      }
+    }
+
     .polaroid-image {
       width: 100%;
       aspect-ratio: 1;
@@ -253,10 +271,15 @@
       flex-direction: column;
       align-items: center;
       cursor: pointer;
+      /* Minimum 44×44px tap target (Apple HIG / WCAG) */
+      min-width: 44px;
+      min-height: 44px;
+      padding: 8px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .flower-emoji {
-      font-size: 4rem;
+      font-size: 4rem;   /* ~64px — well above 44px tap target */
       filter: grayscale(0.6) brightness(0.65);
       transform: scale(0.85);
       transition: all 0.5s ease;
@@ -310,6 +333,20 @@
       padding: 2rem;
       max-width: 1000px;
       margin: 0 auto;
+    }
+
+    /* Mobile: exactly 2 envelopes per row, large enough to tap */
+    @media (max-width: 600px) {
+      .envelope-wall {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .envelope-wrap:nth-child(2n),
+      .envelope-wrap:nth-child(3n) {
+        transform: none; /* remove stagger on mobile */
+      }
+      .envelope { min-height: 100px; }
     }
 
     .envelope-wrap {
@@ -836,15 +873,17 @@
       });
     });
 
-    // Touch swipe for film strip
+    // Touch swipe for film strip — incremental delta so it feels natural
     var strip = document.getElementById('film-strip');
-    var startX = 0;
+    var lastTouchX = 0;
     strip.addEventListener('touchstart', function(e) {
-      startX = e.touches[0].clientX;
+      lastTouchX = e.touches[0].clientX;
     }, { passive: true });
     strip.addEventListener('touchmove', function(e) {
-      var dx = startX - e.touches[0].clientX;
-      strip.scrollLeft += dx * 0.5;
+      var currentX = e.touches[0].clientX;
+      var dx = lastTouchX - currentX;   // positive = swipe left = scroll right
+      strip.scrollLeft += dx;
+      lastTouchX = currentX;
     }, { passive: true });
   </script>
 </body>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -80,8 +80,9 @@
     }
 
     .tile {
-      width: 58px;
-      height: 58px;
+      /* Fluid tile: fills available width on small screens */
+      width: clamp(44px, 12vw, 58px);
+      height: clamp(44px, 12vw, 58px);
       border: 2px solid var(--glass-border);
       background: var(--bg-card);
       border-radius: 4px;
@@ -89,7 +90,7 @@
       align-items: center;
       justify-content: center;
       font-family: 'Lora', serif;
-      font-size: 1.5rem;
+      font-size: clamp(1.1rem, 4vw, 1.5rem);
       font-weight: 700;
       color: var(--text-light);
       text-transform: uppercase;
@@ -160,26 +161,31 @@
       flex-direction: column;
       gap: 6px;
       align-items: center;
-      max-width: 500px;
       width: 100%;
+      max-width: 500px;
+      padding: 0 4px;
     }
 
     .keyboard-row {
       display: flex;
-      gap: 5px;
+      gap: 4px;
       justify-content: center;
+      width: 100%;
     }
 
     .key {
+      /* Fluid width: fills row proportionally on any screen */
+      flex: 1;
       height: 56px;
-      min-width: 38px;
-      padding: 0 8px;
+      min-width: 0;         /* let flex shrink below 38px if needed */
+      max-width: 46px;
+      padding: 0 2px;
       border-radius: 6px;
       border: none;
       background: #3a3040;
       color: var(--text-light);
       font-family: 'Lora', serif;
-      font-size: 0.85rem;
+      font-size: clamp(0.65rem, 2.5vw, 0.85rem);
       font-weight: 600;
       cursor: pointer;
       text-transform: uppercase;
@@ -188,16 +194,27 @@
       align-items: center;
       justify-content: center;
       user-select: none;
-      letter-spacing: 0.03em;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation; /* no 300ms tap delay on mobile */
     }
 
     .key:active {
-      transform: scale(0.94);
+      transform: scale(0.92);
+      background: #55405a;
     }
 
+    /* Wide keys (ENTER / ⌫) get 1.6× the flex weight */
     .key.wide {
-      min-width: 60px;
-      font-size: 0.75rem;
+      flex: 1.6;
+      max-width: 70px;
+      font-size: clamp(0.6rem, 2.2vw, 0.75rem);
+    }
+
+    /* Mobile-specific: taller keys so thumbs can hit them */
+    @media (max-width: 430px) {
+      .key { height: 50px; }
+      #keyboard { gap: 5px; }
+      .keyboard-row { gap: 3px; }
     }
 
     .key.correct {
@@ -351,7 +368,7 @@
 <body>
   <div id="particles-bg" style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.3"></div>
 
-  <a href="../gifts.html" style="position:fixed;top:1.2rem;left:1.5rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s">← back to gifts</a>
+  <a href="../gifts.html" style="position:fixed;top:0.8rem;left:0.8rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s;min-height:44px;min-width:44px;display:inline-flex;align-items:center;padding:0.5rem 0.75rem;border-radius:8px;-webkit-tap-highlight-color:transparent">← back to gifts</a>
 
   <div class="page-content" style="position:relative;z-index:1">
     <div class="page-header">
