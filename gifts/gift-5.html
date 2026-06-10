@@ -181,7 +181,7 @@
       opacity: 0.5;
     }
 
-    /* Custom volume bar */
+    /* Custom volume bar — desktop only (mobile uses hardware volume) */
     .volume-row {
       padding: 0.55rem 1.2rem;
       background: rgba(0,0,0,0.2);
@@ -191,6 +191,9 @@
       border-top: 1px solid rgba(255,255,255,0.04);
       position: relative;
       z-index: 1;
+    }
+    @media (hover: none) and (pointer: coarse) {
+      .volume-row { display: none; }
     }
     .volume-icon {
       color: var(--text-muted);
