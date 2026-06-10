@@ -279,7 +279,7 @@
       align-items: center;
       gap: 1.5rem;
       margin: 4rem 0;
-      opacity: 0;
+      opacity: 1;
     }
 
     .era-divider .divider-line {
@@ -309,7 +309,7 @@
       max-width: 700px;
       margin: 4rem auto;
       line-height: 1.6;
-      opacity: 0;
+      opacity: 1;
     }
 
     .closing-message p {
@@ -335,7 +335,7 @@
       padding: 2rem;
       max-width: 500px;
       margin: 2rem auto 5rem;
-      opacity: 0;
+      opacity: 1;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       text-align: center;
@@ -595,34 +595,9 @@
       );
     }
 
-    /* Helper: staggered photo placeholders */
-    function animatePhotos(eraId) {
-      const section = document.getElementById(eraId);
-      if (!section) return;
-      const photos = section.querySelectorAll('.photo-placeholder, .photo-item');
-
-      gsap.fromTo(
-        photos,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: 'power2.out',
-          stagger: 0.08,
-          scrollTrigger: {
-            trigger: section.querySelector('.photo-grid'),
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-    }
-
     /* Animate all four eras */
     ['era-1', 'era-2', 'era-3', 'era-4'].forEach(function(id) {
       animateEraHeader(id);
-      animatePhotos(id);
     });
 
     /* Animate dividers */
