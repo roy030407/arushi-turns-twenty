@@ -1,12 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>From Roy · Arushi Turns Twenty</title>
+  <title>The List · Arushi Turns Twenty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
@@ -14,8 +14,6 @@
       --bg-dark: #0d0a0f;
       --bg-mid: #1a0f1e;
       --bg-card: #221528;
-      --accent-red: #c0392b;
-      --accent-purple: #7b2d8b;
       --accent-pink: #e8a0b4;
       --accent-gold: #d4a853;
       --text-light: #f5f0eb;
@@ -25,11 +23,9 @@
       --glass-border: rgba(255,255,255,0.08);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg-dark);
@@ -41,72 +37,190 @@
 
     #particles-bg {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.15;
+      opacity: 0.2;
     }
 
-    .page-content {
+    .page-wrap {
       position: relative;
       z-index: 1;
-      padding: 5rem 1.5rem 6rem;
-      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 1.5rem 8rem;
     }
 
-    .from-label {
+    /* Header */
+    .page-header {
+      text-align: center;
+      padding: 7rem 1rem 3rem;
+    }
+
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      color: var(--text-light);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Progress */
+    .progress-bar-wrap {
+      text-align: center;
+      margin: 2rem 0 3.5rem;
+    }
+
+    .progress-bar-track {
+      display: inline-block;
+      width: 200px;
+      height: 2px;
+      background: var(--glass-border);
+      border-radius: 2px;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent-gold);
+      border-radius: 2px;
+      transition: width 0.5s ease;
+    }
+
+    .progress-label {
+      display: block;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.6rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Section header */
+    .section-label {
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 3rem 0 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::before, .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    /* Bucket item */
+    .bucket-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s, transform 0.2s;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bucket-item:hover {
+      border-color: rgba(255,255,255,0.14);
+      transform: translateX(3px);
+    }
+
+    .bucket-item.done {
+      border-color: rgba(212,168,83,0.3);
+      background: rgba(212,168,83,0.05);
+    }
+
+    .bucket-item.done .item-text {
+      color: var(--text-muted);
+    }
+
+    .item-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid var(--glass-border);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--accent-gold);
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .bucket-item.done .item-check {
+      border-color: var(--accent-gold);
+      background: rgba(212,168,83,0.15);
+    }
+
+    .item-text {
+      font-family: 'Lora', serif;
+      font-size: 0.95rem;
+      color: var(--text-warm);
+      line-height: 1.55;
+      transition: color 0.3s;
+    }
+
+    .item-note {
+      display: block;
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Closing */
+    .closing {
+      text-align: center;
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .closing p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--text-warm);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .closing .sign {
       font-family: 'Lora', serif;
       font-style: italic;
       font-size: 0.9rem;
       color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 2rem;
-      display: block;
     }
 
-    .video-outer {
-      max-width: 900px;
-      margin: 0 auto 3rem;
-    }
-
-    .video-container {
-      position: relative;
-      padding-top: 56.25%;
-      background: var(--bg-card);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 2px solid var(--accent-gold);
-      box-shadow: 0 0 40px rgba(212,168,83,0.2);
-    }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .final-message {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3rem;
-      color: var(--accent-gold);
-      text-align: center;
-      margin-top: 3rem;
-      display: block;
-      line-height: 1.3;
-    }
-
-    @media (max-width: 600px) {
-      .final-message {
-        font-size: 2.2rem;
-      }
-      .page-content {
-        padding: 5rem 1rem 4rem;
-      }
+    @media (max-width: 480px) {
+      .bucket-item { padding: 0.85rem 1rem; }
     }
   </style>
 </head>
@@ -116,26 +230,216 @@
 
   <a href="../gifts.html" style="position:fixed;top:0.8rem;left:0.8rem;font-family:'Lora',serif;color:var(--text-muted);text-decoration:none;z-index:100;font-size:0.9rem;transition:color 0.3s ease;min-height:44px;min-width:44px;display:inline-flex;align-items:center;padding:0.5rem 0.75rem;border-radius:8px;-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--text-light)'" onmouseout="this.style.color='var(--text-muted)'">← back to gifts</a>
 
-  <div class="page-content">
+  <div class="page-wrap">
 
-    <span class="from-label">from me.</span>
-
-    <div class="video-outer">
-
-      <!-- PLACEHOLDER: Replace VIDEO_ID_HERE with Roy's YouTube video ID -->
-      <div class="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/VIDEO_ID_HERE"
-          title="From Roy"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-
+    <div class="page-header">
+      <h1>things we'll do.</h1>
+      <p>a list. not a plan, not yet — but a promise.<br>check them off as we go.</p>
     </div>
 
-    <span class="final-message">happy birthday, Arushi.</span>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+      <span class="progress-label" id="progressLabel">0 of 26 done</span>
+    </div>
+
+    <!-- Places -->
+    <div class="section-label">places</div>
+
+    <div class="bucket-item" data-id="p1">
+      <div class="item-check" id="check-p1"></div>
+      <div class="item-text">go back to Vizag
+        <span class="item-note">but this time, stay longer.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="p2">
+      <div class="item-check" id="check-p2"></div>
+      <div class="item-text">Japan in cherry blossom season
+        <span class="item-note">the pink trees. the quiet. the ramen at midnight.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="p3">
+      <div class="item-check" id="check-p3"></div>
+      <div class="item-text">Istanbul
+        <span class="item-note">the bazaars, the chai, the chaos. you'd love all of it.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="p4">
+      <div class="item-check" id="check-p4"></div>
+      <div class="item-text">Greece — sunrise from a terrace
+        <span class="item-note">Santorini or Mykonos. doesn't matter. just us.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="p5">
+      <div class="item-check" id="check-p5"></div>
+      <div class="item-text">a road trip with no fixed itinerary
+        <span class="item-note">get in the car and see where it goes.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="p6">
+      <div class="item-check" id="check-p6"></div>
+      <div class="item-text">Paris
+        <span class="item-note">yes, it's cliché. with you it won't be.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="p7">
+      <div class="item-check" id="check-p7"></div>
+      <div class="item-text">Bali — do nothing for a week and mean it
+        <span class="item-note">no itinerary. no plans. just warmth.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="p8">
+      <div class="item-check" id="check-p8"></div>
+      <div class="item-text">get completely lost in a city we don't know
+        <span class="item-note">no signal. no map. find our way back together.</span>
+      </div>
+    </div>
+
+    <!-- Food -->
+    <div class="section-label">food</div>
+
+    <div class="bucket-item" data-id="f1">
+      <div class="item-check" id="check-f1"></div>
+      <div class="item-text">momo eating contest — just us
+        <span class="item-note">you'll win. we both know it.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="f2">
+      <div class="item-check" id="check-f2"></div>
+      <div class="item-text">ramen at 2am in Tokyo
+        <span class="item-note">the real kind. the kind that fixes things.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="f3">
+      <div class="item-check" id="check-f3"></div>
+      <div class="item-text">a croissant from an actual French bakery
+        <span class="item-note">not a café. a bakery. before 8am.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="f4">
+      <div class="item-check" id="check-f4"></div>
+      <div class="item-text">chai at a dhaba on a cold highway
+        <span class="item-note">the ones that come in small clay cups. those.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="f5">
+      <div class="item-check" id="check-f5"></div>
+      <div class="item-text">cook a full meal together from scratch
+        <span class="item-note">something neither of us has made before. see what happens.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="f6">
+      <div class="item-check" id="check-f6"></div>
+      <div class="item-text">eat something we can't pronounce and love it
+        <span class="item-note">street food counts. actually, only street food counts.</span>
+      </div>
+    </div>
+
+    <!-- Life -->
+    <div class="section-label">life</div>
+
+    <div class="bucket-item" data-id="l1">
+      <div class="item-check" id="check-l1"></div>
+      <div class="item-text">move in together
+        <span class="item-note">our kitchen. our mess. our home.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="l2">
+      <div class="item-check" id="check-l2"></div>
+      <div class="item-text">keep a plant alive for a full year
+        <span class="item-note">together. joint responsibility. no excuses.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="l3">
+      <div class="item-check" id="check-l3"></div>
+      <div class="item-text">watch the sunrise somewhere beautiful
+        <span class="item-note">not an alarm — actually stay up for it.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="l4">
+      <div class="item-check" id="check-l4"></div>
+      <div class="item-text">dance in a kitchen at an unreasonable hour
+        <span class="item-note">doesn't need a reason. just needs a song.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="l5">
+      <div class="item-check" id="check-l5"></div>
+      <div class="item-text">have a day with zero plans
+        <span class="item-note">no lists. no schedule. just wherever the day goes.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="l6">
+      <div class="item-check" id="check-l6"></div>
+      <div class="item-text">throw a proper dinner for the people we love
+        <span class="item-note">the table full. too much food. too much noise.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="l7">
+      <div class="item-check" id="check-l7"></div>
+      <div class="item-text">build something together — a project, a business, anything
+        <span class="item-note">something that's both of ours.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="l8">
+      <div class="item-check" id="check-l8"></div>
+      <div class="item-text">go an entire day speaking only in the worst accents
+        <span class="item-note">you know this is coming eventually.</span>
+      </div>
+    </div>
+
+    <!-- Us -->
+    <div class="section-label">us</div>
+
+    <div class="bucket-item" data-id="u1">
+      <div class="item-check" id="check-u1"></div>
+      <div class="item-text">scooter ride on a beach — again
+        <span class="item-note">like Vizag. but we know what we're doing now.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="u2">
+      <div class="item-check" id="check-u2"></div>
+      <div class="item-text">a weekend where we both completely switch off
+        <span class="item-note">no phones. no plans. just jaanu things.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="u3">
+      <div class="item-check" id="check-u3"></div>
+      <div class="item-text">visit 10 countries together
+        <span class="item-note">only 1 down. plenty of time.</span>
+      </div>
+    </div>
+
+    <div class="bucket-item" data-id="u4">
+      <div class="item-check" id="check-u4"></div>
+      <div class="item-text">grow old somewhere beautiful
+        <span class="item-note">wherever that ends up being. just that.</span>
+      </div>
+    </div>
+
+    <div class="closing">
+      <p>this list doesn't end.<br>that's the whole point.</p>
+      <span class="sign">— Roy, for you, June 2026</span>
+    </div>
 
   </div>
 
@@ -147,53 +451,66 @@
       particlesJS('particles-bg', {
         particles: {
           number: { value: 40, density: { enable: true, value_area: 800 } },
-          color: { value: '#d4a853' },
+          color: { value: ['#d4a853', '#e8a0b4'] },
           shape: { type: 'circle' },
           opacity: { value: 0.2, random: true },
-          size: { value: 2, random: true },
+          size: { value: 1.5, random: true },
           line_linked: { enable: false },
-          move: { enable: true, speed: 0.4, direction: 'none', random: true, straight: false, out_mode: 'out' }
+          move: { enable: true, speed: 0.4, direction: 'none', random: true, out_mode: 'out' }
         },
-        interactivity: {
-          detect_on: 'canvas',
-          events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
-        },
+        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
         retina_detect: true
       });
     }
 
-    gsap.from('.from-label', {
-      opacity: 0,
-      y: -15,
-      duration: 1,
-      ease: 'power2.out',
-      delay: 0.4
+    const TOTAL = 26;
+    const STORAGE_KEY = 'arushi-bucketlist-v1';
+
+    function loadDone() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+      catch(e) { return {}; }
+    }
+
+    function saveDone(done) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(done)); } catch(e) {}
+    }
+
+    function updateProgress(done) {
+      const count = Object.values(done).filter(Boolean).length;
+      const pct = Math.round((count / TOTAL) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressLabel').textContent = count + ' of ' + TOTAL + ' done';
+    }
+
+    function applyState(item, id, done) {
+      const check = document.getElementById('check-' + id);
+      if (done[id]) {
+        item.classList.add('done');
+        check.textContent = '✓';
+      } else {
+        item.classList.remove('done');
+        check.textContent = '';
+      }
+    }
+
+    const done = loadDone();
+
+    document.querySelectorAll('.bucket-item').forEach(function(item) {
+      const id = item.getAttribute('data-id');
+      applyState(item, id, done);
+
+      item.addEventListener('click', function() {
+        done[id] = !done[id];
+        saveDone(done);
+        applyState(item, id, done);
+        updateProgress(done);
+      });
     });
 
-    gsap.from('.video-outer', {
-      opacity: 0,
-      y: 30,
-      duration: 1.2,
-      ease: 'power2.out',
-      delay: 0.8
-    });
+    updateProgress(done);
 
-    gsap.from('.final-message', {
-      opacity: 0,
-      duration: 1,
-      ease: 'power2.out',
-      delay: 1.4
-    });
-
-    gsap.to('.final-message', {
-      textShadow: '0 0 30px rgba(212,168,83,0.6)',
-      duration: 2,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: 2.5
-    });
+    gsap.from('.page-header', { opacity: 0, y: -30, duration: 1, ease: 'power3.out' });
+    gsap.from('.progress-bar-wrap', { opacity: 0, duration: 0.8, delay: 0.4 });
   </script>
-
 </body>
 </html>
