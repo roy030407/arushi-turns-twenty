@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>From Your Person - Arushi Turns Twenty</title>
+  <title>From Your Person · Arushi Turns Twenty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
@@ -25,11 +25,7 @@
       --glass-border: rgba(255,255,255,0.08);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: var(--bg-dark);
@@ -41,10 +37,8 @@
 
     #particles-bg {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       z-index: 0;
       pointer-events: none;
     }
@@ -52,20 +46,20 @@
     .page-content {
       position: relative;
       z-index: 1;
-      padding: 5rem 1.5rem 5rem;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem 6rem;
       text-align: center;
-    }
-
-    .page-header {
-      margin-bottom: 2.5rem;
     }
 
     .page-title {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
-      font-size: 2.4rem;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-style: italic;
       color: var(--text-light);
       letter-spacing: 0.02em;
+      line-height: 1.2;
     }
 
     .page-subtitle {
@@ -73,51 +67,118 @@
       font-style: italic;
       font-size: 0.9rem;
       color: var(--text-muted);
-      margin-top: 0.5rem;
-      max-width: 500px;
+      margin-top: 0.6rem;
+      line-height: 1.7;
+    }
+
+    .header-accent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin: 1.2rem auto 3rem;
+      max-width: 200px;
+    }
+    .accent-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,160,180,0.4));
+    }
+    .accent-line.rev {
+      background: linear-gradient(90deg, rgba(232,160,180,0.4), transparent);
+    }
+    .accent-diamond {
+      width: 6px; height: 6px;
+      background: var(--accent-pink);
+      transform: rotate(45deg);
+      opacity: 0.6;
+    }
+
+    /* Character grid */
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 700px) {
+      .char-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.2rem;
+      }
+    }
+
+    .char-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid var(--glass-border);
+      background: var(--bg-card);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+      aspect-ratio: 3 / 4;
+    }
+
+    .char-card:hover {
+      border-color: rgba(232,160,180,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(232,160,180,0.12);
+    }
+
+    .char-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .char-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 0.8rem 0.8rem;
+      background: linear-gradient(to top, rgba(13,10,15,0.92) 0%, transparent 100%);
+    }
+
+    .char-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--text-light);
+      text-transform: uppercase;
+    }
+
+    .char-show {
+      font-family: 'Lora', serif;
+      font-size: 0.65rem;
+      font-style: italic;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
+
+    .closing-note {
+      margin-top: 3.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-warm);
+      line-height: 1.6;
+      max-width: 540px;
       margin-left: auto;
       margin-right: auto;
-      line-height: 1.6;
     }
 
-    .video-outer {
-      max-width: 900px;
-      margin: 2rem auto;
-    }
-
-    .video-container {
-      background: var(--bg-card);
-      border-radius: 16px;
-      overflow: hidden;
-      border: 2px solid var(--accent-purple);
-      box-shadow: 0 0 30px rgba(123,45,139,0.2);
-    }
-
-    .video-container video {
-      width: 100%;
-      display: block;
-      max-height: 80vh;
-      object-fit: contain;
-      background: #000;
-      border-radius: 14px;
-    }
-
-    .video-caption {
-      font-family: 'Lora', serif;
-      font-style: italic;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-
-    @media (max-width: 600px) {
-      .page-title {
-        font-size: 1.8rem;
-      }
-      .page-content {
-        padding: 5rem 1rem 3rem;
-      }
+    .closing-sig {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--accent-pink);
+      opacity: 0.7;
+      margin-top: 1.2rem;
     }
   </style>
 </head>
@@ -129,22 +190,55 @@
 
   <div class="page-content">
 
-    <div class="page-header">
-      <h1 class="page-title">from your person.</h1>
-      <p class="page-subtitle">because some things can only be said by the ones who knew you first.</p>
+    <h1 class="page-title">the characters you are.</h1>
+    <p class="page-subtitle">in every version. in every scene.</p>
+
+    <div class="header-accent">
+      <div class="accent-line"></div>
+      <div class="accent-diamond"></div>
+      <div class="accent-line rev"></div>
     </div>
 
-    <div class="video-outer">
+    <div class="char-grid">
 
-      <div class="video-container">
-        <video controls playsinline preload="metadata">
-          <source src="../assets/videos/bestfriend.mp4" type="video/mp4">
-        </video>
+      <div class="char-card">
+        <img src="../assets/photos/char-donna.jpg" alt="Donna" loading="lazy">
+        <div class="char-overlay">
+          <div class="char-name">Donna</div>
+          <div class="char-show">Suits</div>
+        </div>
       </div>
 
-      <p class="video-caption">she had things to say. she said them.</p>
+      <div class="char-card">
+        <img src="../assets/photos/char-rachel.webp" alt="Rachel Green" loading="lazy">
+        <div class="char-overlay">
+          <div class="char-name">Rachel</div>
+          <div class="char-show">Friends</div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <img src="../assets/photos/char-andie.jpg" alt="Andie" loading="lazy">
+        <div class="char-overlay">
+          <div class="char-name">Andie</div>
+          <div class="char-show">Devil Wears Prada</div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <img src="../assets/photos/char-geet.jpg" alt="Geet" loading="lazy">
+        <div class="char-overlay">
+          <div class="char-name">Geet</div>
+          <div class="char-show">Jab We Met</div>
+        </div>
+      </div>
 
     </div>
+
+    <div class="closing-note">
+      you contain multitudes.<br>every single one of them, wonderful.
+    </div>
+    <div class="closing-sig">— Roy</div>
 
   </div>
 
@@ -156,7 +250,7 @@
       particlesJS('particles-bg', {
         particles: {
           number: { value: 50, density: { enable: true, value_area: 800 } },
-          color: { value: '#7b2d8b' },
+          color: { value: ['#e8a0b4', '#d4a853', '#7b2d8b'] },
           shape: { type: 'circle' },
           opacity: { value: 0.15, random: true },
           size: { value: 2, random: true },
@@ -171,28 +265,17 @@
       });
     }
 
-    gsap.from('.page-header', {
-      opacity: 0,
-      y: -20,
-      duration: 1,
-      ease: 'power2.out',
-      delay: 0.3
-    });
+    if (typeof gsap !== 'undefined') {
+      gsap.from('.page-title', { opacity: 0, y: -20, duration: 1, ease: 'power2.out', delay: 0.3 });
+      gsap.from('.page-subtitle', { opacity: 0, duration: 0.8, ease: 'power2.out', delay: 0.6 });
 
-    gsap.from('.video-outer', {
-      opacity: 0,
-      y: 30,
-      duration: 1.2,
-      ease: 'power2.out',
-      delay: 0.7
-    });
+      document.querySelectorAll('.char-card').forEach(function(card, i) {
+        gsap.from(card, { opacity: 0, y: 30, duration: 0.8, ease: 'power2.out', delay: 0.7 + i * 0.15 });
+      });
 
-    gsap.from('.video-caption', {
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-      delay: 1.3
-    });
+      gsap.from('.closing-note', { opacity: 0, y: 16, duration: 0.9, ease: 'power2.out', delay: 1.5 });
+      gsap.from('.closing-sig',  { opacity: 0, duration: 0.7, ease: 'power2.out', delay: 1.9 });
+    }
   </script>
 
 </body>
