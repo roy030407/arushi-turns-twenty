@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Magazine, Cover to Cover · Arushi Turns Twenty</title>
+  <title>From Me, To You · Arushi Turns Twenty</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet" />
@@ -13,14 +13,12 @@
       --bg-dark: #0d0a0f;
       --bg-mid: #1a0f1e;
       --bg-card: #221528;
-      --accent-red: #c0392b;
-      --accent-purple: #7b2d8b;
       --accent-pink: #e8a0b4;
       --accent-gold: #d4a853;
+      --accent-purple: #7b2d8b;
       --text-light: #f5f0eb;
       --text-muted: #9e8a9e;
       --text-warm: #e8ddd0;
-      --glass: rgba(255,255,255,0.04);
       --glass-border: rgba(255,255,255,0.08);
     }
 
@@ -47,7 +45,7 @@
       z-index: 1;
       max-width: 960px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 5rem;
+      padding: 2rem 1.5rem 6rem;
     }
 
     .back-btn {
@@ -63,203 +61,135 @@
     .back-btn:hover { color: var(--accent-pink); }
 
     .page-header {
+      text-align: center;
       margin-bottom: 0.6rem;
     }
     .page-header h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
       font-weight: 300;
       font-style: italic;
       color: var(--text-light);
       line-height: 1.2;
     }
-    .page-subtext {
-      font-family: 'Lora', serif;
-      font-size: 0.95rem;
-      font-style: italic;
-      color: var(--text-muted);
-      margin-bottom: 2.8rem;
-      line-height: 1.7;
-    }
 
-    /* Outer glass frame */
-    .magazine-outer {
-      background: var(--bg-card);
-      border-radius: 16px;
-      padding: 1.2rem;
-      border: 1px solid var(--glass-border);
-      box-shadow:
-        0 8px 40px rgba(0,0,0,0.5),
-        0 0 0 1px rgba(255,255,255,0.04),
-        inset 0 1px 0 rgba(255,255,255,0.06);
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    /* Inner embed area */
-    .magazine-inner {
-      position: relative;
-      width: 100%;
-      height: 600px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #110a14 0%, #1a0f1e 50%, #0d0a0f 100%);
-    }
-
-    .magazine-inner iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    /* Placeholder state shown when iframe src is placeholder */
-    .magazine-placeholder {
-      position: absolute;
-      inset: 0;
+    .header-accent {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 1.2rem;
-      pointer-events: none;
-      z-index: 2;
+      gap: 0.8rem;
+      margin: 0.9rem auto 2.5rem;
+      max-width: 200px;
+    }
+    .accent-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,160,180,0.4));
+    }
+    .accent-line.rev {
+      background: linear-gradient(90deg, rgba(232,160,180,0.4), transparent);
+    }
+    .accent-diamond {
+      width: 6px; height: 6px;
+      background: var(--accent-pink);
+      transform: rotate(45deg);
+      opacity: 0.6;
     }
 
-    .placeholder-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
+    .video-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(232,160,180,0.35);
+      box-shadow:
+        0 0 30px rgba(232,160,180,0.15),
+        0 0 60px rgba(232,160,180,0.06),
+        0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .video-wrapper {
+      width: 100%;
+      background: #000;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+      max-height: 80vh;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .video-bar {
+      padding: 0.7rem 1.2rem;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(232,160,180,0.1);
+    }
+    .video-bar-label {
+      font-family: 'Lora', serif;
+      font-size: 0.75rem;
       font-style: italic;
-      letter-spacing: 0.18em;
       color: var(--text-muted);
-      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .video-bar-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Lora', serif;
+      font-size: 0.7rem;
+      color: rgba(232,160,180,0.5);
+      letter-spacing: 0.08em;
+    }
+    .video-bar-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent-pink);
       opacity: 0.5;
     }
 
-    .placeholder-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 1.5px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--glass);
-    }
-    .placeholder-icon svg {
-      width: 32px;
-      height: 32px;
-      opacity: 0.4;
-    }
-
-    .placeholder-title {
+    .video-caption {
+      text-align: center;
+      margin-top: 1.8rem;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-size: 1.3rem;
+      font-style: italic;
       font-weight: 300;
-      font-style: italic;
       color: var(--text-warm);
-      text-align: center;
-      opacity: 0.6;
-      letter-spacing: 0.04em;
-    }
-
-    .placeholder-sub {
-      font-family: 'Lora', serif;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.1em;
-      opacity: 0.4;
-      text-transform: uppercase;
-    }
-
-    /* Decorative corners */
-    .corner {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      opacity: 0.3;
-    }
-    .corner-tl { top: 12px; left: 12px; border-top: 1.5px solid var(--accent-pink); border-left: 1.5px solid var(--accent-pink); }
-    .corner-tr { top: 12px; right: 12px; border-top: 1.5px solid var(--accent-pink); border-right: 1.5px solid var(--accent-pink); }
-    .corner-bl { bottom: 12px; left: 12px; border-bottom: 1.5px solid var(--accent-pink); border-left: 1.5px solid var(--accent-pink); }
-    .corner-br { bottom: 12px; right: 12px; border-bottom: 1.5px solid var(--accent-pink); border-right: 1.5px solid var(--accent-pink); }
-
-    /* Shimmer lines decoration */
-    .shimmer-bar {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(232,160,180,0.2), transparent);
-    }
-    .shimmer-bar.top { top: 28%; width: 60%; }
-    .shimmer-bar.bot { bottom: 28%; width: 40%; }
-
-    /* Caption below */
-    .magazine-caption {
-      text-align: center;
-      margin-top: 1.2rem;
-      font-family: 'Lora', serif;
-      font-size: 0.9rem;
-      font-style: italic;
-      color: var(--text-muted);
       letter-spacing: 0.03em;
       line-height: 1.6;
     }
 
-    /* Heyzine badge */
-    .heyzine-badge {
+    .ornament {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+    .ornament-inner {
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.4rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 0.3rem 0.9rem;
-      font-family: 'Lora', serif;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.06em;
-      margin-top: 0.8rem;
+      gap: 0.5rem;
     }
-    .heyzine-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-pink);
-      opacity: 0.5;
-      display: inline-block;
-    }
-
-    /* Decorative detail strip */
-    .detail-strip {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
-    .detail-strip-line {
-      flex: 1;
+    .ornament-line-h {
+      width: 80px;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--glass-border));
+      background: linear-gradient(90deg, transparent, rgba(212,168,83,0.3), transparent);
     }
-    .detail-strip-line.rev {
-      background: linear-gradient(90deg, var(--glass-border), transparent);
-    }
-    .detail-strip-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      opacity: 0.5;
+    .ornament-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--accent-gold);
+      opacity: 0.4;
+      letter-spacing: 0.06em;
     }
 
     @media (max-width: 600px) {
-      .magazine-inner { height: 420px; }
-    }
-    @media (max-width: 400px) {
-      .magazine-inner { height: 340px; }
+      .video-container { border-radius: 12px; border-width: 1.5px; }
     }
   </style>
 </head>
@@ -271,128 +201,70 @@
     <a href="../gifts.html" class="back-btn">← back to gifts</a>
 
     <div class="page-header">
-      <h1>a magazine. cover to cover.</h1>
-    </div>
-    <p class="page-subtext">designed for exactly one person.</p>
-
-    <div class="detail-strip">
-      <div class="detail-strip-line"></div>
-      <span class="detail-strip-text">Heyzine Flipbook</span>
-      <div class="detail-strip-line rev"></div>
+      <h1>from me. to you.</h1>
     </div>
 
-    <div class="magazine-outer">
+    <div class="header-accent">
+      <div class="accent-line"></div>
+      <div class="accent-diamond"></div>
+      <div class="accent-line rev"></div>
+    </div>
 
-      <div class="magazine-inner" id="magazineInner">
-
-        <iframe
-          src="https://arushigift.my.canva.site/"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          allowfullscreen
-          id="heyzineFrame"
-          title="Birthday Magazine for Arushi">
-        </iframe>
-
-        <!-- Placeholder shown until iframe loads -->
-        <div class="magazine-placeholder" id="magPlaceholder">
-          <div class="placeholder-logo">Heyzine Flipbooks</div>
-          <div class="placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(232,160,180,0.8)" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <path d="M12 3v18M3 12h18" stroke-dasharray="2 2"/>
-              <path d="M7 7l10 10M17 7L7 17" opacity="0.3"/>
-            </svg>
-          </div>
-          <div class="placeholder-title">the birthday magazine</div>
-          <div class="placeholder-sub">volume xx · arushi edition</div>
-        </div>
-
-        <div class="corner corner-tl"></div>
-        <div class="corner corner-tr"></div>
-        <div class="corner corner-bl"></div>
-        <div class="corner corner-br"></div>
-        <div class="shimmer-bar top"></div>
-        <div class="shimmer-bar bot"></div>
-
+    <div class="video-container">
+      <div class="video-wrapper">
+        <video controls playsinline preload="metadata">
+          <source src="../assets/videos/from-roy.mp4" type="video/mp4">
+        </video>
       </div>
-
-      <div style="text-align:center; padding-top:0.5rem;">
-        <div class="heyzine-badge">
-          <span class="heyzine-dot"></span>
-          powered by Heyzine · tap any page to turn it
+      <div class="video-bar">
+        <span class="video-bar-label">for arushi · twenty</span>
+        <div class="video-bar-badge">
+          <div class="video-bar-dot"></div>
+          <span>made with love</span>
         </div>
       </div>
-
     </div>
 
-    <p class="magazine-caption">
-      tap any page to turn it.<br/>this one's all about you.
-    </p>
+    <p class="video-caption">some things are better said out loud.</p>
+
+    <div class="ornament">
+      <div class="ornament-inner">
+        <div class="ornament-line-h"></div>
+        <div class="ornament-text">with love, always</div>
+        <div class="ornament-line-h"></div>
+      </div>
+    </div>
 
   </div>
 
-  <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <!-- particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script src="../particles-config.js"></script>
 
   <script>
-    // Init particles
     if (typeof initParticles === 'function') {
       initParticles('particles-bg', 'light');
     } else if (typeof particlesJS === 'function') {
       particlesJS('particles-bg', {
         particles: {
-          number: { value: 35, density: { enable: true, value_area: 900 } },
-          color: { value: ['#e8a0b4', '#d4a853', '#7b2d8b'] },
+          number: { value: 30, density: { enable: true, value_area: 900 } },
+          color: { value: ['#e8a0b4', '#d4a853', '#c8b0d8'] },
           shape: { type: 'circle' },
           opacity: { value: 0.3, random: true },
           size: { value: 2, random: true },
           line_linked: { enable: false },
           move: { enable: true, speed: 0.4, random: true, out_mode: 'out' }
         },
-        interactivity: {
-          detect_on: 'canvas',
-          events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
-        },
+        interactivity: { detect_on: 'canvas', events: { resize: true } },
         retina_detect: true
       });
     }
 
-    // Check if iframe loaded a real URL or placeholder
-    const frame = document.getElementById('heyzineFrame');
-    const placeholder = document.getElementById('magPlaceholder');
-
-    if (frame.src && frame.src !== '' && !frame.src.includes('HEYZINE_EMBED_URL_HERE')) {
-      placeholder.style.display = 'none';
-    }
-
-    // GSAP entrance animation
     if (typeof gsap !== 'undefined') {
-      gsap.from('.magazine-outer', {
-        duration: 1.1,
-        opacity: 0,
-        y: 30,
-        ease: 'power3.out',
-        delay: 0.3
-      });
-      gsap.from('.page-header h1', {
-        duration: 0.9,
-        opacity: 0,
-        y: 20,
-        ease: 'power2.out',
-        delay: 0.1
-      });
-      gsap.from('.page-subtext', {
-        duration: 0.9,
-        opacity: 0,
-        y: 15,
-        ease: 'power2.out',
-        delay: 0.25
-      });
+      gsap.from('.page-header h1', { duration: 1, opacity: 0, y: 24, ease: 'power3.out', delay: 0.2 });
+      gsap.from('.video-container',  { duration: 1.2, opacity: 0, y: 36, ease: 'power3.out', delay: 0.4 });
+      gsap.from('.video-caption',    { duration: 0.9, opacity: 0, y: 16, ease: 'power2.out', delay: 0.9 });
+      gsap.from('.ornament',         { duration: 0.9, opacity: 0,         ease: 'power2.out', delay: 1.1 });
     }
   </script>
 </body>
